@@ -1,0 +1,6 @@
+﻿{
+    "javascript": [
+        "~/App_Plugins/SustainabilityCheck/js/sustainability.resource.js",
+        "~/App_Plugins/SustainabilityCheck/js/sustainability-check.controller.js"
+    ]
+}

@@ -1,7 +1,7 @@
 # Umbraco.Community.Sustainability
 
-[![Downloads](https://img.shields.io/nuget/dt/Umbraco.Community.Umbraco.Community.Sustainability?color=cc9900)](https://www.nuget.org/packages/Umbraco.Community.Umbraco.Community.Sustainability/)
-[![NuGet](https://img.shields.io/nuget/vpre/Umbraco.Community.Umbraco.Community.Sustainability?color=0273B3)](https://www.nuget.org/packages/Umbraco.Community.Umbraco.Community.Sustainability)
+[![Downloads](https://img.shields.io/nuget/dt/Umbraco.Community.Sustainability?color=cc9900)](https://www.nuget.org/packages/Umbraco.Community.Sustainability/)
+[![NuGet](https://img.shields.io/nuget/vpre/Umbraco.Community.Sustainability?color=0273B3)](https://www.nuget.org/packages/Umbraco.Community.Sustainability)
 [![GitHub license](https://img.shields.io/github/license/rickbutterfield/Umbraco.Community.Sustainability?color=8AB803)](../LICENSE)
 
 TODO: describe your package
@@ -18,7 +18,7 @@ If you put images into /docs/screenshots, then you would reference them in this 
 
 Add the package to an existing Umbraco website (v10.4+) from nuget:
 
-`dotnet add package Umbraco.Community.Umbraco.Community.Sustainability`
+`dotnet add package Umbraco.Community.Sustainability`
 
 TODO *provide any other instructions for someone using your package*
 

@@ -1,12 +1,12 @@
 using Umbraco.Cms.Core.Manifest;
 
-namespace Umbraco.Community.Umbraco.Community.Sustainability
+namespace Umbraco.Community.Sustainability
 {
-    internal class Umbraco.Community.SustainabilityManifestFilter : IManifestFilter
+    internal class SustainabilityManifestFilter : IManifestFilter
     {
         public void Filter(List<PackageManifest> manifests)
         {
-            var assembly = typeof(Umbraco.Community.SustainabilityManifestFilter).Assembly;
+            var assembly = typeof(SustainabilityManifestFilter).Assembly;
 
             manifests.Add(new PackageManifest
             {
@@ -16,7 +16,8 @@ namespace Umbraco.Community.Umbraco.Community.Sustainability
                 Scripts = new string[] {
                     // List any Script files
                     // Urls should start '/App_Plugins/Umbraco.Community.Sustainability/' not '/wwwroot/Umbraco.Community.Sustainability/', e.g.
-                    // "/App_Plugins/Umbraco.Community.Sustainability/Scripts/scripts.js"
+                    "/App_Plugins/Umbraco.Community.Sustainability/js/sustainability.resource.js",
+                    "/App_Plugins/Umbraco.Community.Sustainability/js/sustainability-check.controller.js"
                 },
                 Stylesheets = new string[]
                 {

@@ -5,12 +5,12 @@
     <Nullable>enable</Nullable>
     <StaticWebAssetBasePath>App_Plugins</StaticWebAssetBasePath>
     <ContentTargetFolders>.</ContentTargetFolders>
-    <Product>Umbraco.Community.Umbraco.Community.Sustainability</Product>
-    <PackageId>Umbraco.Community.Umbraco.Community.Sustainability</PackageId>
+    <Product>Umbraco.Community.Sustainability</Product>
+    <PackageId>Umbraco.Community.Sustainability</PackageId>
     <Title>Umbraco.Community.Sustainability</Title>
     <Description>...</Description>
     <PackageTags>umbraco;umbraco-marketplace</PackageTags>
-    <RootNamespace>Umbraco.Community.Umbraco.Community.Sustainability</RootNamespace>
+    <RootNamespace>Umbraco.Community.Sustainability</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Version>0.1.0</Version>
     <Authors>Umbraco Sustainability Community Team</Authors>
