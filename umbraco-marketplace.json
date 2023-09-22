@@ -1,0 +1,14 @@
+{
+    "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json", 
+    "AuthorDetails": {
+      "Name": "Umbraco Sustainability Community Team",
+      "ImageUrl": "https://github.com/rickbutterfield.png"
+    },
+    "Category": "",
+    "Description": "",
+    "LicenseTypes": [ "Free" ],
+    "IssueTrackerUrl": "https://github.com/rickbutterfield/Umbraco.Community.Sustainability/issues",
+    "PackageType": "Package",
+    "Tags": [],
+    "Title": "Umbraco.Community.Sustainability"
+  }

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <StaticWebAssetBasePath>App_Plugins</StaticWebAssetBasePath>
+    <ContentTargetFolders>.</ContentTargetFolders>
+    <Product>Umbraco.Community.Umbraco.Community.Sustainability</Product>
+    <PackageId>Umbraco.Community.Umbraco.Community.Sustainability</PackageId>
+    <Title>Umbraco.Community.Sustainability</Title>
+    <Description>...</Description>
+    <PackageTags>umbraco;umbraco-marketplace</PackageTags>
+    <RootNamespace>Umbraco.Community.Umbraco.Community.Sustainability</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>0.1.0</Version>
+    <Authors>Umbraco Sustainability Community Team</Authors>
+    <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © Umbraco Sustainability Community Team</Copyright>
+    <PackageProjectUrl>https://github.com/rickbutterfield/Umbraco.Community.Sustainability</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rickbutterfield/Umbraco.Community.Sustainability</RepositoryUrl>
+    <PackageReadmeFile>README_nuget.md</PackageReadmeFile>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="10.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\docs\README_nuget.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
