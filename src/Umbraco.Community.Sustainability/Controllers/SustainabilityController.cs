@@ -1,154 +1,64 @@
-using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
-using Umbraco.Cms.Core.Cache;
-using Umbraco.Cms.Core.Logging;
+using Microsoft.Playwright;
+using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models.PublishedContent;
-using Umbraco.Cms.Core.Routing;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Core.Web;
-using Umbraco.Cms.Infrastructure.Persistence;
-using Umbraco.Cms.Web.Website.Controllers;
-using Umbraco.Community.Sustainability.Extensions;
+using Umbraco.Cms.Web.Common.Controllers;
 using Umbraco.Community.Sustainability.Models;
 using Umbraco.Extensions;
 
 namespace Umbraco.Community.Sustainability.Controllers
 {
-    public class SustainabilityController : SurfaceController
+    public class SustainabilityController : UmbracoApiController
     {
-        public SustainabilityController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
+        private readonly IPublishedContentQuery _contentQuery;
+
+        public SustainabilityController(IPublishedContentQuery contentQuery)
         {
+            _contentQuery = contentQuery;
         }
 
         [HttpGet]
         public async Task<IActionResult> CheckPage([FromQuery] int pageId)
         {
-            IPublishedContent? contentItem = UmbracoContext?.Content?.GetById(pageId);
+            IPublishedContent? contentItem = _contentQuery.Content(pageId);
             string? url = contentItem?.Url(mode: UrlMode.Absolute);
 
-            using (HttpClient httpClient = new HttpClient())
-            {
-                try
-                {
-                    string htmlContent = await httpClient.GetStringAsync(url);
-
-                    // Parse the HTML content using HtmlAgilityPack.
-                    HtmlDocument htmlDoc = new HtmlDocument();
-                    htmlDoc.LoadHtml(htmlContent);
-
-                    // Calculate the size of the parsed HTML content.
-                    return Ok(await CalculateRenderedPageSize(htmlDoc));
-                }
-                catch (HttpRequestException ex)
-                {
-                    return Ok(null);
-                }
-            }
+            return Ok(await CalculateRenderedPageSize(url));
         }
 
-        private async Task<SustainabilityCheckData> CalculateRenderedPageSize(HtmlDocument htmlDoc)
+        [HttpPost]
+        public IActionResult SavePageData([FromBody] PageDataModel model)
         {
-            long? pageSize = 0;
-
-            // Calculate the size of the HTML content.
-            string htmlContent = htmlDoc.Text;
-            pageSize += htmlContent.Length;
-
-            // Calculate the size of external resources (images, stylesheets, scripts, etc.).
-            var resources = await GetExternalResourceUrls(htmlDoc);
-            pageSize += resources.Sum(x => x.TotalSize);
-
-            return new SustainabilityCheckData()
-            {
-                TotalSize = pageSize,
-                ResourceGroups = resources
-            };
+            var data = model;
+            return Ok(true);
         }
 
-        private async Task<List<ExternalResourceGroup>> GetExternalResourceUrls(HtmlDocument htmlDoc)
+        private async Task<SustainabilityCheckData> CalculateRenderedPageSize(string? url)
         {
-            List<ExternalResourceGroup> resources = new List<ExternalResourceGroup>();
+            using var playwright = await Playwright.CreateAsync();
+            await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions() { Headless = true });
 
-            // Parse <img> tags and get their 'src' attributes.
-            var imgTags = htmlDoc.DocumentNode.SelectNodes("//img[@src]");
-            if (imgTags != null)
+            var context = await browser.NewContextAsync();
+
+            // Navigate to the web page
+            var page = await browser.NewPageAsync();
+
+            // Add our tracking script
+            var script = await page.AddScriptTagAsync(new PageAddScriptTagOptions()
             {
-                var resourceGroup = new ExternalResourceGroup() { Type = ResourceGroupType.Images, Name = ResourceGroupType.Images.GetDisplayName() };
+                Path = "./App_Plugins/Umbraco.Community.Sustainability/js/page-tracker.js",
+                Type = "module"
+            });
 
-                foreach (var imgTag in imgTags)
-                {
-                    string src = imgTag.Attributes["src"].Value;
-                    resourceGroup.Resources?.Add(new ExternalResource()
-                    {
-                        Url = src,
-                        Size = await GetResourceSize(src)
-                    });
-                }
-
-                resourceGroup.TotalSize = resourceGroup.Resources?.Sum(x => x.Size);
-                resources.Add(resourceGroup);
-            }
-
-            // Parse <link> tags (stylesheets) and get their 'href' attributes.
-            var linkTags = htmlDoc.DocumentNode.SelectNodes("//link[@href]");
-            if (linkTags != null)
+            var request = await page.RunAndWaitForRequestFinishedAsync(async () =>
             {
-                var resourceGroup = new ExternalResourceGroup() { Type = ResourceGroupType.Stylesheets, Name = ResourceGroupType.Stylesheets.GetDisplayName() };
+                var response = await page.GotoAsync(url);
 
-                foreach (var linkTag in linkTags)
-                {
-                    string src = linkTag.Attributes["href"].Value;
-                    resourceGroup.Resources?.Add(new ExternalResource()
-                    {
-                        Url = src,
-                        Size = await GetResourceSize(src)
-                    });
-                }
+                // Get the HTML content of the page
+                string htmlContent = await page.ContentAsync();
+            });
 
-                resourceGroup.TotalSize = resourceGroup.Resources?.Sum(x => x.Size);
-                resources.Add(resourceGroup);
-            }
-
-            // Parse <script> tags and get their 'src' attributes.
-            var scriptTags = htmlDoc.DocumentNode.SelectNodes("//script[@src]");
-            if (scriptTags != null)
-            {
-                var resourceGroup = new ExternalResourceGroup() { Type = ResourceGroupType.Scripts, Name = ResourceGroupType.Scripts.GetDisplayName() };
-
-                foreach (var scriptTag in scriptTags)
-                {
-                    string src = scriptTag.Attributes["src"].Value;
-                    resourceGroup.Resources?.Add(new ExternalResource()
-                    {
-                        Url = src,
-                        Size = await GetResourceSize(src)
-                    });
-                }
-
-                resourceGroup.TotalSize = resourceGroup.Resources?.Sum(x => x.Size);
-                resources.Add(resourceGroup);
-            }
-
-            return resources;
-        }
-
-        private async Task<long> GetResourceSize(string resourceUrl)
-        {
-            long pageSize = 0;
-            try
-            {
-                using (HttpClient resourceClient = new HttpClient())
-                {
-                    byte[] resourceData = await resourceClient.GetByteArrayAsync(resourceUrl);
-                    pageSize = resourceData.Length;
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"Error fetching resource '{resourceUrl}': {ex.Message}");
-            }
-
-            return pageSize;
+            return new SustainabilityCheckData() { };
         }
     }
 }

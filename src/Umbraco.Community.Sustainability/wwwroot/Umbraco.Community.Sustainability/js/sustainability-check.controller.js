@@ -1,38 +1,42 @@
-﻿angular.module('umbraco').controller('Umbraco.Sustainability.Controller',
-    ['$scope', '$sce', '$timeout', 'editorState', 'Umbraco.Sustainability.Resources.SustainabilityResource',
-        function ($scope, $sce, $timeout, editorState, sustainabilityResource) {
+angular.module('umbraco').controller('Umbraco.Sustainability.Controller',
+  ['$scope', '$sce', '$timeout', 'editorState', 'Umbraco.Sustainability.Resources.SustainabilityResource',
+    function ($scope, $sce, $timeout, editorState, sustainabilityResource) {
 
-            var vm = this;
+      var vm = this;
 
-            window.setTimeout(function () {
-                console.log("loaded");
-                var current = editorState.getCurrent();
-                var id = current?.id;
-                $scope.pageSizeBytes = 0;
+      $scope.loading = true;
 
-                sustainabilityResource.getData(id).then(function (data) {
-                    $scope.sustainabilityData = data;
+      init();
 
-                    var swd = new co2.co2({ model: "swd" });
-                    $scope.emissions = swd.perByte($scope.sustainabilityData.totalSize);
+      function init() {
+        var current = editorState.getCurrent();
+        var id = current?.id;
+        $scope.pageSizeBytes = 0;
 
-                    vm.labels = $scope.sustainabilityData.resourceGroups.map(x => x.name);
-                    vm.datasets = $scope.sustainabilityData.resourceGroups.map(x => {
-                        return {
-                            label: x.name,
-                            data: x.totalSize
-                        }
-                    });
+        sustainabilityResource.getData(id).then(function (data) {
+          //$scope.sustainabilityData = data;
+          //$scope.loading = false;
 
-                    vm.colours = ['#2e8aea', '#2bc37c', '#ff9412', '#d42054', '#343434'];
-                    vm.options = {
-                        legend: {
-                            display: true,
-                            position: 'left'
-                        }
-                    };
+          //var swd = new co2.co2({ model: "swd" });
+          //$scope.emissions = parseFloat(swd.perByte($scope.sustainabilityData.totalSize)).toFixed(4);
 
-                });
-            }, 1000);
-        }
-    ]);
+          //vm.labels = $scope.sustainabilityData.resourceGroups.map(x => x.name);
+          //vm.datasets = $scope.sustainabilityData.resourceGroups.map(x => {
+          //  return {
+          //    label: x.name,
+          //    data: x.totalSize
+          //  }
+          //});
+
+          //vm.colours = ['#2e8aea', '#2bc37c', '#ff9412', '#d42054', '#343434'];
+          //vm.options = {
+          //  legend: {
+          //    display: true,
+          //    position: 'left'
+          //  }
+          //};
+
+        });
+      }
+    }
+  ]);
