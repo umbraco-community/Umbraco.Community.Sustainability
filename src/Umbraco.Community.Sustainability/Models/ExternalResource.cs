@@ -7,10 +7,10 @@ namespace Umbraco.Community.Sustainability.Models
 
         public ExternalResource() { }
 
-        public ExternalResource(string url)
+        public ExternalResource(string url, decimal size)
         {
             Url = url;
-            Size = GetResourceSize(url);
+            Size = size;
         }
 
         private decimal GetResourceSize(string resourceUrl)
