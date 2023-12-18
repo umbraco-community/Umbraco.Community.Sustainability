@@ -12,24 +12,5 @@ namespace Umbraco.Community.Sustainability.Models
             Url = url;
             Size = size;
         }
-
-        private decimal GetResourceSize(string resourceUrl)
-        {
-            long pageSize = 0;
-            try
-            {
-                using (HttpClient resourceClient = new HttpClient())
-                {
-                    byte[] resourceData = resourceClient.GetByteArrayAsync(resourceUrl).Result;
-                    pageSize = resourceData.Length;
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"Error fetching resource '{resourceUrl}': {ex.Message}");
-            }
-
-            return pageSize;
-        }
     }
 }

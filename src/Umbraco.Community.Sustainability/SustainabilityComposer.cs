@@ -1,6 +1,8 @@
+using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Community.Sustainability.ContentApps;
+using Umbraco.Community.Sustainability.Services;
 
 namespace Umbraco.Community.Sustainability
 {
@@ -13,9 +15,11 @@ namespace Umbraco.Community.Sustainability
             {
                 throw new Exception($"Playwright exited with code {exitCode}");
             }
-
+            
             builder.ManifestFilters().Append<SustainabilityManifestFilter>();
             builder.ContentApps().Append<SustainabilityContentApp>();
+
+            builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
         }
     }
 }
