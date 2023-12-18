@@ -40,8 +40,8 @@ namespace Umbraco.Community.Sustainability.Services
             var images = GetExternalResourceGroup(ResourceGroupType.Images, sustainabilityData.resources);
             resourceGroups.Add(images);
 
-            var stylesheets = GetExternalResourceGroup(ResourceGroupType.Stylesheets, sustainabilityData.resources);
-            resourceGroups.Add(stylesheets);
+            var styles = GetExternalResourceGroup(ResourceGroupType.Styles, sustainabilityData.resources);
+            resourceGroups.Add(styles);
 
             await browser.CloseAsync();
 
