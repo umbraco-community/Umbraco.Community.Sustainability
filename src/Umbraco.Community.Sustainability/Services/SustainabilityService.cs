@@ -43,6 +43,9 @@ namespace Umbraco.Community.Sustainability.Services
             var styles = GetExternalResourceGroup(ResourceGroupType.Styles, sustainabilityData.resources);
             resourceGroups.Add(styles);
 
+            var other = GetExternalResourceGroup(ResourceGroupType.Other, sustainabilityData.resources);
+            resourceGroups.Add(other);
+
             await browser.CloseAsync();
 
             return new SustainabilityResponse()

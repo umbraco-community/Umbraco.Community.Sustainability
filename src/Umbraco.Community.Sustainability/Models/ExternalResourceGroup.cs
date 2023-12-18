@@ -24,6 +24,7 @@ namespace Umbraco.Community.Sustainability.Models
                 ResourceGroupType.Images => "img",
                 ResourceGroupType.Scripts => "script",
                 ResourceGroupType.Styles => "link",
+                ResourceGroupType.Other => "css",
                 _ => string.Empty,
             };
         }
@@ -36,6 +37,8 @@ namespace Umbraco.Community.Sustainability.Models
         [Display(Name = "Scripts")]
         Scripts,
         [Display(Name = "Styles")]
-        Styles
+        Styles,
+        [Display(Name = "Other")]
+        Other
     }
 }
