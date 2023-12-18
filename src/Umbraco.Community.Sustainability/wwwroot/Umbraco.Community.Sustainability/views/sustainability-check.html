@@ -1,7 +1,10 @@
 <div ng-controller="Umbraco.Sustainability.Controller as vm">
-  <div class="umb-logviewer" ng-if="!loading">
+  <div class="umb-logviewer">
     <div class="umb-logviewer__main-content">
-      <umb-box ng-repeat="group in sustainabilityData.resourceGroups">
+      <umb-box ng-if="loading">
+        <umb-box-header title="Running sustainability report..."></umb-box-header>
+      </umb-box>
+      <umb-box ng-repeat="group in sustainabilityData.resourceGroups" ng-if="!loading">
         <umb-box-header title="{{group.name}}" description="Total size: {{(group.totalSize / 1024).toFixed(2)}}kb"></umb-box-header>
         <umb-box-content>
           <ul>
@@ -12,7 +15,7 @@
         </umb-box-content>
       </umb-box>
     </div>
-    <div class="umb-logviewer__sidebar">
+    <div class="umb-logviewer__sidebar" ng-if="!loading">
       <div class="umb-box-row">
         <umb-box>
           <umb-box-header title="Page size"></umb-box-header>
@@ -24,7 +27,7 @@
         </umb-box>
       </div>
 
-      <umb-box>
+      <!--<umb-box>
         <umb-box-header title="Breakdown by type"></umb-box-header>
         <umb-box-content class="block-form">
           <canvas chart-doughnut
@@ -34,7 +37,7 @@
                   chart-options="vm.options">
           </canvas>
         </umb-box-content>
-      </umb-box>
+      </umb-box>-->
     </div>
   </div>
 </div>
