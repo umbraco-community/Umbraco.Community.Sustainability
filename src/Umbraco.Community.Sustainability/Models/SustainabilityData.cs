@@ -1,20 +1,21 @@
 namespace Umbraco.Community.Sustainability.Models
 {
-    public class SustainabilityData
+    public record SustainabilityData
     {
         public int pageWeight { get; set; }
+        public string carbonRating { get; set; }
         public Emissions emissions { get; set; }
         public Resource[] resources { get; set; }
     }
 
-    public class Emissions
+    public record Emissions
     {
         public float co2 { get; set; }
         public bool green { get; set; }
         public Variables variables { get; set; }
     }
 
-    public class Variables
+    public record Variables
     {
         public string description { get; set; }
         public int bytes { get; set; }
@@ -24,7 +25,7 @@ namespace Umbraco.Community.Sustainability.Models
         public float returnVisitPercentage { get; set; }
     }
 
-    public class Gridintensity
+    public record Gridintensity
     {
         public string description { get; set; }
         public float network { get; set; }
@@ -33,7 +34,7 @@ namespace Umbraco.Community.Sustainability.Models
         public float device { get; set; }
     }
 
-    public class Resource
+    public record Resource
     {
         public string name { get; set; }
         public string entryType { get; set; }
@@ -63,6 +64,3 @@ namespace Umbraco.Community.Sustainability.Models
         public object[] serverTiming { get; set; }
     }
 }
-
-
-

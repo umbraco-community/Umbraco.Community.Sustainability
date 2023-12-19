@@ -52,6 +52,7 @@ namespace Umbraco.Community.Sustainability.Services
             {
                 TotalSize = sustainabilityData.pageWeight,
                 TotalEmissions = sustainabilityData.emissions.co2,
+                CarbonRating = sustainabilityData.carbonRating,
                 ResourceGroups = resourceGroups
             };
         }

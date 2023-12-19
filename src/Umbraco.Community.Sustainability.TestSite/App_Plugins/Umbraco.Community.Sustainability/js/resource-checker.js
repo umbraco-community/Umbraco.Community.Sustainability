@@ -32,6 +32,7 @@ export async function getEmissionsData() {
 
   return {
     pageWeight: bytesSent,
+    carbonRating: calculateGrade(emissions.co2),
     emissions: emissions,
     resources: resources
   };
@@ -54,4 +55,24 @@ export function getTransferSize(resources) {
   });
 
   return bytesSent;
+}
+
+export function calculateGrade(score) {
+  // grade using swd digital carbon ratings
+  // https://sustainablewebdesign.org/digital-carbon-ratings/
+  if (score < 0.095) {
+    return 'A+';
+  } else if (score < 0.186) {
+    return 'A';
+  } else if (score < 0.341) {
+    return 'B';
+  } else if (score < 0.493) {
+    return 'C';
+  } else if (score < 0.656) {
+    return 'D';
+  } else if (score < 0.846) {
+    return 'E';
+  } else {
+    return 'F';
+  }
 }
