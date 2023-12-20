@@ -23,7 +23,7 @@ namespace Umbraco.Community.Sustainability.ContentApps
                 Alias = "sustainabilityCheck",
                 Name = "Sustainability",
                 Icon = "icon-eco",
-                View = "/App_Plugins/Umbraco.Community.Sustainability/views/sustainability-check.html",
+                View = "/App_Plugins/Umbraco.Community.Sustainability/views/sustainability-content-app.html",
                 Weight = 0
             };
         }

@@ -3,16 +3,31 @@
 
   function sustainabilityResource($http, umbRequestHelper) {
 
-    var apiUrl = "/umbraco/api/Sustainability/CheckPage";
-
-    var resource = {
+    let apiUrl = "/umbraco/api/Sustainability/";
+    let resource = {
       getData: getData,
+      checkPage: checkPage,
+      saveResult: saveResult
     };
 
     function getData(pageId) {
       return umbRequestHelper.resourcePromise(
-        $http.get(`${apiUrl}?pageId=${pageId}`),
+        $http.get(`${apiUrl}GetPageData?pageId=${pageId}`),
         'Failed getting sustainability data'
+      );
+    };
+
+    function checkPage(pageId) {
+      return umbRequestHelper.resourcePromise(
+        $http.get(`${apiUrl}CheckPage?pageId=${pageId}`),
+        'Failed to run sustainability check'
+      );
+    };
+
+    function saveResult(pageId, data) {
+      return umbRequestHelper.resourcePromise(
+        $http.post(`${apiUrl}SavePageData?pageId=${pageId}`, data),
+        'Failed to save sustainability data'
       );
     };
 
