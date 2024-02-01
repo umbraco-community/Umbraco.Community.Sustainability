@@ -2,7 +2,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models.PublishedContent;
-using Umbraco.Cms.Web.Common.Controllers;
+using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Community.Sustainability.Models;
 using Umbraco.Community.Sustainability.Schemas;
 using Umbraco.Community.Sustainability.Services;
@@ -10,7 +10,7 @@ using Umbraco.Extensions;
 
 namespace Umbraco.Community.Sustainability.Controllers
 {
-    public class SustainabilityController : UmbracoApiController
+    public class SustainabilityController : UmbracoAuthorizedApiController
     {
         private readonly IPublishedContentQuery _contentQuery;
         private readonly IPageMetricService _pageMetricService;
@@ -27,9 +27,9 @@ namespace Umbraco.Community.Sustainability.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPageData([FromQuery] int pageId)
+        public async Task<IActionResult> GetPageData([FromQuery] int pageId)
         {
-            var pageMetrics = _pageMetricService.GetPageMetrics(pageId);
+            var pageMetrics = await _pageMetricService.GetPageMetrics(pageId);
             var mostRecent = pageMetrics.OrderByDescending(x => x.RequestDate).FirstOrDefault();
             if (mostRecent?.PageData == null)
             {
@@ -56,7 +56,7 @@ namespace Umbraco.Community.Sustainability.Controllers
         }
 
         [HttpPost]
-        public IActionResult SavePageData([FromQuery] int pageId, [FromBody] SustainabilityResponse data)
+        public async Task<IActionResult> SavePageData([FromQuery] int pageId, [FromBody] SustainabilityResponse data)
         {
             if (data.TotalSize == 0)
             {
@@ -74,7 +74,7 @@ namespace Umbraco.Community.Sustainability.Controllers
                 PageData = JsonSerializer.Serialize(data),
             };
 
-            _pageMetricService.AddPageMetric(pageMetric);
+            await _pageMetricService.AddPageMetric(pageMetric);
             return Ok(true);
         }
     }

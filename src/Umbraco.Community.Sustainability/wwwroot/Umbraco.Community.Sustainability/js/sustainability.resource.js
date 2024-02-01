@@ -3,7 +3,8 @@
 
   function sustainabilityResource($http, umbRequestHelper) {
 
-    let apiUrl = "/umbraco/api/Sustainability/";
+    let apiUrl = "/umbraco/backoffice/api/Sustainability/";
+
     let resource = {
       getData: getData,
       checkPage: checkPage,
