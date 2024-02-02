@@ -28,6 +28,15 @@ Once added, a new content app will be available alongside your Umbraco pages all
 
 Contributions to this package are most welcome! Please read the [Contributing Guidelines](CONTRIBUTING.md) for how to get involved.
 
+Here are some things for our roadmap:
+
+- A visual review of the content app
+- Dashboard
+- Health checks
+- Content and media warnings
+- Configuration options
+- Improved accuracy of reporting
+
 ## License
 
 Copyright &copy; [Rick Butterfield](https://rickbutterfield.dev), and other contributors.
