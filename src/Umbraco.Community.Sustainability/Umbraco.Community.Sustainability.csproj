@@ -8,7 +8,7 @@
     <Product>Umbraco.Community.Sustainability</Product>
     <PackageId>Umbraco.Community.Sustainability</PackageId>
     <Title>Umbraco.Community.Sustainability</Title>
-    <Description>...</Description>
+    <Description>A package from the Umbraco Community Sustainability Team which helps developers and editors see and improve the carbon impact of their websites.</Description>
     <PackageTags>umbraco;umbraco-marketplace</PackageTags>
     <RootNamespace>Umbraco.Community.Sustainability</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
