@@ -22,50 +22,40 @@ namespace Umbraco.Community.Sustainability.Services
             var page = await context.NewPageAsync();
             await page.GotoAsync(url);
 
-            string? buildDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string? fullPath = Path.Combine(buildDir, "wwwroot\\Umbraco.Community.Sustainability\\js\\resource-checker.js");
-
-            bool fileExists = File.Exists(fullPath);
-
-            if (fileExists)
+            // Add our script to report data
+            await page.AddScriptTagAsync(new PageAddScriptTagOptions()
             {
-                // Add our script to report data
-                await page.AddScriptTagAsync(new PageAddScriptTagOptions()
-                {
-                    Path = fullPath,
-                    Type = "module"
-                });
+                Url = "/App_Plugins/Umbraco.Community.Sustainability/js/resource-checker.js",
+                Type = "module"
+            });
 
-                // Retrieve data from page
-                var data = await page.GetByTestId("sustainabilityData").TextContentAsync();
-                var sustainabilityData = JsonSerializer.Deserialize<SustainabilityData>(data);
+            // Retrieve data from page
+            var data = await page.GetByTestId("sustainabilityData").TextContentAsync();
+            var sustainabilityData = JsonSerializer.Deserialize<SustainabilityData>(data);
 
-                var resourceGroups = new List<ExternalResourceGroup>();
+            var resourceGroups = new List<ExternalResourceGroup>();
 
-                var scripts = GetExternalResourceGroup(ResourceGroupType.Scripts, sustainabilityData.resources);
-                resourceGroups.Add(scripts);
+            var scripts = GetExternalResourceGroup(ResourceGroupType.Scripts, sustainabilityData.resources);
+            resourceGroups.Add(scripts);
 
-                var images = GetExternalResourceGroup(ResourceGroupType.Images, sustainabilityData.resources);
-                resourceGroups.Add(images);
+            var images = GetExternalResourceGroup(ResourceGroupType.Images, sustainabilityData.resources);
+            resourceGroups.Add(images);
 
-                var styles = GetExternalResourceGroup(ResourceGroupType.Styles, sustainabilityData.resources);
-                resourceGroups.Add(styles);
+            var styles = GetExternalResourceGroup(ResourceGroupType.Styles, sustainabilityData.resources);
+            resourceGroups.Add(styles);
 
-                var other = GetExternalResourceGroup(ResourceGroupType.Other, sustainabilityData.resources);
-                resourceGroups.Add(other);
+            var other = GetExternalResourceGroup(ResourceGroupType.Other, sustainabilityData.resources);
+            resourceGroups.Add(other);
 
-                await browser.CloseAsync();
+            await browser.CloseAsync();
 
-                return new SustainabilityResponse()
-                {
-                    TotalSize = sustainabilityData.pageWeight,
-                    TotalEmissions = sustainabilityData.emissions.co2,
-                    CarbonRating = sustainabilityData.carbonRating,
-                    ResourceGroups = resourceGroups
-                };
-            }
-
-            return default;
+            return new SustainabilityResponse()
+            {
+                TotalSize = sustainabilityData.pageWeight,
+                TotalEmissions = sustainabilityData.emissions.co2,
+                CarbonRating = sustainabilityData.carbonRating,
+                ResourceGroups = resourceGroups
+            };
         }
 
         private ExternalResourceGroup GetExternalResourceGroup(ResourceGroupType groupType, IList<Resource> resources)
