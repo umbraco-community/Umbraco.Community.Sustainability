@@ -8,13 +8,7 @@ A community package from the [Umbraco sustainability team](https://umbraco.com/b
 
 In the backoffice, there is a content app to see page weight and carbon emissions, which is then converted to a carbon rating for individual pages.
 
-<!--
-Including screenshots is a really good idea! 
-
-If you put images into /docs/screenshots, then you would reference them in this readme as, for example:
-
-<img alt="..." src="https://github.com/rickbutterfield/Umbraco.Community.Sustainability/blob/develop/docs/screenshots/screenshot.png">
--->
+<img src="https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-contentapp-2.jpeg" alt="Umbraco.Community.Sustainability content app" />
 
 ## Installation
 
