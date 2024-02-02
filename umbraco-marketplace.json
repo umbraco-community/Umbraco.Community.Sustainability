@@ -1,14 +1,37 @@
 {
-    "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json", 
-    "AuthorDetails": {
-      "Name": "Umbraco Sustainability Community Team",
-      "ImageUrl": "https://github.com/rickbutterfield.png"
+  "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+  "AuthorDetails": {
+    "Name": "Umbraco Sustainability Community Team",
+    "ImageUrl": "https://github.com/rickbutterfield.png",
+    "Contributors": [
+      {
+        "Name": "Rick Butterfield",
+        "Url": "https://github.com/rickbutterfield"
+      },
+      {
+        "Name": "Thomas Morris",
+        "Url": "http://github.com/tcmorris"
+      }
+    ]
+  },
+  "Category": "Editor Tools",
+  "Description": "A package from the Umbraco Community Sustainability Team which helps developers and editors see and improve the carbon impact of their websites.",
+  "LicenseTypes": [ "Free" ],
+  "IssueTrackerUrl": "https://github.com/rickbutterfield/Umbraco.Community.Sustainability/issues",
+  "PackageType": "Package",
+  "Screenshots": [
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-contentapp-1.jpeg",
+      "Caption": "Content app for Sustainability - running a report"
     },
-    "Category": "",
-    "Description": "",
-    "LicenseTypes": [ "Free" ],
-    "IssueTrackerUrl": "https://github.com/rickbutterfield/Umbraco.Community.Sustainability/issues",
-    "PackageType": "Package",
-    "Tags": [],
-    "Title": "Umbraco.Community.Sustainability"
-  }
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-contentapp-2.jpeg",
+      "Caption": "Content app for Sustainability - view detailed report"
+    }
+  ],
+  "Tags": [
+    "backoffice",
+    "sustainability"
+  ],
+  "Title": "Umbraco.Community.Sustainability"
+}
