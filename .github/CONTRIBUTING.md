@@ -13,4 +13,4 @@ Password: 1234567890
 ```
 
 ### Who do I talk to?
-This project is maintained by [Rick Butterfield](https://rickbutterfield.dev) and contributors. If you have any questions about the project please get in touch on [Twitter](https://twitter.com/rickbutterfield), or by raising an issue on GitHub.
+This project is maintained by [Rick Butterfield](https://github.com/rickbutterfield), [Thomas Morris](https://github.com/tcmorris) and contributors. If you have any questions about the project please get in touch on [Twitter](https://twitter.com/rickbutterfield), or by raising an issue on GitHub.
