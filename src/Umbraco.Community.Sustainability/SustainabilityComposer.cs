@@ -21,6 +21,10 @@ namespace Umbraco.Community.Sustainability
 
             builder.Services.AddSingleton<IPageMetricService, PageMetricService>();
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
+
+#if NET8_0
+            builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
+#endif
         }
     }
 }

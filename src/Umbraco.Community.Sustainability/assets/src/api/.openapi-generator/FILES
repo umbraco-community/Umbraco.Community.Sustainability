@@ -1,0 +1,13 @@
+.openapi-generator-ignore
+apis/SustainabilityApi.ts
+apis/index.ts
+index.ts
+models/ExternalResource.ts
+models/ExternalResourceGroup.ts
+models/ExternalResourceGroupResourcesInner.ts
+models/ResourceGroupType.ts
+models/SustainabilityResponse.ts
+models/SustainabilityResponseResourceGroupsInner.ts
+models/UmbracoSustainabilityApiV1SavePageDataPostRequest.ts
+models/index.ts
+runtime.ts
