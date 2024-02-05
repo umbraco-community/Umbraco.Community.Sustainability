@@ -30,56 +30,88 @@ namespace Umbraco.Community.Sustainability.Controllers
         }
 
         [HttpGet("getPageData")]
-        [ProducesResponseType(typeof(string), 200)]
-        public async Task<IActionResult> GetPageData([FromQuery] int pageId)
+        [ProducesResponseType(typeof(SustainabilityResponse), 200)]
+        [ProducesResponseType(typeof(string), 204)]
+        public async Task<IActionResult> GetPageData([FromQuery] string pageGuid)
         {
-            var pageMetrics = await _pageMetricService.GetPageMetrics(pageId);
-            var mostRecent = pageMetrics.OrderByDescending(x => x.RequestDate).FirstOrDefault();
-            if (mostRecent?.PageData == null)
+            if (Guid.TryParse(pageGuid, out Guid guid))
             {
-                return Ok("No recent data found");
+                var contentItem = _contentQuery.Content(guid);
+                if (contentItem == null)
+                {
+                    return NoContent();
+                }
+
+                var pageMetrics = await _pageMetricService.GetPageMetrics(contentItem.Id);
+                var mostRecent = pageMetrics.OrderByDescending(x => x.RequestDate).FirstOrDefault();
+                if (mostRecent?.PageData == null)
+                {
+                    return NoContent();
+                }
+
+                var sustainabilityData = JsonSerializer.Deserialize<SustainabilityResponse>(mostRecent.PageData);
+                return Ok(sustainabilityData);
             }
 
-            var sustainabilityData = JsonSerializer.Deserialize<SustainabilityResponse>(mostRecent.PageData);
-            return Ok(sustainabilityData);
+            return NoContent();
         }
 
         [HttpGet("checkPage")]
-        public async Task<IActionResult> CheckPage([FromQuery] int pageId)
+        [ProducesResponseType(typeof(SustainabilityResponse), 200)]
+        [ProducesResponseType(typeof(string), 204)]
+        public async Task<IActionResult> CheckPage([FromQuery] string pageGuid)
         {
-            var contentItem = _contentQuery.Content(pageId);
-            if (contentItem == null)
+            if (Guid.TryParse(pageGuid, out Guid guid))
             {
-                return Ok("Page not found");
+                var contentItem = _contentQuery.Content(guid);
+                if (contentItem == null)
+                {
+                    return Ok("Page not found");
+                }
+
+                var url = contentItem.Url(mode: UrlMode.Absolute);
+                var sustainabilityData = await _sustainabilityService.GetSustainabilityData(url);
+
+                return Ok(sustainabilityData);
             }
 
-            var url = contentItem.Url(mode: UrlMode.Absolute);
-            var sustainabilityData = await _sustainabilityService.GetSustainabilityData(url);
-
-            return Ok(sustainabilityData);
+            return NoContent();
         }
 
         [HttpPost("savePageData")]
-        public async Task<IActionResult> SavePageData([FromQuery] int pageId, [FromBody] SustainabilityResponse data)
+        [ProducesResponseType(typeof(bool), 200)]
+        public async Task<IActionResult> SavePageData([FromQuery] string pageGuid, [FromBody] SustainabilityResponse data)
         {
             if (data.TotalSize == 0)
             {
-                return Ok("Missing data to update");
+                return Ok(false);
             }
 
-            var pageMetric = new PageMetric()
+            if (Guid.TryParse(pageGuid, out Guid guid))
             {
-                NodeId = pageId,
-                RequestedBy = "Admin",
-                RequestDate = data.LastRunDate,
-                TotalSize = data.TotalSize,
-                TotalEmissions = Convert.ToDecimal(data.TotalEmissions),
-                CarbonRating = data.CarbonRating,
-                PageData = JsonSerializer.Serialize(data),
-            };
+                var contentItem = _contentQuery.Content(guid);
 
-            await _pageMetricService.AddPageMetric(pageMetric);
-            return Ok(true);
+                if (contentItem == null)
+                {
+                    return Ok(false);
+                }
+
+                var pageMetric = new PageMetric()
+                {
+                    NodeId = contentItem.Id,
+                    RequestedBy = "Admin",
+                    RequestDate = data.LastRunDate,
+                    TotalSize = data.TotalSize,
+                    TotalEmissions = Convert.ToDecimal(data.TotalEmissions),
+                    CarbonRating = data.CarbonRating,
+                    PageData = JsonSerializer.Serialize(data),
+                };
+
+                await _pageMetricService.AddPageMetric(pageMetric);
+                return Ok(true);
+            }
+
+            return Ok(false);
         }
     }
 }

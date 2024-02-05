@@ -1,38 +1,36 @@
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { DataSourceResponse } from "@umbraco-cms/backoffice/repository";
 import { tryExecuteAndNotify } from '@umbraco-cms/backoffice/resources';
-import { Configuration, SustainabilityApi, UmbracoSustainabilityApiV1SavePageDataPostRequest } from "../../api";
+import { SustainabilityResource, SustainabilityResponse } from "../../api";
 
 export interface SustainabilityDataSource {
 
-  checkPage(pageId: number): Promise<DataSourceResponse<void>>;
-  getPageData(pageId: number): Promise<DataSourceResponse<string>>;
-  savePageData(pageId: number, sustainabilityResponse: UmbracoSustainabilityApiV1SavePageDataPostRequest): Promise<DataSourceResponse<void>>;
+  checkPage(pageGuid: string): Promise<DataSourceResponse<SustainabilityResponse>>;
+  getPageData(pageGuid: string): Promise<DataSourceResponse<SustainabilityResponse>>;
+  savePageData(pageGuid: string, sustainabilityResponse: SustainabilityResponse): Promise<DataSourceResponse<boolean>>;
 
 }
 
 export class SustainabilityManagementDataSource implements SustainabilityDataSource {
 
   #host: UmbControllerHost;
-  sustainabilityApi: SustainabilityApi;
 
-  constructor(host: UmbControllerHost, configuration: Configuration) {
+  constructor(host: UmbControllerHost) {
     this.#host = host;
-    this.sustainabilityApi = new SustainabilityApi(configuration);
   }
 
-  async checkPage(pageId: number): Promise<DataSourceResponse<void>> {
-    return await tryExecuteAndNotify(this.#host, this.sustainabilityApi.umbracoSustainabilityApiV1CheckPageGet({ pageId: pageId }));
+  async checkPage(pageGuid: string): Promise<DataSourceResponse<SustainabilityResponse>> {
+    return await tryExecuteAndNotify(this.#host, SustainabilityResource.getUmbracoSustainabilityApiV1CheckPage({ pageGuid: pageGuid }));
   }
 
-  async getPageData(pageId: number): Promise<DataSourceResponse<string>> {
-    return await tryExecuteAndNotify(this.#host, this.sustainabilityApi.umbracoSustainabilityApiV1GetPageDataGet({ pageId: pageId }));
+  async getPageData(pageGuid: string): Promise<DataSourceResponse<SustainabilityResponse>> {
+    return await tryExecuteAndNotify(this.#host, SustainabilityResource.getUmbracoSustainabilityApiV1GetPageData({ pageGuid: pageGuid }));
   }
 
-  async savePageData(pageId: number, sustainabilityResponse: UmbracoSustainabilityApiV1SavePageDataPostRequest): Promise<DataSourceResponse<void>> {
-    return await tryExecuteAndNotify(this.#host, this.sustainabilityApi.umbracoSustainabilityApiV1SavePageDataPost({
-      pageId: pageId,
-      umbracoSustainabilityApiV1SavePageDataPostRequest: sustainabilityResponse
+  async savePageData(pageGuid: string, sustainabilityResponse: SustainabilityResponse): Promise<DataSourceResponse<boolean>> {
+    return await tryExecuteAndNotify(this.#host, SustainabilityResource.postUmbracoSustainabilityApiV1SavePageData({
+      pageGuid: pageGuid,
+      requestBody: sustainabilityResponse
     }))
   }
 

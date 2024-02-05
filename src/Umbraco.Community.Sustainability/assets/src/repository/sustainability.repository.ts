@@ -1,27 +1,27 @@
 import { UmbBaseController } from "@umbraco-cms/backoffice/class-api";
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { SustainabilityManagementDataSource } from "./sources/sustainability.datasource";
-import { Configuration, UmbracoSustainabilityApiV1SavePageDataPostRequest } from "../api";
+import { SustainabilityResponse } from "../api";
 
 export class SustainabilityManagementRepository extends UmbBaseController {
   #sustainabilityDataSource: SustainabilityManagementDataSource;
 
-  constructor(host: UmbControllerHost, configuration: Configuration) {
+  constructor(host: UmbControllerHost) {
     super(host);
-    this.#sustainabilityDataSource = new SustainabilityManagementDataSource(this, configuration);
+    this.#sustainabilityDataSource = new SustainabilityManagementDataSource(this);
 
     console.log('repository constructor');
   }
 
-  async checkPage(pageId: number) {
-    return this.#sustainabilityDataSource.checkPage(pageId);
+  async checkPage(pageGuid: string) {
+    return this.#sustainabilityDataSource.checkPage(pageGuid);
   }
 
-  async getPageData(pageId: number) {
-    return this.#sustainabilityDataSource.getPageData(pageId);
+  async getPageData(pageGuid: string) {
+    return this.#sustainabilityDataSource.getPageData(pageGuid);
   }
 
-  async savePageData(pageId: number, sustainabilityResponse: UmbracoSustainabilityApiV1SavePageDataPostRequest) {
-    return this.#sustainabilityDataSource.savePageData(pageId, sustainabilityResponse);
+  async savePageData(pageGuid: string, sustainabilityResponse: SustainabilityResponse) {
+    return this.#sustainabilityDataSource.savePageData(pageGuid, sustainabilityResponse);
   }
 }

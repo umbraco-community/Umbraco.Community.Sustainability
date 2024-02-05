@@ -1,39 +1,60 @@
 import { UmbBaseController } from "@umbraco-cms/backoffice/class-api";
 import { SustainabilityManagementRepository } from "../repository/sustainability.repository";
 import { UmbContextToken } from "@umbraco-cms/backoffice/context-api";
-import { Configuration } from "../api";
 
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
+import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
+
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth'
-import { UmbStringState } from "@umbraco-cms/backoffice/observable-api";
+import { OpenAPI, SustainabilityResponse } from "../api";
 
 export class SustainabilityManagementContext extends UmbBaseController {
   
   #repository: SustainabilityManagementRepository;
-  _configuration!: Configuration;
 
-  #pageData = new UmbStringState("unknown");
+  #pageData = new UmbObjectState<SustainabilityResponse | undefined>(undefined);
   public readonly pageData = this.#pageData.asObservable();
 
   constructor(host: UmbControllerHost) {
     super(host);
 
     this.provideContext(SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN, this);
+    this.#repository = new SustainabilityManagementRepository(this);
     
     this.consumeContext(UMB_AUTH_CONTEXT, (_auth) => {
-      this._configuration = new Configuration({ accessToken: _auth.getLatestToken() });
+      OpenAPI.TOKEN = () => _auth.getLatestToken();
+      OpenAPI.WITH_CREDENTIALS = true;
     });
 
-    this.#repository = new SustainabilityManagementRepository(this, this._configuration);
   }
 
-  async getPageData(pageId: number) {
-    const { data } = await this.#repository.getPageData(pageId);
+  async checkPage(pageGuid: string, initialLoad: boolean = true) {
+    const { data } = await this.#repository.checkPage(pageGuid);
     if (data) {
       this.#pageData.setValue(data);
+
+      if (!initialLoad) {
+        await this.savePageData(pageGuid, data);
+      }
     }
   }
 
+  async getPageData(pageGuid: string, initialLoad: boolean = true) {
+    const { data } = await this.#repository.getPageData(pageGuid);
+    if (data) {
+      this.#pageData.setValue(data);
+
+      if (!initialLoad) {
+        await this.savePageData(pageGuid, data);
+      }
+    }
+  }
+  
+  async savePageData(pageGuid: string, sustainabilityResponse: SustainabilityResponse) {
+    const saved = await this.#repository.savePageData(pageGuid, sustainabilityResponse);
+    return saved;
+  }
+  
 }
 
 export default SustainabilityManagementContext;
