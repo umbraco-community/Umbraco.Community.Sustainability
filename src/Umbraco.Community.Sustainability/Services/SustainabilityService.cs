@@ -1,6 +1,8 @@
 using System.Reflection;
 using System.Text.Json;
+using Microsoft.Extensions.Options;
 using Microsoft.Playwright;
+using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Community.Sustainability.Models;
 
 namespace Umbraco.Community.Sustainability.Services
@@ -12,6 +14,13 @@ namespace Umbraco.Community.Sustainability.Services
 
     public class SustainabilityService : ISustainabilityService
     {
+        private readonly WebRoutingSettings _webRoutingSettings;
+
+        public SustainabilityService(IOptionsMonitor<WebRoutingSettings> webRoutingSettings)
+        {
+            _webRoutingSettings = webRoutingSettings.CurrentValue;
+        }
+
         public async Task<SustainabilityResponse> GetSustainabilityData(string url)
         {
             using var playwright = await Playwright.CreateAsync();
@@ -25,7 +34,7 @@ namespace Umbraco.Community.Sustainability.Services
             // Add our script to report data
             await page.AddScriptTagAsync(new PageAddScriptTagOptions()
             {
-                Url = "/App_Plugins/Umbraco.Community.Sustainability/js/resource-checker.js",
+                Url = $"{_webRoutingSettings.UmbracoApplicationUrl}/App_Plugins/Umbraco.Community.Sustainability/js/resource-checker.js",
                 Type = "module"
             });
 

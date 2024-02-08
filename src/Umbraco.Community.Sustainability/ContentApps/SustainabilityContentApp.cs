@@ -12,12 +12,6 @@ namespace Umbraco.Community.Sustainability.ContentApps
             if (!(source is IContent))
                 return null;
 
-            var content = (IContent)source;
-
-            // Only show app on content items with template
-            if (content.TemplateId is null)
-                return null;
-
             return new ContentApp
             {
                 Alias = "sustainabilityCheck",
