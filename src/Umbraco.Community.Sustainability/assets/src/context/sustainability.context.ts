@@ -1,4 +1,4 @@
-import { UmbBaseController } from "@umbraco-cms/backoffice/class-api";
+import { UmbControllerBase } from "@umbraco-cms/backoffice/class-api";
 import { SustainabilityManagementRepository } from "../repository/sustainability.repository";
 import { UmbContextToken } from "@umbraco-cms/backoffice/context-api";
 
@@ -8,7 +8,7 @@ import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth'
 import { OpenAPI, SustainabilityResponse } from "../api";
 
-export class SustainabilityManagementContext extends UmbBaseController {
+export class SustainabilityManagementContext extends UmbControllerBase {
   
   #repository: SustainabilityManagementRepository;
 

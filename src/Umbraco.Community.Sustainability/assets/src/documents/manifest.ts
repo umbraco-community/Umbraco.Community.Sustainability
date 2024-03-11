@@ -16,7 +16,7 @@ const workspaceView: ManifestWorkspaceView = {
       alias: 'Umb.Condition.WorkspaceAlias',
       match: 'Umb.Workspace.Document'
     },
-  ],
+  ]
 }
 
 export const manifests = [workspaceView];

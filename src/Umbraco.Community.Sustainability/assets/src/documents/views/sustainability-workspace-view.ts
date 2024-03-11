@@ -8,93 +8,93 @@ import type { UmbDocumentWorkspaceContext } from '@umbraco-cms/backoffice/docume
 @customElement('sustainability-workspace-view')
 export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) {
 
-    #sustainabilityContext?: SustainabilityManagementContext;
+  #sustainabilityContext?: SustainabilityManagementContext;
 
-    @state()
-    pageName?: string = '';
+  @state()
+  private _documentUnique?: string = '';
 
-    @property({type: Boolean})
-    loading?: boolean = true;
+  @state()
+  pageName?: string = '';
 
-    @property({ type: Boolean })
-    waiting?: boolean = false;
+  @property({ type: Boolean })
+  loading?: boolean = true;
 
-    @property({type: Object})
-    pageData?: SustainabilityResponse;
+  @property({ type: Boolean })
+  waiting?: boolean = false;
 
-    @state()
-    private _documentUnique?: string = '';
+  @property({ type: Object })
+  pageData?: SustainabilityResponse;
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.consumeContext(UMB_WORKSPACE_CONTEXT, (nodeContext) => {
+    this.consumeContext(UMB_WORKSPACE_CONTEXT, (nodeContext) => {
 
-          const workspaceContext = (nodeContext as UmbDocumentWorkspaceContext);
+      const workspaceContext = (nodeContext as UmbDocumentWorkspaceContext);
 
-          this.observe((workspaceContext).unique, (unique) => {
-            this._documentUnique = unique;
-          });
+      this.observe((workspaceContext).unique, (unique) => {
+        this._documentUnique = unique;
+      });
 
-            const variantContext = (nodeContext as UmbVariantableWorkspaceContextInterface);
-            console.log(variantContext.getName());
-            
-            this.pageName = variantContext.getName();
-        });
+      const variantContext = (nodeContext as UmbVariantableWorkspaceContextInterface);
+      console.log(variantContext.getName());
 
-        this.consumeContext(SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN, (_instance) => {
-          this.#sustainabilityContext = _instance;
+      this.pageName = variantContext.getName();
+    });
 
-          this.observe(_instance.pageData, (_pageData) => {
-            this.pageData = _pageData;
-            if (this.pageData != null) {
-              if (typeof this.pageData?.totalSize !== "undefined") {
-                this.loading = false;
-              }
-            }
-          })
-        })
-    }
+    this.consumeContext(SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN, (_instance) => {
+      this.#sustainabilityContext = _instance;
 
-    connectedCallback(): void {
-      super.connectedCallback();
-
-      if (this.#sustainabilityContext != null) {
-        if (this.loading) {
-          if (this._documentUnique) {
-            this.#sustainabilityContext.getPageData(this._documentUnique);
+      this.observe(_instance.pageData, (_pageData) => {
+        this.pageData = _pageData;
+        if (this.pageData != null) {
+          if (typeof this.pageData?.totalSize !== "undefined") {
+            this.loading = false;
           }
         }
-      }
-    }
+      })
+    })
+  }
 
-    async checkPage() {
-      this.waiting = true;
-      if (this._documentUnique) {
-        await this.#sustainabilityContext?.checkPage(this._documentUnique, false);
-        this.waiting = false;
-      }
-    }
+  connectedCallback(): void {
+    super.connectedCallback();
 
-    render() {
-        if (this.loading) {
-          return html`
-              <uui-box headline="Loading sustainability report...">
-                  <p>It looks like you haven't run a report on this page yet. Click the button below to get started.</p>
-                  <uui-button look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
-                    Run sustainability report
-                  </uui-button>
-              </uui-box>
-          `;
+    if (this.#sustainabilityContext != null) {
+      if (this.loading) {
+        if (this._documentUnique) {
+          this.#sustainabilityContext.getPageData(this._documentUnique);
         }
-        else {
-          return html`
+      }
+    }
+  }
+
+  async checkPage() {
+    this.waiting = true;
+    if (this._documentUnique) {
+      await this.#sustainabilityContext?.checkPage(this._documentUnique, false);
+      this.waiting = false;
+    }
+  }
+
+  render() {
+    if (this.loading) {
+      return html`
+          <uui-box headline="Loading sustainability report...">
+              <p>It looks like you haven't run a report on this page yet. Click the button below to get started.</p>
+              <uui-button look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
+                Run sustainability report
+              </uui-button>
+          </uui-box>
+      `;
+    }
+    else {
+      return html`
             <div class="container">
               ${repeat(
-                this.pageData?.resourceGroups!,
-                (group) => group.name,
-                (group) => this.#renderResourceGroup(group)
-              )}
+        this.pageData?.resourceGroups!,
+        (group) => group.name,
+        (group) => this.#renderResourceGroup(group)
+      )}
             </div>
             <div class="container">
               <uui-box headline="Sustainability report">
@@ -111,26 +111,26 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
               </uui-box>
             </div>
           `;
-        }
     }
+  }
 
-    #renderResourceGroup(group: ExternalResourceGroup) {
-      if (group.resources?.length !== 0) {
-        return html`
+  #renderResourceGroup(group: ExternalResourceGroup) {
+    if (group.resources?.length !== 0) {
+      return html`
           <uui-box headline=${group.name!}>
             <ul>
             ${repeat(
-              group.resources!,
-              (resource) => resource.url,
-              (resource) => html`<li>${resource.url} (${(resource.size / 1024).toFixed(2)}KB)</li>`
-            )}
+        group.resources!,
+        (resource) => resource.url,
+        (resource) => html`<li>${resource.url} (${(resource.size / 1024).toFixed(2)}KB)</li>`
+      )}
             </ul>
           </uui-box>
         `;
-      }
     }
+  }
 
-    static styles = css`
+  static styles = css`
         :host {
             display: grid;
             gap: var(--uui-size-layout-1);

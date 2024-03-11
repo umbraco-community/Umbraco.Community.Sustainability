@@ -5,9 +5,35 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Umbraco.Community.Sustainability.TestSite._14.x</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Umbraco.Cms" Version="14.0.0--preview004" />
+    <Content Include="App_Plugins\Umbraco.Community.Sustainability\js\resource-checker.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="App_Plugins\Umbraco.Community.Sustainability\js\sustainability-content-app.controller.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="App_Plugins\Umbraco.Community.Sustainability\js\sustainability.resource.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="App_Plugins\Umbraco.Community.Sustainability\lang\en.xml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="App_Plugins\Umbraco.Community.Sustainability\package.manifest">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="App_Plugins\Umbraco.Community.Sustainability\views\sustainability-content-app.html">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms" Version="14.0.0-beta001" />
   </ItemGroup>
 
   <ItemGroup>

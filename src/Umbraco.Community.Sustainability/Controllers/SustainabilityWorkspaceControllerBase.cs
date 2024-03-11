@@ -9,7 +9,7 @@ namespace Umbraco.Community.Sustainability.Controllers
 {
     [ApiController]
     [BackOfficeRoute("sustainability/api/v{version:apiVersion}")]
-    [Authorize(Policy = "New" + AuthorizationPolicies.BackOfficeAccess)]
+    [Authorize(Policy = AuthorizationPolicies.BackOfficeAccess)]
     [MapToApi("sustainability")]
     public class SustainabilityWorkspaceControllerBase : Controller
     { }

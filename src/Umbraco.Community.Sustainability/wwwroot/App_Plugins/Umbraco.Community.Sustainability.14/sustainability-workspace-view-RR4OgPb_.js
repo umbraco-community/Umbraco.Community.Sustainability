@@ -1,7 +1,7 @@
 import { UmbElementMixin as _ } from "@umbraco-cms/backoffice/element-api";
 import { LitElement as w, html as u, repeat as f, css as x, state as v, property as d, customElement as b } from "@umbraco-cms/backoffice/external/lit";
 import { UMB_WORKSPACE_CONTEXT as k } from "@umbraco-cms/backoffice/workspace";
-import { SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN as C } from "./sustainability.context-ADG4GVgm.js";
+import { SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN as C } from "./sustainability.context--ZTXXUek.js";
 import "@umbraco-cms/backoffice/class-api";
 import "@umbraco-cms/backoffice/resources";
 import "@umbraco-cms/backoffice/context-api";
@@ -21,7 +21,7 @@ var D = Object.defineProperty, E = Object.getOwnPropertyDescriptor, r = (t, i, e
 }, S = (t, i, e, a) => (g(t, i, "write to private field"), a ? a.call(t, e) : i.set(t, e), e), $ = (t, i, e) => (g(t, i, "access private method"), e), n, h, y;
 let o = class extends _(w) {
   constructor() {
-    super(), m(this, h), m(this, n, void 0), this.pageName = "", this.loading = !0, this.waiting = !1, this._documentUnique = "", this.consumeContext(k, (t) => {
+    super(), m(this, h), m(this, n, void 0), this._documentUnique = "", this.pageName = "", this.loading = !0, this.waiting = !1, this.consumeContext(k, (t) => {
       const i = t;
       this.observe(i.unique, (a) => {
         this._documentUnique = a;
@@ -109,6 +109,9 @@ o.styles = x`
     `;
 r([
   v()
+], o.prototype, "_documentUnique", 2);
+r([
+  v()
 ], o.prototype, "pageName", 2);
 r([
   d({ type: Boolean })
@@ -119,9 +122,6 @@ r([
 r([
   d({ type: Object })
 ], o.prototype, "pageData", 2);
-r([
-  v()
-], o.prototype, "_documentUnique", 2);
 o = r([
   b("sustainability-workspace-view")
 ], o);
@@ -130,4 +130,4 @@ export {
   o as SustainabilityWorkspaceElement,
   G as default
 };
-//# sourceMappingURL=sustainability-workspace-view-exh5n8wB.js.map
+//# sourceMappingURL=sustainability-workspace-view-RR4OgPb_.js.map

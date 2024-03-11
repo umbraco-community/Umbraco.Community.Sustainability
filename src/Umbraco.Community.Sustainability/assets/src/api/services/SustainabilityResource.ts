@@ -14,7 +14,7 @@ export class SustainabilityResource {
      * @returns any Success
      * @throws ApiError
      */
-    public static getUmbracoSustainabilityApiV1CheckPage({
+    public static checkPage({
 pageGuid,
 }: {
 pageGuid?: string,
@@ -32,7 +32,7 @@ pageGuid?: string,
      * @returns any Success
      * @throws ApiError
      */
-    public static getUmbracoSustainabilityApiV1GetPageData({
+    public static getPageData({
 pageGuid,
 }: {
 pageGuid?: string,
@@ -50,7 +50,7 @@ pageGuid?: string,
      * @returns boolean Success
      * @throws ApiError
      */
-    public static postUmbracoSustainabilityApiV1SavePageData({
+    public static savePageData({
 pageGuid,
 requestBody,
 }: {

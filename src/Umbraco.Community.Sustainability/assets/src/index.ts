@@ -9,5 +9,4 @@ export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
     ...contextManifests,
     ...documentManifests
   ]);
-
 };
