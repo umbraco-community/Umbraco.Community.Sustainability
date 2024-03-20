@@ -45,13 +45,13 @@ let o = class extends _(w) {
   render() {
     var t, i, e;
     return this.loading ? u`
-              <uui-box headline="Loading sustainability report...">
-                  <p>It looks like you haven't run a report on this page yet. Click the button below to get started.</p>
-                  <uui-button look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : void 0}>
-                    Run sustainability report
-                  </uui-button>
-              </uui-box>
-          ` : u`
+          <uui-box headline="Loading sustainability report...">
+              <p>It looks like you haven't run a report on this page yet. Click the button below to get started.</p>
+              <uui-button look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : void 0}>
+                Run sustainability report
+              </uui-button>
+          </uui-box>
+      ` : u`
             <div class="container">
               ${f(
       (t = this.pageData) == null ? void 0 : t.resourceGroups,
@@ -130,4 +130,4 @@ export {
   o as SustainabilityWorkspaceElement,
   G as default
 };
-//# sourceMappingURL=sustainability-workspace-view-RR4OgPb_.js.map
+//# sourceMappingURL=sustainability-workspace-view-zfQh7O_j.js.map

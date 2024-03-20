@@ -2,7 +2,7 @@ const i = {
   type: "workspaceView",
   alias: "Umbraco.Community.Sustainability.Workspace",
   name: "Sustainability Workspace",
-  js: () => import("./sustainability-workspace-view-RR4OgPb_.js"),
+  js: () => import("./sustainability-workspace-view-zfQh7O_j.js"),
   weight: 10,
   meta: {
     icon: "icon-eco",
