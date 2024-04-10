@@ -1,12 +1,7 @@
 import { UmbElementMixin as _ } from "@umbraco-cms/backoffice/element-api";
 import { LitElement as w, html as u, repeat as f, css as x, state as v, property as d, customElement as b } from "@umbraco-cms/backoffice/external/lit";
 import { UMB_WORKSPACE_CONTEXT as k } from "@umbraco-cms/backoffice/workspace";
-import { SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN as C } from "./sustainability.context--ZTXXUek.js";
-import "@umbraco-cms/backoffice/class-api";
-import "@umbraco-cms/backoffice/resources";
-import "@umbraco-cms/backoffice/context-api";
-import "@umbraco-cms/backoffice/observable-api";
-import "@umbraco-cms/backoffice/auth";
+import { SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN as C } from "./sustainability.context-D88U9CSt.js";
 var D = Object.defineProperty, E = Object.getOwnPropertyDescriptor, r = (t, i, e, a) => {
   for (var s = a > 1 ? void 0 : a ? E(i, e) : i, l = t.length - 1, p; l >= 0; l--)
     (p = t[l]) && (s = (a ? p(i, e, s) : p(s)) || s);
@@ -125,9 +120,9 @@ r([
 o = r([
   b("sustainability-workspace-view")
 ], o);
-const G = o;
+const U = o;
 export {
   o as SustainabilityWorkspaceElement,
-  G as default
+  U as default
 };
-//# sourceMappingURL=sustainability-workspace-view-zfQh7O_j.js.map
+//# sourceMappingURL=sustainability-workspace-view-XuXLAA3B.js.map

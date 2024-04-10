@@ -8,16 +8,16 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "watch": "vite build --watch",
-    "generate": "openapi --input http://localhost:3268/umbraco/swagger/sustainability/swagger.json?urls.primaryName=Sustainability%20API --output src/api --useOptions --postfixServices Resource"
+    "generate": "openapi-ts --input http://localhost:3268/umbraco/swagger/sustainability/swagger.json --output src/api --debug true --enums typescript --lint true --postfixServices Resource --schemas false"
   },
   "dependencies": {
     "lit": "^3.1.0"
   },
   "devDependencies": {
+    "@hey-api/openapi-ts": "^0.37.3",
     "@umbraco-cms/backoffice": "^14.0.0-beta002",
-    "openapi-typescript-codegen": "^0.25.0",
     "typescript": "^5.2.2",
     "umbracodegen": "^1.0.0-alpha.5",
-    "vite": "^5.0.8"
+    "vite": "^5.2.8"
   }
 }

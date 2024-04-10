@@ -31,7 +31,6 @@ namespace Umbraco.Community.Sustainability.Controllers
 
         [HttpGet("getPageData")]
         [ProducesResponseType(typeof(SustainabilityResponse), 200)]
-        [ProducesResponseType(typeof(string), 204)]
         public async Task<IActionResult> GetPageData([FromQuery] string pageGuid)
         {
             if (Guid.TryParse(pageGuid, out Guid guid))
@@ -58,7 +57,6 @@ namespace Umbraco.Community.Sustainability.Controllers
 
         [HttpGet("checkPage")]
         [ProducesResponseType(typeof(SustainabilityResponse), 200)]
-        [ProducesResponseType(typeof(string), 204)]
         public async Task<IActionResult> CheckPage([FromQuery] string pageGuid)
         {
             if (Guid.TryParse(pageGuid, out Guid guid))
