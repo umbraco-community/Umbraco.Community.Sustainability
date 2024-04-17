@@ -1,7 +1,7 @@
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { UmbDataSourceResponse } from "@umbraco-cms/backoffice/repository";
 import { tryExecuteAndNotify } from '@umbraco-cms/backoffice/resources';
-import { SustainabilityResource, SustainabilityResponse } from "../../api";
+import { SustainabilityService, type SustainabilityResponse } from "@api";
 
 export interface SustainabilityDataSource {
 
@@ -20,15 +20,15 @@ export class SustainabilityManagementDataSource implements SustainabilityDataSou
   }
 
   async checkPage(pageGuid: string): Promise<UmbDataSourceResponse<SustainabilityResponse>> {
-    return await tryExecuteAndNotify(this.#host, SustainabilityResource.checkPage({ pageGuid: pageGuid }));
+    return await tryExecuteAndNotify(this.#host, SustainabilityService.checkPage({ pageGuid: pageGuid }));
   }
 
   async getPageData(pageGuid: string): Promise<UmbDataSourceResponse<SustainabilityResponse>> {
-    return await tryExecuteAndNotify(this.#host, SustainabilityResource.getPageData({ pageGuid: pageGuid }));
+    return await tryExecuteAndNotify(this.#host, SustainabilityService.getPageData({ pageGuid: pageGuid }));
   }
 
   async savePageData(pageGuid: string, sustainabilityResponse: SustainabilityResponse): Promise<UmbDataSourceResponse<boolean>> {
-    return await tryExecuteAndNotify(this.#host, SustainabilityResource.savePageData({
+    return await tryExecuteAndNotify(this.#host, SustainabilityService.savePageData({
       pageGuid: pageGuid,
       requestBody: sustainabilityResponse
     }))

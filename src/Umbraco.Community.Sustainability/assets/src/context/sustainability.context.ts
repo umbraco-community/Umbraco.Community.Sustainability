@@ -6,7 +6,7 @@ import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
 
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth'
-import { OpenAPI, SustainabilityResponse } from "../api";
+import { OpenAPI, SustainabilityResponse } from "@api";
 
 export class SustainabilityManagementContext extends UmbControllerBase {
   

@@ -2,7 +2,7 @@ import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 import { html, LitElement, customElement, css, state, property, repeat } from '@umbraco-cms/backoffice/external/lit'
 import { UMB_WORKSPACE_CONTEXT, UmbVariantableWorkspaceContextInterface } from "@umbraco-cms/backoffice/workspace";
 import SustainabilityManagementContext, { SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN } from "../../context/sustainability.context";
-import { ExternalResourceGroup, SustainabilityResponse } from "../../api";
+import { ExternalResourceGroup, SustainabilityResponse } from "@api";
 import type { UmbDocumentWorkspaceContext } from '@umbraco-cms/backoffice/document';
 
 @customElement('sustainability-workspace-view')
