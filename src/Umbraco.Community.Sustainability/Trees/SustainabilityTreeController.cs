@@ -9,7 +9,7 @@ using Umbraco.Cms.Web.Common.Attributes;
 
 namespace Umbraco.Community.Sustainability.Trees
 {
-    [Tree("sustainability", "sustainabilityTree", TreeTitle = "Sustainability", TreeGroup = "sustainabilityTreeGroup")]
+    [Tree("sustainability", "sustainability", TreeTitle = "Sustainability", TreeGroup = "sustainabilityTreeGroup")]
     [PluginController("UmbracoCommunitySustainability")]
     public class SustainabilityTreeController : TreeController
     {
@@ -30,11 +30,11 @@ namespace Umbraco.Community.Sustainability.Trees
 
             if (id == Cms.Core.Constants.System.RootString)
             {
-                var overviewNode = CreateTreeNode("overview", Cms.Core.Constants.System.RootString, queryStrings, "Overview", "icon-eco", false, "sustainability/sustainabilityTree/overview");
+                var overviewNode = CreateTreeNode("overview", Cms.Core.Constants.System.RootString, queryStrings, "Overview", "icon-eco", false, "sustainability/sustainability/overview");
                 overviewNode.MenuUrl = null;
                 collection.Add(overviewNode);
 
-                var statsNode = CreateTreeNode("stats", Cms.Core.Constants.System.RootString, queryStrings, "Stats", "icon-chart", false, "sustainability/sustainabilityTree/stats");
+                var statsNode = CreateTreeNode("stats", Cms.Core.Constants.System.RootString, queryStrings, "Stats", "icon-chart", false, "sustainability/sustainability/stats");
                 statsNode.MenuUrl = null;
                 collection.Add(statsNode);
             }
@@ -59,7 +59,7 @@ namespace Umbraco.Community.Sustainability.Trees
 
             if (root is not null)
             {
-                root.RoutePath = "sustainability/sustainabilityTree/overview";
+                root.RoutePath = "sustainability/sustainability/overview";
                 root.Icon = "icon-eco";
                 root.HasChildren = false;
                 root.MenuUrl = null;
