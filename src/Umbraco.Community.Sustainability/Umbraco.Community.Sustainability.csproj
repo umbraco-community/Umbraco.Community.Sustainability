@@ -13,7 +13,7 @@
     <RootNamespace>Umbraco.Community.Sustainability</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>alpha.2</VersionSuffix>
+    <VersionSuffix></VersionSuffix>
     <Authors>Umbraco Sustainability Community Team</Authors>
     <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © Umbraco Sustainability Community Team</Copyright>
     <PackageProjectUrl>https://github.com/rickbutterfield/Umbraco.Community.Sustainability</PackageProjectUrl>
