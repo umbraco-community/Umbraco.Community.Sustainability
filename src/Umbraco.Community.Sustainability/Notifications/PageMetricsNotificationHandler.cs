@@ -17,17 +17,20 @@ namespace Umbraco.Community.Sustainability.Notifications
         private readonly ICoreScopeProvider _coreScopeProvider;
         private readonly IKeyValueService _keyValueService;
         private readonly IRuntimeState _runtimeState;
+        private readonly IUserService _userService;
 
         public PageMetricsNotificationHandler(
             ICoreScopeProvider coreScopeProvider,
             IMigrationPlanExecutor migrationPlanExecutor,
             IKeyValueService keyValueService,
-            IRuntimeState runtimeState)
+            IRuntimeState runtimeState,
+            IUserService userService)
         {
             _migrationPlanExecutor = migrationPlanExecutor;
             _coreScopeProvider = coreScopeProvider;
             _keyValueService = keyValueService;
             _runtimeState = runtimeState;
+            _userService = userService;
         }
 
         public void Handle(UmbracoApplicationStartingNotification notification)
@@ -54,6 +57,16 @@ namespace Umbraco.Community.Sustainability.Notifications
                 _migrationPlanExecutor,
                 _coreScopeProvider,
                 _keyValueService);
+
+            var adminGroup = _userService.GetUserGroupByAlias(Cms.Core.Constants.Security.AdminGroupAlias);
+            if (adminGroup != null)
+            {
+                if (!adminGroup.AllowedSections.Contains(Constants.SectionAlias))
+                {
+                    adminGroup.AddAllowedSection(Constants.SectionAlias);
+                    _userService.Save(adminGroup);
+                }
+            }
         }
     }
 }
