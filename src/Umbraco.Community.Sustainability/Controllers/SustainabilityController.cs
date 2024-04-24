@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Community.Sustainability.Models;
@@ -24,6 +25,54 @@ namespace Umbraco.Community.Sustainability.Controllers
             _contentQuery = contentQuery;
             _pageMetricService = pageMetricService;
             _sustainabilityService = sustainabilityService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOverviewData(int pageNumber = 1, int pageSize = 10, string orderBy = nameof(PageMetric.CarbonRating), Direction direction = Direction.Ascending)
+        {
+            var overviewMetrics = await _pageMetricService.GetOverviewMetrics();
+            int total = overviewMetrics.Count();
+
+            var filteredMetrics = overviewMetrics;
+
+            Func<PageMetric, object?>? filter = null;
+            switch (orderBy)
+            {
+                case nameof(PageMetric.CarbonRating):
+                    filter = x => x.CarbonRating;
+                    break;
+                case nameof(PageMetric.RequestDate):
+                    filter = x => x.RequestDate;
+                    break;
+                case nameof(PageMetric.TotalSize):
+                    filter = x => x.TotalSize;
+                    break;
+                case nameof(PageMetric.TotalEmissions):
+                    filter = x => x.TotalEmissions;
+                    break;
+            }
+
+            if (filter != null)
+            {
+                filteredMetrics = direction == Direction.Ascending ?
+                    filteredMetrics.OrderBy(filter) : filteredMetrics.OrderByDescending(filter);
+            }
+
+            filteredMetrics = filteredMetrics.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+
+            PagedResult<PageMetric> pagedMetrics = new PagedResult<PageMetric>(total, pageNumber, pageSize)
+            {
+                Items = filteredMetrics
+            };
+
+            return Ok(pagedMetrics);
+        }
+
+        public async Task<IActionResult> GetAverageData()
+        {
+            var averageMetrics = await _pageMetricService.GetAverageMetrics();
+
+            return Ok(averageMetrics);
         }
 
         [HttpGet]

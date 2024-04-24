@@ -1,10 +1,14 @@
+using Umbraco.Cms.Core;
 using Umbraco.Cms.Infrastructure.Scoping;
+using Umbraco.Community.Sustainability.Models;
 using Umbraco.Community.Sustainability.Schemas;
 
 namespace Umbraco.Community.Sustainability.Services
 {
     public interface IPageMetricService
     {
+        Task<IEnumerable<PageMetric>> GetOverviewMetrics();
+        Task<AveragePageMetrics> GetAverageMetrics();
         Task<IEnumerable<PageMetric>> GetPageMetrics(int pageId);
         Task AddPageMetric(PageMetric pageMetric);
     }
@@ -12,10 +16,44 @@ namespace Umbraco.Community.Sustainability.Services
     public class PageMetricService : IPageMetricService
     {
         private readonly IScopeProvider _scopeProvider;
+        private readonly IPublishedContentQuery _contentQuery;
 
-        public PageMetricService(IScopeProvider scopeProvider)
+        public PageMetricService(
+            IScopeProvider scopeProvider,
+            IPublishedContentQuery contentQuery)
         {
             _scopeProvider = scopeProvider;
+            _contentQuery = contentQuery;
+        }
+
+        public async Task<IEnumerable<PageMetric>> GetOverviewMetrics()
+        {
+            using var scope = _scopeProvider.CreateScope();
+            var queryResults = await scope.Database.FetchAsync<PageMetric>();
+
+            queryResults = queryResults.OrderByDescending(x => x.RequestDate).ToList();
+            queryResults = queryResults.DistinctBy(x => x.NodeId).ToList();
+
+            foreach (var result in queryResults)
+            {
+                var node = _contentQuery.Content(result.NodeId);
+                result.NodeName = node?.Name;
+            }
+
+            scope.Complete();
+
+            return queryResults;
+        }
+
+        public async Task<AveragePageMetrics> GetAverageMetrics()
+        {
+            var overviewMetrics = await GetOverviewMetrics();
+
+            return new AveragePageMetrics()
+            {
+                PageSize = overviewMetrics.Sum(x => x.TotalSize) / overviewMetrics.Count(),
+                Emissions = overviewMetrics.Sum(x => x.TotalEmissions) / overviewMetrics.Count(),
+            };
         }
 
         public async Task<IEnumerable<PageMetric>> GetPageMetrics(int pageId)

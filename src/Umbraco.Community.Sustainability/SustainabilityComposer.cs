@@ -4,6 +4,7 @@ using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Community.Sustainability.ContentApps;
 using Umbraco.Community.Sustainability.Notifications;
+using Umbraco.Community.Sustainability.Sections;
 using Umbraco.Community.Sustainability.Services;
 
 namespace Umbraco.Community.Sustainability
@@ -22,7 +23,9 @@ namespace Umbraco.Community.Sustainability
             builder.ManifestFilters().Append<SustainabilityManifestFilter>();
             builder.ContentApps().Append<SustainabilityContentApp>();
 
-            builder.Services.AddSingleton<IPageMetricService, PageMetricService>();
+            builder.Sections().Append<SustainabilitySection>();
+
+            builder.Services.AddScoped<IPageMetricService, PageMetricService>();
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
         }
     }

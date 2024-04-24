@@ -1,0 +1,79 @@
+<script type="module">
+  import tgwf from 'https://cdn.skypack.dev/@tgwf/co2';
+  window.emissions = new tgwf.co2();
+  window.hosting = tgwf.hosting;
+</script>
+
+<div ng-controller="Umbraco.Sustainability.Overview.Controller as vm">
+
+  <umb-editor-view footer="false">
+
+    <umb-editor-header name="vm.name"
+                       name-locked="true"
+                       hide-description="true"
+                       hide-alias="true"
+                       hide-icon="true">
+    </umb-editor-header>
+
+    <umb-editor-container>
+      <div class="umb-package-details">
+        <div class="umb-package-details__main-content">
+          <uui-box headline="Recently tested pages" ng-if="recentData">
+            <uui-table style="margin-bottom: 24px;">
+              <uui-table-head>
+                <uui-table-head-cell></uui-table-head-cell>
+                <uui-table-head-cell>Last Run Date</uui-table-head-cell>
+                <uui-table-head-cell>Carbon Rating</uui-table-head-cell>
+              </uui-table-head>
+
+              <uui-table-row ng-repeat="data in recentData">
+                <uui-table-cell>
+                  <a style="text-decoration: underline;" href="/umbraco/#/content/content/edit/{{data.NodeId}}">{{data.NodeName}}</a>
+                </uui-table-cell>
+
+                <uui-table-cell>
+                  {{data.RequestDate}}
+                </uui-table-cell>
+
+                <uui-table-cell>
+                  <uui-tag style="font-size: 14px" color="{{vm.getTagColour(data.CarbonRating)}}">
+                    {{data.CarbonRating}}
+                  </uui-tag>
+                </uui-table-cell>
+              </uui-table-row>
+            </uui-table>
+
+            <uui-button look="primary" href="/umbraco#sustainability/sustainabilityTree/stats">
+              See more data
+            </uui-button>
+          </uui-box>
+        </div>
+        <div class="umb-package-details__sidebar">
+          <div class="umb-user-cards">
+            <uui-box headline="Average carbon rating">
+              <uui-tag style="font-size: 14px;" color="{{vm.getTagColour(grade)}}">
+                {{grade}}
+              </uui-tag>
+            </uui-box>
+
+            <uui-box headline="Average page size">
+              {{(averagePageSize / 1024).toFixed(2)}}KB
+            </uui-box>
+
+            <uui-box headline="Average CO₂ per page view">
+              {{averageEmissions.toFixed(4)}}g
+            </uui-box>
+
+            <uui-box headline="Green hosting" ng-if="!isLocalhost && !isDebug">
+              <p slot="header" style="margin-bottom: 0;">Powered by <a href="https://www.thegreenwebfoundation.org/co2-js/" target="_blank">CO2.js</a></p>
+              <p style="margin-bottom: 0;" ng-if="greenHosting == true && !greenHostingLoading">Yes!</p>
+              <p style="margin-bottom: 0;" ng-if="greenHosting != true  && !greenHostingLoading">No!</p>
+              <p style="margin-bottom: 0;" ng-if="greenHostingLoading == true">Loading...</p>
+            </uui-box>
+          </div>
+        </div>
+      </div>
+    </umb-editor-container>
+
+  </umb-editor-view>
+</div>
