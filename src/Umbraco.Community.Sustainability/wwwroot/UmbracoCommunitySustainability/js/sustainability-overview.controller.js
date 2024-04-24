@@ -8,24 +8,26 @@ angular.module('umbraco').controller('Umbraco.Sustainability.Overview.Controller
 
       vm.name = "Overview";
 
+      $scope.recentData = [];
+
       $scope.greenHosting = undefined;
       $scope.greenHostingLoading = true;
 
-      $scope.isLocalhost = window.location.host.includes('localhost')
+      $scope.isLocalhost = window.location.host.includes('localhost');
       $scope.isDebug = Umbraco.Sys.ServerVariables.isDebuggingEnabled;
 
       $scope.averagePageSize = 0;
       $scope.averageEmissions = 0;
 
-      vm.getTagColour = getTagColour;
-      vm.calculateGrade = calculateGrade;
+      vm.getTagColour = sustainabilityResource.getTagColour;
+      vm.calculateGrade = sustainabilityResource.calculateGrade;
 
       init();
 
       function init() {
         window.setTimeout(function () {
           if (window.hosting && !$scope.isLocalhost && !$scope.isDebug) {
-            window.hosting.check('google.com', 'UmbracoSustainabilityPackage').then(data => {
+              window.hosting.check(window.location.host, 'UmbracoSustainabilityPackage').then(data => {
               $scope.greenHosting = !!JSON.parse(data);
               $scope.greenHostingLoading = false;
             });
@@ -38,7 +40,7 @@ angular.module('umbraco').controller('Umbraco.Sustainability.Overview.Controller
           $scope.grade = vm.calculateGrade($scope.averageEmissions);
         });
 
-        sustainabilityResource.getOverviewData(1, 10).then(function (data) {
+        sustainabilityResource.getOverviewData(1, 10, 'RequestDate', 'Descending').then(function (data) {
           $scope.recentData = data.items;
 
           angular.forEach($scope.recentData, function (item) {
@@ -48,36 +50,5 @@ angular.module('umbraco').controller('Umbraco.Sustainability.Overview.Controller
           });
         });
       }
-
-      function getTagColour(carbonRating) {
-        if (carbonRating == "E" || carbonRating == "F") {
-          return "danger";
-        }
-        else if (carbonRating == "D") {
-          return "warning";
-        }
-        else return "positive";
-      }
-
-      function calculateGrade(score) {
-        // grade using swd digital carbon ratings
-        // https://sustainablewebdesign.org/digital-carbon-ratings/
-        if (score < 0.095) {
-          return 'A+';
-        } else if (score < 0.186) {
-          return 'A';
-        } else if (score < 0.341) {
-          return 'B';
-        } else if (score < 0.493) {
-          return 'C';
-        } else if (score < 0.656) {
-          return 'D';
-        } else if (score < 0.846) {
-          return 'E';
-        } else {
-          return 'F';
-        }
-      }
-
     }
   ]);

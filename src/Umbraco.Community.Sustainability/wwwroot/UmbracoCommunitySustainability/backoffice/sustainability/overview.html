@@ -16,9 +16,9 @@
     </umb-editor-header>
 
     <umb-editor-container>
-      <div class="umb-package-details">
+      <div class="umb-package-details" ng-if="recentData.length != 0">
         <div class="umb-package-details__main-content">
-          <uui-box headline="Recently tested pages" ng-if="recentData">
+          <uui-box headline="Recently tested pages">
             <uui-table style="margin-bottom: 24px;">
               <uui-table-head>
                 <uui-table-head-cell></uui-table-head-cell>
@@ -73,6 +73,11 @@
           </div>
         </div>
       </div>
+
+      <umb-empty-state ng-if="recentData.length == 0"
+                       position="center">
+        <p>No data to show yet.</p>
+      </umb-empty-state>
     </umb-editor-container>
 
   </umb-editor-view>

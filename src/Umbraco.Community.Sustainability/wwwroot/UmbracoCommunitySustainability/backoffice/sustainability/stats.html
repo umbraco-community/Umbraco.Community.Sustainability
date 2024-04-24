@@ -10,7 +10,7 @@
     </umb-editor-header>
 
     <umb-editor-container>
-      <uui-box ng-if="!vm.loading">
+      <uui-box ng-if="!vm.loading && vm.sustainabilityData.length != 0">
         <uui-table>
 
           <uui-table-head>
@@ -108,6 +108,11 @@
                         on-change="vm.changePageNumber(pageNumber)">
         </umb-pagination>
       </div>
+
+      <umb-empty-state ng-if="vm.sustainabilityData.length == 0"
+                       position="center">
+        <p>No data to show yet.</p>
+      </umb-empty-state>
     </umb-editor-container>
   </umb-editor-view>
 </div>

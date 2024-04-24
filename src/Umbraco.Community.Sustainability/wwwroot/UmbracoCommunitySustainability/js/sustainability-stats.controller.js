@@ -15,7 +15,7 @@ angular.module('umbraco').controller('Umbraco.Sustainability.Stats.Controller',
       vm.sortingColumn = 'CarbonRating';
 
       vm.changePageNumber = changePageNumber;
-      vm.getTagColour = getTagColour;
+      vm.getTagColour = sustainabilityResource.getTagColour;
       vm.sortingHandler = sortingHandler;
 
       init();

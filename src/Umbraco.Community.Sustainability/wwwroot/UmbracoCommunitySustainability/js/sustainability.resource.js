@@ -10,7 +10,9 @@
       getOverviewData: getOverviewData,
       getAverageData: getAverageData,
       checkPage: checkPage,
-      saveResult: saveResult
+      saveResult: saveResult,
+      getTagColour: getTagColour,
+      calculateGrade: calculateGrade
     };
 
     function getData(pageId) {
@@ -56,6 +58,36 @@
         'Failed to save sustainability data'
       );
     };
+
+    function getTagColour(carbonRating) {
+      if (carbonRating == "E" || carbonRating == "F") {
+        return "danger";
+      }
+      else if (carbonRating == "D") {
+        return "warning";
+      }
+      else return "positive";
+    }
+
+    function calculateGrade(score) {
+      // grade using swd digital carbon ratings
+      // https://sustainablewebdesign.org/digital-carbon-ratings/
+      if (score < 0.095) {
+        return 'A+';
+      } else if (score < 0.186) {
+        return 'A';
+      } else if (score < 0.341) {
+        return 'B';
+      } else if (score < 0.493) {
+        return 'C';
+      } else if (score < 0.656) {
+        return 'D';
+      } else if (score < 0.846) {
+        return 'E';
+      } else {
+        return 'F';
+      }
+    }
 
     return resource;
   }

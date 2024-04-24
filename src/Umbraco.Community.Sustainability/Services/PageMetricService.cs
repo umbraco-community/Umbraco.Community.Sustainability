@@ -49,11 +49,16 @@ namespace Umbraco.Community.Sustainability.Services
         {
             var overviewMetrics = await GetOverviewMetrics();
 
-            return new AveragePageMetrics()
+            if (overviewMetrics.Any())
             {
-                PageSize = overviewMetrics.Sum(x => x.TotalSize) / overviewMetrics.Count(),
-                Emissions = overviewMetrics.Sum(x => x.TotalEmissions) / overviewMetrics.Count(),
-            };
+                return new AveragePageMetrics()
+                {
+                    PageSize = overviewMetrics.Sum(x => x.TotalSize) / overviewMetrics.Count(),
+                    Emissions = overviewMetrics.Sum(x => x.TotalEmissions) / overviewMetrics.Count(),
+                };
+            }
+
+            return new();
         }
 
         public async Task<IEnumerable<PageMetric>> GetPageMetrics(int pageId)
