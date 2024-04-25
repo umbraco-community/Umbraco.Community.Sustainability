@@ -21,7 +21,7 @@ On each content page, a Content App is added which allows users to see and bench
 
 ## Installation
 
-Add the package to an existing Umbraco website (v10.4+) from nuget:
+Add the package to an existing Umbraco website (v10.8.0+) from nuget:
 
 `dotnet add package Umbraco.Community.Sustainability`
 
