@@ -26,6 +26,35 @@ export class SustainabilityService {
  * @returns unknown Success
  * @throws ApiError
  */
+    public static getAverageData(): CancelablePromise<$OpenApiTs['/umbraco/sustainability/api/v1/getAverageData']['get']['res'][200]> {
+        return __request(OpenAPI, {
+    method: 'GET',
+    url: '/umbraco/sustainability/api/v1/getAverageData'
+});
+    }
+    
+    /**
+ * @returns unknown Success
+ * @throws ApiError
+ */
+    public static getOverviewData(data: $OpenApiTs['/umbraco/sustainability/api/v1/getOverviewData']['get']['req'] = {}): CancelablePromise<$OpenApiTs['/umbraco/sustainability/api/v1/getOverviewData']['get']['res'][200]> {
+        const { pageNumber, pageSize, orderBy, direction } = data;
+        return __request(OpenAPI, {
+    method: 'GET',
+    url: '/umbraco/sustainability/api/v1/getOverviewData',
+    query: {
+        pageNumber,
+        pageSize,
+        orderBy,
+        direction
+    }
+});
+    }
+    
+    /**
+ * @returns unknown Success
+ * @throws ApiError
+ */
     public static getPageData(data: $OpenApiTs['/umbraco/sustainability/api/v1/getPageData']['get']['req'] = {}): CancelablePromise<$OpenApiTs['/umbraco/sustainability/api/v1/getPageData']['get']['res'][200]> {
         const { pageGuid } = data;
         return __request(OpenAPI, {

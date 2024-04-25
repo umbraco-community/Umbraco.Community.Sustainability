@@ -17,23 +17,23 @@ namespace Umbraco.Community.Sustainability.Notifications
         private readonly ICoreScopeProvider _coreScopeProvider;
         private readonly IKeyValueService _keyValueService;
         private readonly IRuntimeState _runtimeState;
-        private readonly IUserService _userService;
+        private readonly IUserGroupService _userGroupService;
 
         public PageMetricsNotificationHandler(
             ICoreScopeProvider coreScopeProvider,
             IMigrationPlanExecutor migrationPlanExecutor,
             IKeyValueService keyValueService,
             IRuntimeState runtimeState,
-            IUserService userService)
+            IUserGroupService userGroupService)
         {
             _migrationPlanExecutor = migrationPlanExecutor;
             _coreScopeProvider = coreScopeProvider;
             _keyValueService = keyValueService;
             _runtimeState = runtimeState;
-            _userService = userService;
+            _userGroupService = userGroupService;
         }
 
-        public void Handle(UmbracoApplicationStartingNotification notification)
+        public async void Handle(UmbracoApplicationStartingNotification notification)
         {
             if (_runtimeState.Level < RuntimeLevel.Run)
             {
@@ -57,14 +57,14 @@ namespace Umbraco.Community.Sustainability.Notifications
                 _migrationPlanExecutor,
                 _coreScopeProvider,
                 _keyValueService);
-
-            var adminGroup = _userService.GetUserGroupByAlias(Cms.Core.Constants.Security.AdminGroupAlias);
+            
+            var adminGroup = await _userGroupService.GetAsync(Cms.Core.Constants.Security.AdminGroupAlias);
             if (adminGroup != null)
             {
                 if (!adminGroup.AllowedSections.Contains(Constants.SectionAlias))
                 {
                     adminGroup.AddAllowedSection(Constants.SectionAlias);
-                    _userService.Save(adminGroup);
+                    await _userGroupService.UpdateAsync(adminGroup, Cms.Core.Constants.Security.SuperUserKey);
                 }
             }
         }

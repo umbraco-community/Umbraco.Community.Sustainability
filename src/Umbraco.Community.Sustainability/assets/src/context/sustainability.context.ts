@@ -6,7 +6,7 @@ import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
 
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth'
-import { OpenAPI, SustainabilityResponse } from "@api";
+import { AveragePageMetrics, DirectionModel, OpenAPI, SustainabilityResponse } from "@api";
 
 export class SustainabilityManagementContext extends UmbControllerBase {
   
@@ -14,6 +14,9 @@ export class SustainabilityManagementContext extends UmbControllerBase {
 
   #pageData = new UmbObjectState<SustainabilityResponse | undefined>(undefined);
   public readonly pageData = this.#pageData.asObservable();
+
+  #averageData = new UmbObjectState<AveragePageMetrics | undefined>(undefined);
+  public readonly averageData = this.#averageData.asObservable();
 
   constructor(host: UmbControllerHost) {
     super(host);
@@ -53,6 +56,13 @@ export class SustainabilityManagementContext extends UmbControllerBase {
   async savePageData(pageGuid: string, sustainabilityResponse: SustainabilityResponse) {
     const saved = await this.#repository.savePageData(pageGuid, sustainabilityResponse);
     return saved;
+  }
+
+  async getAverageData() {
+    const { data } = await this.#repository.getAverageData();
+    if (data) {
+      this.#averageData.setValue(data);
+    }
   }
   
 }
