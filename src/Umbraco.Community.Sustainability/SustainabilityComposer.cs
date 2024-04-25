@@ -3,6 +3,7 @@ using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Community.Sustainability.Notifications;
+using Umbraco.Community.Sustainability.Sections;
 using Umbraco.Community.Sustainability.Services;
 
 namespace Umbraco.Community.Sustainability
@@ -19,7 +20,9 @@ namespace Umbraco.Community.Sustainability
 
             builder.AddNotificationHandler<UmbracoApplicationStartingNotification, PageMetricsNotificationHandler>();
 
-            builder.Services.AddSingleton<IPageMetricService, PageMetricService>();
+            builder.Sections().Append<SustainabilitySection>();
+
+            builder.Services.AddScoped<IPageMetricService, PageMetricService>();
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
 
 #if NET8_0

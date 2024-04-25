@@ -6,13 +6,22 @@
 
 A package from the [Umbraco Community Sustainability Team](https://umbraco.com/blog/meet-the-new-community-sustainability-team/) which helps developers and editors see and improve the carbon impact of their websites.
 
-In the Backoffice, there is a Content App to see page weight and carbon emissions, which is then converted to a carbon rating for individual pages.
+## Features
+Once installed, two new features are enabled:
 
-<img src="https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-contentapp-2.jpeg" alt="Umbraco.Community.Sustainability content app" />
+### Sustainability section
+A section is enabled automatically for admin users that allows tracking of average stats based on recent tests, plus a breakdown of all scores per page.
+
+![Umbraco.Community.Sustainability dashboard](https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-dashboard-1.png)
+
+### Sustainability content app
+On each content page, a Content App is added which allows users to see and benchmark page weight and carbon emissions, which is then converted to a carbon rating for individual pages.
+
+![Umbraco.Community.Sustainability content app](https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-contentapp-2.jpeg)
 
 ## Installation
 
-Add the package to an existing Umbraco website (v10.4+) from nuget:
+Add the package to an existing Umbraco website (v10.8.0+) from nuget:
 
 `dotnet add package Umbraco.Community.Sustainability`
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <language alias="en" intName="English (UK)" localName="English (UK)" lcid="" culture="en-GB">
-    <area alias="Umbraco.Community.Sustainability">
+    <area alias="sections">
+      <key alias="sustainability">Sustainability</key>
     </area>
 </language>

@@ -17,6 +17,9 @@ namespace Umbraco.Community.Sustainability.Schemas
         [Column("NodeId")]
         public int NodeId { get; set; }
 
+        [Ignore]
+        public string? NodeName { get; set; }
+
         [Column("RequestedBy")]
         [NullSetting(NullSetting = NullSettings.Null)]
         public string? RequestedBy { get; set; }
