@@ -27,6 +27,14 @@
     {
       "ImageUrl": "https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-contentapp-2.jpeg",
       "Caption": "Content app for Sustainability - view detailed report"
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-dashboard-1.png",
+      "Caption": "Sustainability section - overview and average scores"
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-dashboard-2.png",
+      "Caption": "Sustainability section - breakdown of all recent reports"
     }
   ],
   "Tags": [
