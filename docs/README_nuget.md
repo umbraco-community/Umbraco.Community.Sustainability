@@ -12,12 +12,12 @@ Once installed, two new features are enabled:
 ### Sustainability section
 A section is enabled automatically for admin users that allows tracking of average stats based on recent tests, plus a breakdown of all scores per page.
 
-![Umbraco.Community.Sustainability dashboard](https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-dashboard-1.png")
+![Umbraco.Community.Sustainability dashboard](https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-dashboard-1.png)
 
 ### Sustainability content app
 On each content page, a Content App is added which allows users to see and benchmark page weight and carbon emissions, which is then converted to a carbon rating for individual pages.
 
-![Umbraco.Community.Sustainability content app](https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-contentapp-2.jpeg")
+![Umbraco.Community.Sustainability content app](https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-contentapp-2.jpeg)
 
 ## Installation
 
