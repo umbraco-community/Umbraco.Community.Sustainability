@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Operations;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
@@ -39,7 +41,7 @@ namespace Umbraco.Community.Sustainability.Controllers
             switch (orderBy)
             {
                 case nameof(PageMetric.CarbonRating):
-                    filter = x => x.CarbonRating;
+                    filter = x => GetCarbonRatingOrder(x.CarbonRating);
                     break;
                 case nameof(PageMetric.RequestDate):
                     filter = x => x.RequestDate;
@@ -125,6 +127,29 @@ namespace Umbraco.Community.Sustainability.Controllers
 
             await _pageMetricService.AddPageMetric(pageMetric);
             return Ok(true);
+        }
+
+        private int GetCarbonRatingOrder(string carbonRating)
+        {
+            switch (carbonRating)
+            {
+                case "A+":
+                    return 1;
+                case "A":
+                    return 2;
+                case "B":
+                    return 3;
+                case "C":
+                    return 4;
+                case "D":
+                    return 5;
+                case "E":
+                    return 6;
+                case "F":
+                    return 7;
+                default:
+                    return 7;
+            }
         }
     }
 }
