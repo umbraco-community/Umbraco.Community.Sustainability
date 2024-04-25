@@ -15,15 +15,17 @@ namespace Umbraco.Community.Sustainability
                 AllowPackageTelemetry = true,
                 Scripts = new string[] {
                     // List any Script files
-                    // Urls should start '/App_Plugins/Umbraco.Community.Sustainability/' not '/wwwroot/Umbraco.Community.Sustainability/', e.g.
-                    "/App_Plugins/Umbraco.Community.Sustainability/js/sustainability.resource.js",
-                    "/App_Plugins/Umbraco.Community.Sustainability/js/sustainability-content-app.controller.js"
+                    // Urls should start '/App_Plugins/UmbracoCommunitySustainability/' not '/wwwroot/UmbracoCommunitySustainability/', e.g.
+                    "/App_Plugins/UmbracoCommunitySustainability/js/sustainability.resource.js",
+                    "/App_Plugins/UmbracoCommunitySustainability/js/sustainability-stats.controller.js",
+                    "/App_Plugins/UmbracoCommunitySustainability/js/sustainability-overview.controller.js",
+                    "/App_Plugins/UmbracoCommunitySustainability/js/sustainability-content-app.controller.js"
                 },
                 Stylesheets = new string[]
                 {
                     // List any Stylesheet files
-                    // Urls should start '/App_Plugins/Umbraco.Community.Sustainability/' not '/wwwroot/Umbraco.Community.Sustainability/', e.g.
-                    // "/App_Plugins/Umbraco.Community.Sustainability/Styles/styles.css"
+                    // Urls should start '/App_Plugins/UmbracoCommunitySustainability/' not '/wwwroot/Umbraco.Community.Sustainability/', e.g.
+                    // "/App_Plugins/UmbracoCommunitySustainability/Styles/styles.css"
                 }
             });
         }

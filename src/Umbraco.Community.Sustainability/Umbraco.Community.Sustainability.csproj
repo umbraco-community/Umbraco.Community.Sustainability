@@ -13,7 +13,7 @@
     <RootNamespace>Umbraco.Community.Sustainability</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>alpha.2</VersionSuffix>
+    <VersionSuffix></VersionSuffix>
     <Authors>Umbraco Sustainability Community Team</Authors>
     <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © Umbraco Sustainability Community Team</Copyright>
     <PackageProjectUrl>https://github.com/rickbutterfield/Umbraco.Community.Sustainability</PackageProjectUrl>
@@ -28,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="[10.0.0, 11.0.0)" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[10.0.0, 11.0.0)" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="[10.8.0, 11.0.0)" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[10.8.0, 11.0.0)" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">

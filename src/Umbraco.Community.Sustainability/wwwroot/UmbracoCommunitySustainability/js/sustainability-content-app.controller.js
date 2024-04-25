@@ -1,4 +1,4 @@
-angular.module('umbraco').controller('Umbraco.Sustainability.Controller',
+angular.module('umbraco').controller('Umbraco.Sustainability.ContentApp.Controller',
   ['$scope', 'editorState', 'Umbraco.Sustainability.Resources.SustainabilityResource',
     function ($scope, editorState, sustainabilityResource) {
 
@@ -7,7 +7,7 @@ angular.module('umbraco').controller('Umbraco.Sustainability.Controller',
       $scope.id = "";
       $scope.loading = true;
 
-      vm.buttonState = "init";
+      vm.buttonState = undefined;
       vm.clickButton = checkPage;
 
       init();
@@ -22,7 +22,7 @@ angular.module('umbraco').controller('Umbraco.Sustainability.Controller',
       }
 
       function checkPage() {
-        vm.buttonState = "busy";
+        vm.buttonState = "waiting";
 
         sustainabilityResource.checkPage($scope.id).then(function (data) {
           $scope.sustainabilityData = data;
