@@ -33,6 +33,7 @@ export type PageMetric = {
     id: number;
     nodeId: number;
     nodeName?: string | null;
+    nodeKey?: string | null;
     requestedBy?: string | null;
     requestDate: string;
     totalSize: number;

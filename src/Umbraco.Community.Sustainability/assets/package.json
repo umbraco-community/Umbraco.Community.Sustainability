@@ -11,6 +11,8 @@
     "generate": "openapi-ts --input http://localhost:35066/umbraco/swagger/sustainability/swagger.json --output src/api --debug true --enums typescript --lint true --schemas false"
   },
   "dependencies": {
+    "@tgwf/co2": "^0.14.4",
+    "@types/tgwf__co2": "^0.14.2",
     "lit": "^3.1.0"
   },
   "devDependencies": {

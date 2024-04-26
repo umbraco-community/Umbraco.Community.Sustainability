@@ -1,14 +1,14 @@
 import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 import { html, LitElement, customElement, css, state, property, repeat } from '@umbraco-cms/backoffice/external/lit'
 import { UMB_WORKSPACE_CONTEXT, UmbVariantableWorkspaceContextInterface } from "@umbraco-cms/backoffice/workspace";
-import SustainabilityManagementContext, { SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN } from "../../context/sustainability.context";
-import { ExternalResourceGroup, SustainabilityResponse } from "@api";
 import type { UmbDocumentWorkspaceContext } from '@umbraco-cms/backoffice/document';
+import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from "../../context/sustainability.context";
+import { ExternalResourceGroup, SustainabilityResponse } from "../../api";
 
 @customElement('sustainability-workspace-view')
 export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) {
 
-  #sustainabilityContext?: SustainabilityManagementContext;
+  #sustainabilityContext?: SustainabilityContext;
 
   @state()
   private _documentUnique?: string = '';
@@ -42,10 +42,10 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
       this.pageName = variantContext.getName();
     });
 
-    this.consumeContext(SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN, (_instance) => {
-      this.#sustainabilityContext = _instance;
+    this.consumeContext(SUSTAINABILITY_CONTEXT, (instance) => {
+      this.#sustainabilityContext = instance;
 
-      this.observe(_instance.pageData, (_pageData) => {
+      this.observe(instance.pageData, (_pageData) => {
         this.pageData = _pageData;
         if (this.pageData != null) {
           if (typeof this.pageData?.totalSize !== "undefined") {

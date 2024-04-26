@@ -1,9 +1,9 @@
 import { UmbElementMixin as _ } from "@umbraco-cms/backoffice/element-api";
 import { LitElement as w, html as u, repeat as f, css as x, state as v, property as d, customElement as b } from "@umbraco-cms/backoffice/external/lit";
 import { UMB_WORKSPACE_CONTEXT as k } from "@umbraco-cms/backoffice/workspace";
-import { SUSTAINABILITY_MANAGEMENT_CONTEXT_TOKEN as C } from "./sustainability.context-Db2dXv8K.js";
-var D = Object.defineProperty, E = Object.getOwnPropertyDescriptor, r = (t, i, e, a) => {
-  for (var s = a > 1 ? void 0 : a ? E(i, e) : i, l = t.length - 1, p; l >= 0; l--)
+import { S as C } from "./index-CvbKOwCL.js";
+var D = Object.defineProperty, S = Object.getOwnPropertyDescriptor, r = (t, i, e, a) => {
+  for (var s = a > 1 ? void 0 : a ? S(i, e) : i, l = t.length - 1, p; l >= 0; l--)
     (p = t[l]) && (s = (a ? p(i, e, s) : p(s)) || s);
   return a && s && D(i, e, s), s;
 }, g = (t, i, e) => {
@@ -13,7 +13,7 @@ var D = Object.defineProperty, E = Object.getOwnPropertyDescriptor, r = (t, i, e
   if (i.has(t))
     throw TypeError("Cannot add the same private member more than once");
   i instanceof WeakSet ? i.add(t) : i.set(t, e);
-}, S = (t, i, e, a) => (g(t, i, "write to private field"), a ? a.call(t, e) : i.set(t, e), e), $ = (t, i, e) => (g(t, i, "access private method"), e), n, h, y;
+}, $ = (t, i, e, a) => (g(t, i, "write to private field"), a ? a.call(t, e) : i.set(t, e), e), E = (t, i, e) => (g(t, i, "access private method"), e), n, h, y;
 let o = class extends _(w) {
   constructor() {
     super(), m(this, h), m(this, n, void 0), this._documentUnique = "", this.pageName = "", this.loading = !0, this.waiting = !1, this.consumeContext(k, (t) => {
@@ -24,7 +24,7 @@ let o = class extends _(w) {
       const e = t;
       console.log(e.getName()), this.pageName = e.getName();
     }), this.consumeContext(C, (t) => {
-      S(this, n, t), this.observe(t.pageData, (i) => {
+      $(this, n, t), this.observe(t.pageData, (i) => {
         var e;
         this.pageData = i, this.pageData != null && typeof ((e = this.pageData) == null ? void 0 : e.totalSize) < "u" && (this.loading = !1);
       });
@@ -51,7 +51,7 @@ let o = class extends _(w) {
               ${f(
       (t = this.pageData) == null ? void 0 : t.resourceGroups,
       (a) => a.name,
-      (a) => $(this, h, y).call(this, a)
+      (a) => E(this, h, y).call(this, a)
     )}
             </div>
             <div class="container">
@@ -120,9 +120,9 @@ r([
 o = r([
   b("sustainability-workspace-view")
 ], o);
-const U = o;
+const q = o;
 export {
   o as SustainabilityWorkspaceElement,
-  U as default
+  q as default
 };
-//# sourceMappingURL=sustainability-workspace-view-CEJzb1eL.js.map
+//# sourceMappingURL=sustainability-workspace-view-X_5SRcyw.js.map

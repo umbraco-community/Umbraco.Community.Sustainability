@@ -1,9 +1,9 @@
 import { UmbControllerBase } from "@umbraco-cms/backoffice/class-api";
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
-import { SustainabilityManagementDataSource } from "./sources/sustainability.datasource";
-import { DirectionModel, SustainabilityResponse } from "@api";
+import { SustainabilityManagementDataSource } from "./sources/sustainability.source";
+import { DirectionModel, SustainabilityResponse } from "../api";
 
-export class SustainabilityManagementRepository extends UmbControllerBase {
+export class SustainabilityRepository extends UmbControllerBase {
   #sustainabilityDataSource: SustainabilityManagementDataSource;
 
   constructor(host: UmbControllerHost) {

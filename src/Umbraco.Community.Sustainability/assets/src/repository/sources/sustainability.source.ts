@@ -1,7 +1,7 @@
 import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { UmbDataSourceResponse } from "@umbraco-cms/backoffice/repository";
 import { tryExecuteAndNotify } from '@umbraco-cms/backoffice/resources';
-import { SustainabilityService, type SustainabilityResponse, DirectionModel, PagedResultPageMetricModel, AveragePageMetrics } from "@api";
+import { SustainabilityService, type SustainabilityResponse, DirectionModel, PagedResultPageMetricModel, AveragePageMetrics } from "../../api";
 
 export interface SustainabilityDataSource {
 

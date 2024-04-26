@@ -38,6 +38,7 @@ namespace Umbraco.Community.Sustainability.Services
             {
                 var node = _contentQuery.Content(result.NodeId);
                 result.NodeName = node?.Name;
+                result.NodeKey = node?.Key;
             }
 
             scope.Complete();
