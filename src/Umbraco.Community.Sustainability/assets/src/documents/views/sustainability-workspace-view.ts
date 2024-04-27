@@ -81,7 +81,7 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
       return html`
           <uui-box headline="Loading sustainability report...">
               <p>It looks like you haven't run a report on this page yet. Click the button below to get started.</p>
-              <uui-button look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
+              <uui-button label="Run sustainability report" look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
                 Run sustainability report
               </uui-button>
           </uui-box>
@@ -99,7 +99,7 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
             <div class="container">
               <uui-box headline="Sustainability report">
                 <p><strong>Last tested:</strong> ${new Intl.DateTimeFormat('en-GB', { dateStyle: "long", timeStyle: "short" }).format(new Date(this.pageData?.lastRunDate!))}</p>
-                <uui-button look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
+                <uui-button label="Run again" look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
                   Run again
                 </uui-button>
               </uui-box>

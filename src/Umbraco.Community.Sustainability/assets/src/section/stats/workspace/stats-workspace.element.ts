@@ -9,7 +9,16 @@ const elementName = "stats-workspace";
 @customElement(elementName)
 export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
 
-  #sustainabilityContext: SustainabilityContext;
+  #sustainabilityContext?: SustainabilityContext;
+
+  #localizeDateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  };
 
   @state()
   _data?: PagedResultPageMetricModel;
@@ -54,7 +63,7 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
     }
     else this._orderDirection = DirectionModelEnum.ASCENDING;
 
-    this.#sustainabilityContext.getOverviewData(this._orderDirection, this._orderBy, this._pageNumber, this._pageSize);
+    this.#sustainabilityContext?.getOverviewData(this._orderDirection, this._orderBy, this._pageNumber, this._pageSize);
   }
 
   #onChange(event: UUIPaginationEvent) {
@@ -74,8 +83,8 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
     if (this._data?.totalPages === 1) return;
     return html`
       <uui-pagination
-        .total=${this._data.totalPages}
-        .current=${this._data?.pageNumber}
+        .total=${this._data?.totalPages!}
+        .current=${this._data?.pageNumber!}
         @change=${this.#onChange}>
       </uui-pagination>
     `;
@@ -98,6 +107,7 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
                   <uui-table-head-cell></uui-table-head-cell>
                   <uui-table-head-cell style="--uui-table-cell-padding: 0">
                     <uui-button
+                      label="Last Run Date"
                       style="font-weight: bold; padding: var(--uui-size-4) 0"
                       @click=${() => this._sortingHandler('RequestDate')}>
                       Last Run Date
@@ -109,6 +119,7 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
                   </uui-table-head-cell>
                   <uui-table-head-cell style="--uui-table-cell-padding: 0">
                     <uui-button
+                      label="Carbon Rating"
                       style="font-weight: bold; padding: var(--uui-size-4) 0"
                       @click=${() => this._sortingHandler('CarbonRating')}>
                       Carbon Rating
@@ -120,6 +131,7 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
                   </uui-table-head-cell>
                   <uui-table-head-cell style="text-align: right;">
                     <uui-button
+                      label="Page Size"
                       style="font-weight: bold; padding: var(--uui-size-4) 0"
                       @click=${() => this._sortingHandler('TotalSize')}>
                       Page Size
@@ -131,6 +143,7 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
                   </uui-table-head-cell>
                   <uui-table-head-cell style="text-align: right;">
                     <uui-button
+                      label="CO₂ per page view"
                       style="font-weight: bold; padding: var(--uui-size-4) 0"
                       @click=${() => this._sortingHandler('TotalEmissions')}>
                       CO₂ per page view
@@ -142,7 +155,7 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
                   </uui-table-head-cell>
                 </uui-table-head>
                 ${repeat(
-                  this._data.items,
+                  this._data?.items!,
                   (item: PageMetric) => item,
                   (item: PageMetric) => html`
                     <uui-table-row>
@@ -152,12 +165,12 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
                         </a>
                       </uui-table-cell>
                       <uui-table-cell>
-                        ${item.requestDate}
+                        <umb-localize-date date=${item.requestDate} .options=${this.#localizeDateOptions}>
+                        </umb-localize-date>
                       </uui-table-cell>
                       <uui-table-cell>
-                        <uui-tag>
-                          ${item.carbonRating}
-                        </uui-tag>
+                        <sustainability-carbon-rating .carbonRating=${item.carbonRating}>
+                        </sustainability-carbon-rating>
                       </uui-table-cell>
                       <uui-table-cell style="text-align: right;">
                         ${(item.totalSize / 1024).toFixed(2)}KB

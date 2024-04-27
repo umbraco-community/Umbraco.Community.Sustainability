@@ -11,6 +11,15 @@ export class SustainabilityOverviewElement extends UmbLitElement {
 
   #sustainabilityContext?: SustainabilityContext;
 
+  #localizeDateOptions: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  };
+
   @state()
   _overviewData?: PagedResultPageMetricModel;
 
@@ -18,7 +27,7 @@ export class SustainabilityOverviewElement extends UmbLitElement {
   _averageData?: AveragePageMetrics;
 
   @state()
-  _greenHost?: Boolean | undefined = undefined;
+  _greenHost: boolean = false;
   
   constructor() {
     super();
@@ -46,13 +55,13 @@ export class SustainabilityOverviewElement extends UmbLitElement {
       await this.#sustainabilityContext.getAverageData();
     }
 
-    hosting.check(window.location.hostname, 'Test').then((result: boolean) => {
-      this._greenHost = result;
-    })
+    if (hosting.check(window.location.hostname, 'Test')) {
+      this._greenHost = true;
+    }
   }
 
   #renderNoResults() {
-    if (this._overviewData?.items.length === 0) {
+    if (this._overviewData?.items?.length === 0) {
       return html`
         <uui-box>
           No data to show yet. Once you've run some tests, you'll see an overview of all your data here.
@@ -63,7 +72,7 @@ export class SustainabilityOverviewElement extends UmbLitElement {
 
 
   #renderResults() {
-    if (this._overviewData?.items.length !== 0) {
+    if (this._overviewData?.items?.length !== 0) {
       return html`
       <div id="left-column">
         <uui-box>
@@ -75,7 +84,7 @@ export class SustainabilityOverviewElement extends UmbLitElement {
             </uui-table-head>
 
             ${repeat(
-              this._overviewData.items,
+              this._overviewData?.items!,
               (item: PageMetric) => item,
               (item: PageMetric) => html`
                 <uui-table-row>
@@ -85,24 +94,45 @@ export class SustainabilityOverviewElement extends UmbLitElement {
                     </a>
                   </uui-table-cell>
                   <uui-table-cell>
-                    ${item.requestDate}
+                    <umb-localize-date date=${item.requestDate} .options=${this.#localizeDateOptions}>
+                    </umb-localize-date>
                   </uui-table-cell>
                   <uui-table-cell>
-                    <uui-tag>
-                      ${item.carbonRating}
-                    </uui-tag>
+                    <sustainability-carbon-rating
+                      .carbonRating=${item.carbonRating}>
+                    </sustainability-carbon-rating>
                   </uui-table-cell>
                 </uui-table-row>
                 `
             )}
           </uui-table>
 
-          <uui-button look="primary" href="/umbraco#sustainability/sustainability/stats">
+          <uui-button label="See more data" look="primary" href="/umbraco/section/sustainability/workspace/stats-root">
             See more data
           </uui-button>
         </uui-box>
         </div>
       `
+    }
+  }
+
+  _calculateGrade(score: number): string {
+    // grade using swd digital carbon ratings
+    // https://sustainablewebdesign.org/digital-carbon-ratings/
+    if (score < 0.095) {
+      return 'A+';
+    } else if (score < 0.186) {
+      return 'A';
+    } else if (score < 0.341) {
+      return 'B';
+    } else if (score < 0.493) {
+      return 'C';
+    } else if (score < 0.656) {
+      return 'D';
+    } else if (score < 0.846) {
+      return 'E';
+    } else {
+      return 'F';
     }
   }
 
@@ -132,23 +162,22 @@ export class SustainabilityOverviewElement extends UmbLitElement {
   }
 
   #renderSidebar() {
-    if (this._overviewData?.items.length !== 0) {
+    if (this._overviewData?.items?.length !== 0) {
       return html`
         <div id="right-column">
           ${this.#renderGreenHosting()}
 
           <uui-box headline="Average carbon rating" style="margin-bottom: var(--uui-size-space-4);">
-            <uui-tag>
-              ${this._averageData?.carbonRating}
-            </uui-tag>
+            <sustainability-carbon-rating .carbonRating=${this._calculateGrade(this._averageData?.emissions!)}>
+            </sustainability-carbon-rating>
           </uui-box>
 
           <uui-box headline="Average page size" style="margin-bottom: var(--uui-size-space-4);">
-            ${(this._averageData?.pageSize / 1024).toFixed(2)}KB
+            ${(this._averageData?.pageSize! / 1024).toFixed(2)}KB
           </uui-box>
 
           <uui-box headline="Average CO₂ per page view">
-            ${this._averageData?.emissions.toFixed(4)}g
+            ${this._averageData?.emissions?.toFixed(4)}g
           </uui-box>
 
         </div>

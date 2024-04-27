@@ -10,7 +10,7 @@ export class SustainabilityOverviewDashboardElement extends UmbElementMixin(LitE
   @state()
   private _routes: UmbRoute[] = [
     {
-      path: ``,
+      path: '',
       component: () => import('./views/sustainability-overview.element')
     }
   ];

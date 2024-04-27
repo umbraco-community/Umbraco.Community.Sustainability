@@ -1,8 +1,9 @@
-import { b as o, a as n, o as s } from "./index-CvbKOwCL.js";
+import { a as n, c as o, b as s, o as r } from "./index-DBnCYdbR.js";
 import "@umbraco-cms/backoffice/auth";
 export {
+  n as SustainabilityCarbonRating,
   o as SustainabilityManagementDataSource,
-  n as SustainabilityRepository,
-  s as onInit
+  s as SustainabilityRepository,
+  r as onInit
 };
 //# sourceMappingURL=assets.js.map

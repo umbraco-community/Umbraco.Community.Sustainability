@@ -633,7 +633,7 @@ let R = class extends ht(P) {
     super(), this._routes = [
       {
         path: "",
-        component: () => import("./sustainability-overview.element-w_3pzn_S.js")
+        component: () => import("./sustainability-overview.element-CnDhJHbH.js")
       }
     ];
   }
@@ -652,4 +652,4 @@ export {
   R as SustainabilityOverviewDashboardElement,
   kt as default
 };
-//# sourceMappingURL=sustainability.dashboard.element-BNhxplLh.js.map
+//# sourceMappingURL=sustainability.dashboard.element-DPMJ5DuT.js.map

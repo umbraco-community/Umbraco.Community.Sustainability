@@ -1,5 +1,6 @@
 import { ManifestMenu, ManifestSection, ManifestSectionSidebarAppMenuKind } from "@umbraco-cms/backoffice/extension-registry";
 
+import { manifests as overviewManifests } from './overview/manifests';
 import { manifests as statsManifests } from './stats/manifests';
 
 const sectionAlias = "Umb.Section.Sustainability";
@@ -47,5 +48,6 @@ export const manifests = [
   section,
   menu,
   menuSectionSidebarApp,
+  ...overviewManifests,
   ...statsManifests
 ]
