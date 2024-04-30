@@ -1,4 +1,3 @@
-#if NET8_0
 using System.Text.Json;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
@@ -83,49 +82,39 @@ namespace Umbraco.Community.Sustainability.Controllers
 
         [HttpGet("getPageData")]
         [ProducesResponseType(typeof(SustainabilityResponse), 200)]
-        public async Task<IActionResult> GetPageData([FromQuery] string pageGuid)
+        public async Task<IActionResult> GetPageData([FromQuery] Guid pageGuid)
         {
-            if (Guid.TryParse(pageGuid, out Guid guid))
+            var contentItem = _contentQuery.Content(pageGuid);
+            if (contentItem == null)
             {
-                var contentItem = _contentQuery.Content(guid);
-                if (contentItem == null)
-                {
-                    return NoContent();
-                }
-
-                var pageMetrics = await _pageMetricService.GetPageMetrics(contentItem.Id);
-                var mostRecent = pageMetrics.OrderByDescending(x => x.RequestDate).FirstOrDefault();
-                if (mostRecent?.PageData == null)
-                {
-                    return NoContent();
-                }
-
-                var sustainabilityData = JsonSerializer.Deserialize<SustainabilityResponse>(mostRecent.PageData);
-                return Ok(sustainabilityData);
+                return NoContent();
             }
 
-            return NoContent();
+            var pageMetrics = await _pageMetricService.GetPageMetrics(contentItem.Id);
+            var mostRecent = pageMetrics.OrderByDescending(x => x.RequestDate).FirstOrDefault();
+            if (mostRecent?.PageData == null)
+            {
+                return NoContent();
+            }
+
+            var sustainabilityData = JsonSerializer.Deserialize<SustainabilityResponse>(mostRecent.PageData);
+            return Ok(sustainabilityData);
         }
 
         [HttpGet("checkPage")]
         [ProducesResponseType(typeof(SustainabilityResponse), 200)]
-        public async Task<IActionResult> CheckPage([FromQuery] string pageGuid)
+        public async Task<IActionResult> CheckPage([FromQuery] Guid pageGuid)
         {
-            if (Guid.TryParse(pageGuid, out Guid guid))
+            var contentItem = _contentQuery.Content(pageGuid);
+            if (contentItem == null)
             {
-                var contentItem = _contentQuery.Content(guid);
-                if (contentItem == null)
-                {
-                    return Ok("Page not found");
-                }
-
-                var url = contentItem.Url(mode: UrlMode.Absolute);
-                var sustainabilityData = await _sustainabilityService.GetSustainabilityData(url);
-
-                return Ok(sustainabilityData);
+                return Ok("Page not found");
             }
 
-            return NoContent();
+            var url = contentItem.Url(mode: UrlMode.Absolute);
+            var sustainabilityData = await _sustainabilityService.GetSustainabilityData(url);
+
+            return Ok(sustainabilityData);
         }
 
         [HttpPost("savePageData")]
@@ -137,31 +126,26 @@ namespace Umbraco.Community.Sustainability.Controllers
                 return Ok(false);
             }
 
-            if (Guid.TryParse(pageGuid, out Guid guid))
+            var contentItem = _contentQuery.Content(pageGuid);
+
+            if (contentItem == null)
             {
-                var contentItem = _contentQuery.Content(guid);
-
-                if (contentItem == null)
-                {
-                    return Ok(false);
-                }
-
-                var pageMetric = new PageMetric()
-                {
-                    NodeId = contentItem.Id,
-                    RequestedBy = "Admin",
-                    RequestDate = data.LastRunDate,
-                    TotalSize = data.TotalSize,
-                    TotalEmissions = Convert.ToDecimal(data.TotalEmissions),
-                    CarbonRating = data.CarbonRating,
-                    PageData = JsonSerializer.Serialize(data),
-                };
-
-                await _pageMetricService.AddPageMetric(pageMetric);
-                return Ok(true);
+                return Ok(false);
             }
 
-            return Ok(false);
+            var pageMetric = new PageMetric()
+            {
+                NodeKey = contentItem.Key,
+                RequestedBy = "Admin",
+                RequestDate = data.LastRunDate,
+                TotalSize = data.TotalSize,
+                TotalEmissions = Convert.ToDecimal(data.TotalEmissions),
+                CarbonRating = data.CarbonRating,
+                PageData = JsonSerializer.Serialize(data),
+            };
+
+            await _pageMetricService.AddPageMetric(pageMetric);
+            return Ok(true);
         }
 
         private int GetCarbonRatingOrder(string carbonRating)
@@ -188,4 +172,3 @@ namespace Umbraco.Community.Sustainability.Controllers
         }
     }
 }
-#endif

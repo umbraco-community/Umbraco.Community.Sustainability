@@ -11,7 +11,7 @@ let o = class extends u(c) {
     super(), this._routes = [
       {
         path: "",
-        component: () => import("./sustainability.dashboard.element-DPMJ5DuT.js")
+        component: () => import("./sustainability.dashboard.element-DPveSl2O.js")
       }
     ];
   }
@@ -30,4 +30,4 @@ export {
   o as OverviewRootWorkspaceElement,
   h as default
 };
-//# sourceMappingURL=overview-workspace.element-CJHnQuKf.js.map
+//# sourceMappingURL=overview-workspace.element-HTG7inso.js.map

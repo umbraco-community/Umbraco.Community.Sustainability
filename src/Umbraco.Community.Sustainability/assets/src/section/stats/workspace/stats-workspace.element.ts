@@ -129,6 +129,10 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
                       </uui-symbol-sort>
                     </uui-button>
                   </uui-table-head-cell>
+                  <uui-table-head-cell>Scripts</uui-table-head-cell>
+                  <uui-table-head-cell>Images</uui-table-head-cell>
+                  <uui-table-head-cell>Styles</uui-table-head-cell>
+                  <uui-table-head-cell>Other</uui-table-head-cell>
                   <uui-table-head-cell style="text-align: right;">
                     <uui-button
                       label="Page Size"
@@ -172,6 +176,23 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
                         <sustainability-carbon-rating .carbonRating=${item.carbonRating}>
                         </sustainability-carbon-rating>
                       </uui-table-cell>
+
+                      <uui-table-cell>
+                        ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'Scripts')?.resources?.length}
+                      </uui-table-cell>
+
+                      <uui-table-cell>
+                        ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'Images')?.resources?.length}
+                      </uui-table-cell>
+
+                      <uui-table-cell>
+                        ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'Styles')?.resources?.length}
+                      </uui-table-cell>
+
+                      <uui-table-cell>
+                        ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'Other')?.resources?.length}
+                      </uui-table-cell>
+
                       <uui-table-cell style="text-align: right;">
                         ${(item.totalSize / 1024).toFixed(2)}KB
                       </uui-table-cell>

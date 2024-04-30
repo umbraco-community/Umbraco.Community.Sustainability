@@ -32,13 +32,12 @@ namespace Umbraco.Community.Sustainability.Services
             var queryResults = await scope.Database.FetchAsync<PageMetric>();
 
             queryResults = queryResults.OrderByDescending(x => x.RequestDate).ToList();
-            queryResults = queryResults.DistinctBy(x => x.NodeId).ToList();
+            queryResults = queryResults.DistinctBy(x => x.NodeKey).ToList();
 
             foreach (var result in queryResults)
             {
-                var node = _contentQuery.Content(result.NodeId);
+                var node = _contentQuery.Content(result.NodeKey);
                 result.NodeName = node?.Name;
-                result.NodeKey = node?.Key;
             }
 
             scope.Complete();

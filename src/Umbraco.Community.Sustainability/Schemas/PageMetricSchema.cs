@@ -1,5 +1,7 @@
+using Newtonsoft.Json;
 using NPoco;
 using Umbraco.Cms.Infrastructure.Persistence.DatabaseAnnotations;
+using Umbraco.Community.Sustainability.Models;
 
 namespace Umbraco.Community.Sustainability.Schemas
 {
@@ -14,14 +16,11 @@ namespace Umbraco.Community.Sustainability.Schemas
         [Column("Id")]
         public int Id { get; set; }
 
-        [Column("NodeId")]
-        public int NodeId { get; set; }
+        [Column("NodeKey")]
+        public Guid? NodeKey { get; set; }
 
         [Ignore]
         public string? NodeName { get; set; }
-
-        [Ignore]
-        public Guid? NodeKey { get; set; }
 
         [Column("RequestedBy")]
         [NullSetting(NullSetting = NullSettings.Null)]
@@ -44,5 +43,30 @@ namespace Umbraco.Community.Sustainability.Schemas
         [NullSetting(NullSetting = NullSettings.Null)]
         [SpecialDbType(SpecialDbTypes.NTEXT)]
         public string? PageData { get; set; }
+
+        [Ignore]
+        public SustainabilityResponse? PageDataObject
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(PageData))
+                {
+                    return JsonConvert.DeserializeObject<SustainabilityResponse>(PageData);
+                }
+
+                return null;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    PageData = JsonConvert.SerializeObject(value);
+                }
+                else
+                {
+                    PageData = null; // Or any default value you prefer
+                }
+            }
+        }
     }
 }

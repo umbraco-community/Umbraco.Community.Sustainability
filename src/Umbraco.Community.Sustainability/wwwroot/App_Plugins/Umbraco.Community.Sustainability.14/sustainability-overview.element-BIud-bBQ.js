@@ -1,4 +1,4 @@
-import { S as O } from "./index-DBnCYdbR.js";
+import { S as O } from "./index-ByV7pGQg.js";
 import { UmbLitElement as A } from "@umbraco-cms/backoffice/lit-element";
 import { DirectionModel as R } from "@umbraco-cms/backoffice/external/backend-api";
 import { html as n, css as E, state as p, customElement as N, repeat as z } from "@umbraco-cms/backoffice/external/lit";
@@ -209,4 +209,4 @@ export {
   l as SustainabilityOverviewElement,
   Y as default
 };
-//# sourceMappingURL=sustainability-overview.element-CnDhJHbH.js.map
+//# sourceMappingURL=sustainability-overview.element-BIud-bBQ.js.map

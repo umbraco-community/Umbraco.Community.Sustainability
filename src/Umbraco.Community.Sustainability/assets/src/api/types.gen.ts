@@ -31,15 +31,15 @@ export type NotificationHeaderModel = {
 
 export type PageMetric = {
     id: number;
-    nodeId: number;
-    nodeName?: string | null;
     nodeKey?: string | null;
+    nodeName?: string | null;
     requestedBy?: string | null;
     requestDate: string;
     totalSize: number;
     totalEmissions: number;
     carbonRating?: string | null;
     pageData?: string | null;
+    pageDataObject?: SustainabilityResponse | null;
 };
 
 export type PagedResultPageMetricModel = {
