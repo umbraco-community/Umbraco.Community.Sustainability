@@ -14,10 +14,15 @@ namespace Umbraco.Community.Sustainability.Migrations
         {
             Logger.LogDebug("Running migration {MigrationStep}", "ChangeNodeIdToNodeKey");
 
-            if (ColumnExists(PageMetric.TableName, "NodeKey"))
+            if (ColumnExists(PageMetric.TableName, "NodeId"))
             {
-                Rename.Column("NodeId").OnTable(PageMetric.TableName).To("NodeKey").Do();
-                Alter.Table(PageMetric.TableName).AlterColumn("NodeKey").AsGuid().Nullable().Do();
+                Alter.Table(PageMetric.TableName).AddColumn("NodeKey").AsGuid().Nullable().Do();
+
+                Database.Execute($@"UPDATE {PageMetric.TableName} SET NodeKey = {Cms.Core.Constants.DatabaseSchema.Tables.Node}.uniqueId
+FROM {Cms.Core.Constants.DatabaseSchema.Tables.Node}
+INNER JOIN {PageMetric.TableName} ON {Cms.Core.Constants.DatabaseSchema.Tables.Node}.id = {PageMetric.TableName}.NodeId");
+
+                Delete.Column("NodeId").FromTable(PageMetric.TableName).Do();
             }
             else
             {
