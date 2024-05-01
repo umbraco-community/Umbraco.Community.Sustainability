@@ -1,4 +1,3 @@
-using System.Reflection;
 using System.Text.Json;
 using Microsoft.Playwright;
 using Umbraco.Community.Sustainability.Models;
