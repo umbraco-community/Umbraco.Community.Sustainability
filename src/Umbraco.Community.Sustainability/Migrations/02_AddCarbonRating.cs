@@ -14,7 +14,7 @@ namespace Umbraco.Community.Sustainability.Migrations
         {
             Logger.LogDebug("Running migration {MigrationStep}", "AddCarbonRating");
 
-            if (ColumnExists(PageMetric.TableName, "CarbonRating"))
+            if (ColumnExists(PageMetric.TableName, "CarbonRating") == false)
             {
                 Alter.Table(PageMetric.TableName).AddColumn("CarbonRating").AsString().Nullable().Do();
             }
