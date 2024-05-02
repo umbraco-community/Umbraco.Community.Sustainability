@@ -1,29 +1,29 @@
-import { UmbElementMixin as P } from "@umbraco-cms/backoffice/element-api";
-import { LitElement as T, html as p, repeat as W, css as A, state as c, property as H, customElement as q } from "@umbraco-cms/backoffice/external/lit";
-import { S as L } from "./index-ByV7pGQg.js";
-var _ = /* @__PURE__ */ ((e) => (e.ASCENDING = "Ascending", e.DESCENDING = "Descending", e))(_ || {}), M = Object.defineProperty, F = Object.getOwnPropertyDescriptor, r = (e, t, i, l) => {
+import { html as p, repeat as P, css as T, state as c, property as W, customElement as A } from "@umbraco-cms/backoffice/external/lit";
+import { S as H } from "./index-Biwu_zyI.js";
+import { UmbLitElement as q } from "@umbraco-cms/backoffice/lit-element";
+var _ = /* @__PURE__ */ ((e) => (e.ASCENDING = "Ascending", e.DESCENDING = "Descending", e))(_ || {}), L = Object.defineProperty, F = Object.getOwnPropertyDescriptor, r = (e, t, i, l) => {
   for (var s = l > 1 ? void 0 : l ? F(t, i) : t, o = e.length - 1, n; o >= 0; o--)
     (n = e[o]) && (s = (l ? n(t, i, s) : n(s)) || s);
-  return l && s && M(t, i, s), s;
-}, D = (e, t, i) => {
+  return l && s && L(t, i, s), s;
+}, m = (e, t, i) => {
   if (!t.has(e))
     throw TypeError("Cannot " + i);
-}, v = (e, t, i) => (D(e, t, "read from private field"), i ? i.call(e) : t.get(e)), d = (e, t, i) => {
+}, v = (e, t, i) => (m(e, t, "read from private field"), i ? i.call(e) : t.get(e)), d = (e, t, i) => {
   if (t.has(e))
     throw TypeError("Cannot add the same private member more than once");
   t instanceof WeakSet ? t.add(e) : t.set(e, i);
-}, K = (e, t, i, l) => (D(e, t, "write to private field"), l ? l.call(e, i) : t.set(e, i), i), h = (e, t, i) => (D(e, t, "access private method"), i), b, f, g, y, S, G, m, I;
-const U = "stats-workspace";
-let a = class extends P(T) {
+}, K = (e, t, i, l) => (m(e, t, "write to private field"), l ? l.call(e, i) : t.set(e, i), i), h = (e, t, i) => (m(e, t, "access private method"), i), b, f, g, y, S, G, D, I;
+const M = "stats-workspace";
+let a = class extends q {
   constructor() {
-    super(), d(this, g), d(this, S), d(this, m), d(this, b, void 0), d(this, f, {
+    super(), d(this, g), d(this, S), d(this, D), d(this, b, void 0), d(this, f, {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
       hour12: !0
-    }), this._loaded = !1, this._sortingDesc = !1, this._orderDirection = _.DESCENDING, this._orderBy = "RequestDate", this._pageNumber = 1, this._pageSize = 10, this.consumeContext(L, (e) => {
+    }), this._loaded = !1, this._sortingDesc = !1, this._orderDirection = _.DESCENDING, this._orderBy = "RequestDate", this._pageNumber = 1, this._pageSize = 10, this.consumeContext(H, (e) => {
       K(this, b, e), this.observe(v(this, b).overviewData, (t) => {
         t && (this._loaded = !0, this._data = t);
       }), h(this, g, y).call(this);
@@ -91,10 +91,10 @@ let a = class extends P(T) {
                         ?active=${this._orderBy === "TotalEmissions"}
                         ?descending=${this._sortingDesc}>
                       </uui-symbol-sort>
-                    </uui-button>                
+                    </uui-button>
                   </uui-table-head-cell>
                 </uui-table-head>
-                ${W(
+                ${P(
       (e = this._data) == null ? void 0 : e.items,
       (t) => t,
       (t) => {
@@ -144,7 +144,7 @@ let a = class extends P(T) {
     )}
               </uui-table>
 
-              ${h(this, m, I).call(this)}
+              ${h(this, D, I).call(this)}
             </uui-box>
           </div>
         </umb-body-layout>
@@ -165,7 +165,7 @@ S = /* @__PURE__ */ new WeakSet();
 G = function(e) {
   this._pageNumber = e.target.current, h(this, g, y).call(this);
 };
-m = /* @__PURE__ */ new WeakSet();
+D = /* @__PURE__ */ new WeakSet();
 I = function() {
   var e, t, i;
   if (((e = this._data) == null ? void 0 : e.totalPages) !== 1)
@@ -178,7 +178,7 @@ I = function() {
     `;
 };
 a.styles = [
-  A`
+  T`
       #loader-container {
 				display: flex;
 				justify-content: center;
@@ -191,7 +191,7 @@ r([
   c()
 ], a.prototype, "_data", 2);
 r([
-  H({ type: Boolean })
+  W({ type: Boolean })
 ], a.prototype, "_loaded", 2);
 r([
   c()
@@ -209,11 +209,11 @@ r([
   c()
 ], a.prototype, "_pageSize", 2);
 a = r([
-  q(U)
+  A(M)
 ], a);
-const J = a;
+const Y = a;
 export {
   a as StatsRootWorkspaceElement,
-  J as default
+  Y as default
 };
-//# sourceMappingURL=stats-workspace.element-ByPIIlrB.js.map
+//# sourceMappingURL=stats-workspace.element-BHaYJhur.js.map

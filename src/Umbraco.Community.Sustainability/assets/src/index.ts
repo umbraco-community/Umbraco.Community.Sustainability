@@ -2,7 +2,6 @@ import { UmbEntryPointOnInit } from '@umbraco-cms/backoffice/extension-api';
 
 import { manifests as documentManifests } from './documents/manifest.ts';
 import { manifests as sectionManifests } from './section/manifests.ts';
-import { manifests as dashboardManifests } from './dashboards/manifests.ts';
 
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth';
 import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from './context/sustainability.context.ts';
@@ -12,16 +11,15 @@ export * from './components/index';
 export * from './repository/index';
 
 export const onInit: UmbEntryPointOnInit = (host, extensionRegistry) => {
-  
+
   extensionRegistry.registerMany([
     ...documentManifests,
-    ...sectionManifests,
-    ...dashboardManifests
+    ...sectionManifests
   ]);
 
   host.consumeContext(UMB_AUTH_CONTEXT, async (auth) => {
     if (!auth) return;
-    
+
     const umbOpenApi = auth.getOpenApiConfiguration();
     OpenAPI.BASE = umbOpenApi.base;
     OpenAPI.TOKEN = umbOpenApi.token;

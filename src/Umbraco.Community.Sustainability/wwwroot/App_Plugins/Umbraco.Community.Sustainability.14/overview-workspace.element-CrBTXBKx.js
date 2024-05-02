@@ -1,33 +1,33 @@
-import { S as O } from "./index-ByV7pGQg.js";
-import { UmbLitElement as A } from "@umbraco-cms/backoffice/lit-element";
-import { DirectionModel as R } from "@umbraco-cms/backoffice/external/backend-api";
-import { html as n, css as E, state as p, customElement as N, repeat as z } from "@umbraco-cms/backoffice/external/lit";
+import { S as O } from "./index-Biwu_zyI.js";
+import { UmbLitElement as R } from "@umbraco-cms/backoffice/lit-element";
+import { DirectionModel as A } from "@umbraco-cms/backoffice/external/backend-api";
+import { html as n, css as E, state as f, customElement as N, repeat as G } from "@umbraco-cms/backoffice/external/lit";
 function D(e = "") {
   return { "User-Agent": `co2js/0.14.4 ${e}` };
 }
-function G(e, t) {
-  return typeof e == "string" ? H(e, t) : P(e, t);
+function H(e, t) {
+  return typeof e == "string" ? W(e, t) : z(e, t);
 }
-async function H(e, t) {
+async function W(e, t) {
   return (await (await fetch(`https://api.thegreenwebfoundation.org/greencheck/${e}`, {
     headers: D(t)
   })).json()).green;
 }
-async function P(e, t) {
+async function z(e, t) {
   try {
     const a = "https://api.thegreenwebfoundation.org/v2/greencheckmulti", i = JSON.stringify(e), s = await (await fetch(`${a}/${i}`, {
       headers: D(t)
     })).json();
-    return W(s);
+    return P(s);
   } catch {
     return [];
   }
 }
-function W(e) {
+function P(e) {
   return Object.entries(e).filter(([i, r]) => r.green).map(([i, r]) => r.url);
 }
 var q = {
-  check: G
+  check: H
 };
 function T(e, t) {
   return q.check(e, t);
@@ -45,11 +45,11 @@ var I = {
   if (t.has(e))
     throw TypeError("Cannot add the same private member more than once");
   t instanceof WeakSet ? t.add(e) : t.set(e, a);
-}, M = (e, t, a, i) => (m(e, t, "write to private field"), i ? i.call(e, a) : t.set(e, a), a), h = (e, t, a) => (m(e, t, "access private method"), a), o, _, v, k, b, $, w, x, y, S, f, C;
-const B = "sustainability-overview-element";
-let l = class extends A {
+}, M = (e, t, a, i) => (m(e, t, "write to private field"), i ? i.call(e, a) : t.set(e, a), a), h = (e, t, a) => (m(e, t, "access private method"), a), o, _, v, k, p, $, w, x, y, S, b, C;
+const B = "overview-workspace";
+let l = class extends R {
   constructor() {
-    super(), u(this, v), u(this, b), u(this, w), u(this, y), u(this, f), u(this, o, void 0), u(this, _, {
+    super(), u(this, v), u(this, p), u(this, w), u(this, y), u(this, b), u(this, o, void 0), u(this, _, {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -65,7 +65,7 @@ let l = class extends A {
     });
   }
   async connectedCallback() {
-    super.connectedCallback(), c(this, o) != null && (await c(this, o).getOverviewData(R.DESCENDING, "RequestDate", 1, 10), await c(this, o).getAverageData()), I.check(window.location.hostname, "Test") && (this._greenHost = !0);
+    super.connectedCallback(), c(this, o) != null && (await c(this, o).getOverviewData(A.DESCENDING, "RequestDate", 1, 10), await c(this, o).getAverageData()), I.check(window.location.hostname, "Test") && (this._greenHost = !0);
   }
   _calculateGrade(e) {
     return e < 0.095 ? "A+" : e < 0.186 ? "A" : e < 0.341 ? "B" : e < 0.493 ? "C" : e < 0.656 ? "D" : e < 0.846 ? "E" : "F";
@@ -74,9 +74,9 @@ let l = class extends A {
     return n`
       <umb-body-layout headline="Overview">
         <div id="main">
-          ${h(this, v, k).call(this)}     
-          ${h(this, b, $).call(this)}   
-          ${h(this, f, C).call(this)}  
+          ${h(this, v, k).call(this)}
+          ${h(this, p, $).call(this)}
+          ${h(this, b, C).call(this)}
         </div>
       </umb-body-layout>
     `;
@@ -94,7 +94,7 @@ k = function() {
         </uui-box>
       `;
 };
-b = /* @__PURE__ */ new WeakSet();
+p = /* @__PURE__ */ new WeakSet();
 $ = function() {
   var e, t, a;
   if (((t = (e = this._overviewData) == null ? void 0 : e.items) == null ? void 0 : t.length) !== 0)
@@ -108,7 +108,7 @@ $ = function() {
               <uui-table-head-cell>Carbon Rating</uui-table-head-cell>
             </uui-table-head>
 
-            ${z(
+            ${G(
       (a = this._overviewData) == null ? void 0 : a.items,
       (i) => i,
       (i) => n`
@@ -158,7 +158,7 @@ S = function() {
     </uui-box>
     `;
 };
-f = /* @__PURE__ */ new WeakSet();
+b = /* @__PURE__ */ new WeakSet();
 C = function() {
   var e, t, a, i, r, s;
   if (((t = (e = this._overviewData) == null ? void 0 : e.items) == null ? void 0 : t.length) !== 0)
@@ -187,26 +187,25 @@ l.styles = [
       #main {
         display: grid;
         gap: var(--uui-size-layout-1);
-        /* padding: var(--uui-size-layout-1); */
         grid-template-columns: 1fr 350px;
       }
     `
 ];
 d([
-  p()
+  f()
 ], l.prototype, "_overviewData", 2);
 d([
-  p()
+  f()
 ], l.prototype, "_averageData", 2);
 d([
-  p()
+  f()
 ], l.prototype, "_greenHost", 2);
 l = d([
   N(B)
 ], l);
 const Y = l;
 export {
-  l as SustainabilityOverviewElement,
+  l as OverviewRootWorkspaceElement,
   Y as default
 };
-//# sourceMappingURL=sustainability-overview.element-BIud-bBQ.js.map
+//# sourceMappingURL=overview-workspace.element-CrBTXBKx.js.map

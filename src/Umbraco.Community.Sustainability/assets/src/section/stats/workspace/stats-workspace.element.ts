@@ -1,13 +1,13 @@
-import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
-import { LitElement, css, customElement, html, property, repeat, state } from "@umbraco-cms/backoffice/external/lit";
+import { css, customElement, html, property, repeat, state } from "@umbraco-cms/backoffice/external/lit";
 import { DirectionModel, DirectionModelEnum, PageMetric, PagedResultPageMetricModel } from "../../../api";
 import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from "../../../context/sustainability.context";
 import { UUIPaginationEvent } from "@umbraco-cms/backoffice/external/uui";
+import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 
 const elementName = "stats-workspace";
 
 @customElement(elementName)
-export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
+export class StatsRootWorkspaceElement extends UmbLitElement  {
 
   #sustainabilityContext?: SustainabilityContext;
 
@@ -43,7 +43,7 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
 
   constructor() {
     super();
-    
+
     this.consumeContext(SUSTAINABILITY_CONTEXT, (instance) => {
       this.#sustainabilityContext = instance;
 
@@ -155,7 +155,7 @@ export class StatsRootWorkspaceElement extends UmbElementMixin(LitElement) {
                         ?active=${this._orderBy === 'TotalEmissions'}
                         ?descending=${this._sortingDesc}>
                       </uui-symbol-sort>
-                    </uui-button>                
+                    </uui-button>
                   </uui-table-head-cell>
                 </uui-table-head>
                 ${repeat(

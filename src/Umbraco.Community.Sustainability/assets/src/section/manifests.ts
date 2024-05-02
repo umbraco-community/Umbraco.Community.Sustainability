@@ -1,4 +1,4 @@
-import { ManifestMenu, ManifestSection, ManifestSectionSidebarAppMenuKind } from "@umbraco-cms/backoffice/extension-registry";
+import { ManifestMenu, ManifestSection, ManifestSectionSidebarApp, ManifestSectionView } from "@umbraco-cms/backoffice/extension-registry";
 
 import { manifests as overviewManifests } from './overview/manifests';
 import { manifests as statsManifests } from './stats/manifests';
@@ -17,6 +17,18 @@ const section: ManifestSection = {
   },
 };
 
+const sectionView: ManifestSectionView = {
+  type: 'sectionView',
+  alias: "Umb.SectionView.Sustainability",
+  name: "Sustainability Section View",
+  element: () => import('./sustainability-section-view.element'),
+  meta: {
+    label: 'Sustainability',
+    icon: 'icon-eco',
+    pathname: 'view'
+  }
+}
+
 const menu: ManifestMenu = {
   type: "menu",
   alias: menuAlias,
@@ -26,10 +38,10 @@ const menu: ManifestMenu = {
   },
 };
 
-const menuSectionSidebarApp: ManifestSectionSidebarAppMenuKind = {
+const menuSectionSidebarApp: ManifestSectionSidebarApp = {
   type: "sectionSidebarApp",
   kind: "menu",
-  alias: "Umb.SectionSidebarMenu.Sustainability",
+  alias: "Umb.SectionSidebar.Sustainability",
   name: "Sustainability Section Sidebar Menu",
   weight: 200,
   meta: {
@@ -46,6 +58,7 @@ const menuSectionSidebarApp: ManifestSectionSidebarAppMenuKind = {
 
 export const manifests = [
   section,
+  sectionView,
   menu,
   menuSectionSidebarApp,
   ...overviewManifests,
