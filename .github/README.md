@@ -7,7 +7,7 @@
 A package from the [Umbraco Community Sustainability Team](https://umbraco.com/blog/meet-the-new-community-sustainability-team/) which helps developers and editors see and improve the carbon impact of their websites.
 
 ## Installation
-The Umbraco 10.8+ version of this package is [available via NuGet](https://www.nuget.org/packages/Umbraco.Community.BlockPreview).
+The Umbraco 10.8+ version of this package is [available via NuGet](https://www.nuget.org/packages/Umbraco.Community.Sustainability).
 
 To install the package, you can use either .NET CLI:
 
