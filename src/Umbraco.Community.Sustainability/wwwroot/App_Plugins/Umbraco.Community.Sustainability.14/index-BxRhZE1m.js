@@ -1,14 +1,14 @@
-var I = (t, e, a) => {
+var j = (t, e, a) => {
   if (!e.has(t))
     throw TypeError("Cannot " + a);
 };
-var c = (t, e, a) => (I(t, e, "read from private field"), a ? a.call(t) : e.get(t)), p = (t, e, a) => {
+var c = (t, e, a) => (j(t, e, "read from private field"), a ? a.call(t) : e.get(t)), b = (t, e, a) => {
   if (e.has(t))
     throw TypeError("Cannot add the same private member more than once");
   e instanceof WeakSet ? e.add(t) : e.set(t, a);
-}, b = (t, e, a, i) => (I(t, e, "write to private field"), i ? i.call(t, a) : e.set(t, a), a);
+}, p = (t, e, a, i) => (j(t, e, "write to private field"), i ? i.call(t, a) : e.set(t, a), a);
 import { UMB_AUTH_CONTEXT as F } from "@umbraco-cms/backoffice/auth";
-import { UmbControllerBase as x } from "@umbraco-cms/backoffice/class-api";
+import { UmbControllerBase as U } from "@umbraco-cms/backoffice/class-api";
 import { tryExecuteAndNotify as w } from "@umbraco-cms/backoffice/resources";
 import { UmbContextToken as G } from "@umbraco-cms/backoffice/context-api";
 import { UmbObjectState as E } from "@umbraco-cms/backoffice/observable-api";
@@ -18,7 +18,7 @@ const Q = {
   type: "workspaceView",
   alias: "Umbraco.Community.Sustainability.Workspace",
   name: "Sustainability Workspace",
-  js: () => import("./sustainability-workspace-view-CQqhh6-Q.js"),
+  js: () => import("./sustainability-workspace-view-uVKEANM0.js"),
   weight: 10,
   meta: {
     icon: "icon-eco",
@@ -31,7 +31,7 @@ const Q = {
       match: "Umb.Workspace.Document"
     }
   ]
-}, Z = [Q], U = "overview-root", ee = {
+}, Z = [Q], k = "overview-root", ee = {
   type: "menuItem",
   alias: "Sustainability.MenuItem.Overview",
   name: "Overview Menu Item",
@@ -39,16 +39,16 @@ const Q = {
   meta: {
     label: "Overview",
     icon: "icon-eco",
-    entityType: U,
+    entityType: k,
     menus: ["Umb.Menu.Sustainability"]
   }
 }, te = [ee], ae = "Sustainability.Workspace.Overview", ie = "Sustainability.Workspace.Context", se = {
   type: "workspace",
   alias: ae,
   name: "Overview Root Workspace",
-  js: () => import("./overview-workspace.element-CrBTXBKx.js"),
+  js: () => import("./overview-workspace.element-CVnrqQFz.js"),
   meta: {
-    entityType: U
+    entityType: k
   }
 }, ne = {
   type: "workspaceContext",
@@ -61,7 +61,7 @@ const Q = {
 ], oe = [
   ...re,
   ...te
-], k = "stats-root", ce = {
+], q = "stats-root", ce = {
   type: "menuItem",
   alias: "Sustainability.MenuItem.Stats",
   name: "Stats Menu Item",
@@ -69,32 +69,32 @@ const Q = {
   meta: {
     label: "Stats",
     icon: "icon-chart",
-    entityType: k,
+    entityType: q,
     menus: ["Umb.Menu.Sustainability"]
   }
 }, le = [ce], ue = "Sustainability.Workspace.Stats", de = {
   type: "workspace",
   alias: ue,
   name: "Stats Root Workspace",
-  js: () => import("./stats-workspace.element-BHaYJhur.js"),
+  js: () => import("./stats-workspace.element-gUSvHD7Y.js"),
   meta: {
-    entityType: k
+    entityType: q
   }
 }, ye = [
   de
 ], he = [
   ...ye,
   ...le
-], q = "Umb.Section.Sustainability", $ = "Umb.Menu.Sustainability", me = {
+], O = "Umb.Section.Sustainability", $ = "Umb.Menu.Sustainability", me = {
   type: "section",
-  alias: q,
+  alias: O,
   name: "Sustainability Section",
   weight: 0,
   meta: {
     label: "Sustainability",
     pathname: "sustainability"
   }
-}, pe = {
+}, be = {
   type: "sectionView",
   alias: "Umb.SectionView.Sustainability",
   name: "Sustainability Section View",
@@ -103,8 +103,14 @@ const Q = {
     label: "Sustainability",
     icon: "icon-eco",
     pathname: "view"
-  }
-}, be = {
+  },
+  conditions: [
+    {
+      alias: "Umb.Condition.SectionAlias",
+      match: O
+    }
+  ]
+}, pe = {
   type: "menu",
   alias: $,
   name: "Sustainability Menu",
@@ -124,18 +130,18 @@ const Q = {
   conditions: [
     {
       alias: "Umb.Condition.SectionAlias",
-      match: q
+      match: O
     }
   ]
 }, ge = [
   me,
-  pe,
   be,
+  pe,
   fe,
   ...oe,
   ...he
 ];
-class j extends Error {
+class N extends Error {
   constructor(e, a, i) {
     super(i), this.name = "ApiError", this.url = a.url, this.status = a.status, this.statusText = a.statusText, this.body = a.body, this.request = e;
   }
@@ -197,7 +203,7 @@ class we {
     return this._isCancelled;
   }
 }
-class N {
+class x {
   constructor() {
     this._fns = [];
   }
@@ -223,10 +229,10 @@ const h = {
   VERSION: "Latest",
   WITH_CREDENTIALS: !1,
   interceptors: {
-    request: new N(),
-    response: new N()
+    request: new x(),
+    response: new x()
   }
-}, D = (t) => typeof t == "string", R = (t) => D(t) && t !== "", O = (t) => t instanceof Blob, B = (t) => t instanceof FormData, ve = (t) => {
+}, D = (t) => typeof t == "string", R = (t) => D(t) && t !== "", P = (t) => t instanceof Blob, B = (t) => t instanceof FormData, ve = (t) => {
   try {
     return btoa(t);
   } catch {
@@ -248,7 +254,7 @@ const h = {
 }, _e = (t) => {
   if (t.formData) {
     const e = new FormData(), a = (i, s) => {
-      D(s) || O(s) ? e.append(i, s) : e.append(i, JSON.stringify(s));
+      D(s) || P(s) ? e.append(i, s) : e.append(i, JSON.stringify(s));
     };
     return Object.entries(t.formData).filter(([, i]) => i != null).forEach(([i, s]) => {
       Array.isArray(s) ? s.forEach((n) => a(i, n)) : a(i, s);
@@ -272,11 +278,11 @@ const h = {
     const o = ve(`${i}:${s}`);
     r.Authorization = `Basic ${o}`;
   }
-  return e.body !== void 0 && (e.mediaType ? r["Content-Type"] = e.mediaType : O(e.body) ? r["Content-Type"] = e.body.type || "application/octet-stream" : D(e.body) ? r["Content-Type"] = "text/plain" : B(e.body) || (r["Content-Type"] = "application/json")), new Headers(r);
+  return e.body !== void 0 && (e.mediaType ? r["Content-Type"] = e.mediaType : P(e.body) ? r["Content-Type"] = e.body.type || "application/octet-stream" : D(e.body) ? r["Content-Type"] = "text/plain" : B(e.body) || (r["Content-Type"] = "application/json")), new Headers(r);
 }, Re = (t) => {
   var e, a;
   if (t.body !== void 0)
-    return (e = t.mediaType) != null && e.includes("application/json") || (a = t.mediaType) != null && a.includes("+json") ? JSON.stringify(t.body) : D(t.body) || O(t.body) || B(t.body) ? t.body : JSON.stringify(t.body);
+    return (e = t.mediaType) != null && e.includes("application/json") || (a = t.mediaType) != null && a.includes("+json") ? JSON.stringify(t.body) : D(t.body) || P(t.body) || B(t.body) ? t.body : JSON.stringify(t.body);
 }, Ae = async (t, e, a, i, s, n, r) => {
   const o = new AbortController();
   let m = {
@@ -358,7 +364,7 @@ const h = {
     ...t.errors
   }[e.status];
   if (i)
-    throw new j(t, e, i);
+    throw new N(t, e, i);
   if (!e.ok) {
     const s = e.status ?? "unknown", n = e.statusText ?? "unknown", r = (() => {
       try {
@@ -367,7 +373,7 @@ const h = {
         return;
       }
     })();
-    throw new j(
+    throw new N(
       t,
       e,
       `Generic Error: status: ${s}; status text: ${n}; body: ${r}`
@@ -380,14 +386,14 @@ const h = {
       let l = await Ae(t, e, n, o, r, m, s);
       for (const W of t.interceptors.response._fns)
         l = await W(l);
-      const L = await Oe(l), V = Ce(l, e.responseHeader), P = {
+      const L = await Oe(l), V = Ce(l, e.responseHeader), I = {
         url: n,
         ok: l.ok,
         status: l.status,
         statusText: l.statusText,
         body: V ?? L
       };
-      Pe(e, P), a(P.body);
+      Pe(e, I), a(I.body);
     }
   } catch (n) {
     i(n);
@@ -469,8 +475,8 @@ class T {
 var u;
 class Ie {
   constructor(e) {
-    p(this, u, void 0);
-    b(this, u, e);
+    b(this, u, void 0);
+    p(this, u, e);
   }
   async checkPage(e) {
     return await w(c(this, u), T.checkPage({ pageGuid: e }));
@@ -493,11 +499,11 @@ class Ie {
 }
 u = new WeakMap();
 var d;
-class je extends x {
+class je extends U {
   constructor(a) {
     super(a);
-    p(this, d, void 0);
-    b(this, d, new Ie(this));
+    b(this, d, void 0);
+    p(this, d, new Ie(this));
   }
   async checkPage(a) {
     return await c(this, d).checkPage(a);
@@ -517,14 +523,14 @@ class je extends x {
 }
 d = new WeakMap();
 var y, f, g, S;
-class A extends x {
+class A extends U {
   constructor(a) {
     super(a);
-    p(this, y, void 0);
-    p(this, f, void 0);
-    p(this, g, void 0);
-    p(this, S, void 0);
-    b(this, f, new E(void 0)), this.pageData = c(this, f).asObservable(), b(this, g, new E(void 0)), this.overviewData = c(this, g).asObservable(), b(this, S, new E(void 0)), this.averageData = c(this, S).asObservable(), b(this, y, new je(this));
+    b(this, y, void 0);
+    b(this, f, void 0);
+    b(this, g, void 0);
+    b(this, S, void 0);
+    p(this, f, new E(void 0)), this.pageData = c(this, f).asObservable(), p(this, g, new E(void 0)), this.overviewData = c(this, g).asObservable(), p(this, S, new E(void 0)), this.averageData = c(this, S).asObservable(), p(this, y, new je(this));
   }
   async checkPage(a, i = !0) {
     const { data: s } = await c(this, y).checkPage(a);
@@ -598,4 +604,4 @@ export {
   Ie as c,
   Fe as o
 };
-//# sourceMappingURL=index-Biwu_zyI.js.map
+//# sourceMappingURL=index-BxRhZE1m.js.map

@@ -26,7 +26,13 @@ const sectionView: ManifestSectionView = {
     label: 'Sustainability',
     icon: 'icon-eco',
     pathname: 'view'
-  }
+  },
+  conditions: [
+    {
+      alias: "Umb.Condition.SectionAlias",
+      match: sectionAlias,
+    },
+  ]
 }
 
 const menu: ManifestMenu = {
