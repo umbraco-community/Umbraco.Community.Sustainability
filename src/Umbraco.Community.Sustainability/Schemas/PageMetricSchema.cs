@@ -14,8 +14,8 @@ namespace Umbraco.Community.Sustainability.Schemas
         [Column("Id")]
         public int Id { get; set; }
 
-        [Column("NodeId")]
-        public int NodeId { get; set; }
+        [Column("NodeKey")]
+        public Guid? NodeKey { get; set; }
 
         [Ignore]
         public string? NodeName { get; set; }

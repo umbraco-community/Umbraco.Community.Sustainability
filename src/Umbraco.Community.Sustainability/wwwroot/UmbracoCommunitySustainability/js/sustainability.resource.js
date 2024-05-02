@@ -15,9 +15,9 @@
       calculateGrade: calculateGrade
     };
 
-    function getData(pageId) {
+    function getData(pageKey) {
       return umbRequestHelper.resourcePromise(
-        $http.get(`${apiUrl}GetPageData?pageId=${pageId}`),
+        $http.get(`${apiUrl}GetPageData?pageKey=${pageKey}`),
         'Failed getting sustainability data'
       );
     };
@@ -45,16 +45,16 @@
       );
     };
 
-    function checkPage(pageId) {
+    function checkPage(pageKey) {
       return umbRequestHelper.resourcePromise(
-        $http.get(`${apiUrl}CheckPage?pageId=${pageId}`),
+        $http.get(`${apiUrl}CheckPage?pageKey=${pageKey}`),
         'Failed to run sustainability check'
       );
     };
 
-    function saveResult(pageId, data) {
+    function saveResult(pageKey, data) {
       return umbRequestHelper.resourcePromise(
-        $http.post(`${apiUrl}SavePageData?pageId=${pageId}`, data),
+        $http.post(`${apiUrl}SavePageData?pageKey=${pageKey}`, data),
         'Failed to save sustainability data'
       );
     };

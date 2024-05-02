@@ -5,6 +5,7 @@ angular.module('umbraco').controller('Umbraco.Sustainability.ContentApp.Controll
       let vm = this;
 
       $scope.id = "";
+      $scope.key = null;
       $scope.loading = true;
 
       vm.buttonState = undefined;
@@ -14,8 +15,9 @@ angular.module('umbraco').controller('Umbraco.Sustainability.ContentApp.Controll
 
       function init() {
         $scope.id = editorState.current.id;
+        $scope.key = editorState.current.key;
 
-        sustainabilityResource.getData($scope.id).then(function (data) {
+        sustainabilityResource.getData($scope.key).then(function (data) {
           $scope.sustainabilityData = data;
           updateResults();
         });
@@ -24,11 +26,11 @@ angular.module('umbraco').controller('Umbraco.Sustainability.ContentApp.Controll
       function checkPage() {
         vm.buttonState = "waiting";
 
-        sustainabilityResource.checkPage($scope.id).then(function (data) {
+        sustainabilityResource.checkPage($scope.key).then(function (data) {
           $scope.sustainabilityData = data;
           updateResults();
 
-          sustainabilityResource.saveResult($scope.id, $scope.sustainabilityData);
+          sustainabilityResource.saveResult($scope.key, $scope.sustainabilityData);
         });
       }
 

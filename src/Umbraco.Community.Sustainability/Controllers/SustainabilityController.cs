@@ -1,7 +1,5 @@
-using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Operations;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
@@ -78,9 +76,9 @@ namespace Umbraco.Community.Sustainability.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPageData([FromQuery] int pageId)
+        public async Task<IActionResult> GetPageData([FromQuery] Guid pageKey)
         {
-            var pageMetrics = await _pageMetricService.GetPageMetrics(pageId);
+            var pageMetrics = await _pageMetricService.GetPageMetrics(pageKey);
             var mostRecent = pageMetrics.OrderByDescending(x => x.RequestDate).FirstOrDefault();
             if (mostRecent?.PageData == null)
             {
@@ -92,9 +90,9 @@ namespace Umbraco.Community.Sustainability.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CheckPage([FromQuery] int pageId)
+        public async Task<IActionResult> CheckPage([FromQuery] Guid pageKey)
         {
-            var contentItem = _contentQuery.Content(pageId);
+            var contentItem = _contentQuery.Content(pageKey);
             if (contentItem == null)
             {
                 return Ok("Page not found");
@@ -107,7 +105,7 @@ namespace Umbraco.Community.Sustainability.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SavePageData([FromQuery] int pageId, [FromBody] SustainabilityResponse data)
+        public async Task<IActionResult> SavePageData([FromQuery] Guid pageKey, [FromBody] SustainabilityResponse data)
         {
             if (data.TotalSize == 0)
             {
@@ -116,7 +114,7 @@ namespace Umbraco.Community.Sustainability.Controllers
 
             var pageMetric = new PageMetric()
             {
-                NodeId = pageId,
+                NodeKey = pageKey,
                 RequestedBy = "Admin",
                 RequestDate = data.LastRunDate,
                 TotalSize = data.TotalSize,
@@ -129,7 +127,7 @@ namespace Umbraco.Community.Sustainability.Controllers
             return Ok(true);
         }
 
-        private int GetCarbonRatingOrder(string carbonRating)
+        private int GetCarbonRatingOrder(string? carbonRating)
         {
             switch (carbonRating)
             {
@@ -146,7 +144,6 @@ namespace Umbraco.Community.Sustainability.Controllers
                 case "E":
                     return 6;
                 case "F":
-                    return 7;
                 default:
                     return 7;
             }
