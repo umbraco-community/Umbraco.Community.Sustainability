@@ -5,9 +5,9 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Umbraco.Community.Sustainability.TestSite._14.x</RootNamespace>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="Umbraco.Cms" Version="14.0.0-rc2" />
+    <PackageReference Include="Umbraco.Cms" Version="14.0.0-rc3" />
     <PackageReference Include="uSync" Version="14.0.0-rc2" />
   </ItemGroup>
 

@@ -32,8 +32,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.40.0" />
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="[14.0.0-rc2, 15.0.0)" />
-    <PackageReference Include="Umbraco.Cms.Api.Common" Version="[14.0.0-rc2, 15.0.0)" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="[14.0.0-rc3, 15.0.0)" />
+    <PackageReference Include="Umbraco.Cms.Api.Common" Version="[14.0.0-rc3, 15.0.0)" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,5 +46,5 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-  
+
 </Project>
