@@ -1,32 +1,30 @@
-import { UmbElementMixin as _ } from "@umbraco-cms/backoffice/element-api";
-import { LitElement as b, html as u, repeat as f, css as w, state as v, property as d, customElement as x } from "@umbraco-cms/backoffice/external/lit";
+import { UmbElementMixin as y } from "@umbraco-cms/backoffice/element-api";
+import { LitElement as b, html as u, repeat as v, css as _, state as w, property as d, customElement as x } from "@umbraco-cms/backoffice/external/lit";
 import { UMB_WORKSPACE_CONTEXT as k } from "@umbraco-cms/backoffice/workspace";
-import { S as C } from "./index-BxRhZE1m.js";
-var D = Object.defineProperty, S = Object.getOwnPropertyDescriptor, r = (t, i, e, a) => {
-  for (var n = a > 1 ? void 0 : a ? S(i, e) : i, l = t.length - 1, p; l >= 0; l--)
-    (p = t[l]) && (n = (a ? p(i, e, n) : p(n)) || n);
-  return a && n && D(i, e, n), n;
-}, g = (t, i, e) => {
-  if (!i.has(t))
-    throw TypeError("Cannot " + e);
-}, c = (t, i, e) => (g(t, i, "read from private field"), e ? e.call(t) : i.get(t)), m = (t, i, e) => {
-  if (i.has(t))
+import { S as C } from "./index-DJ7ZKaCL.js";
+var D = Object.defineProperty, $ = Object.getOwnPropertyDescriptor, r = (t, e, i, n) => {
+  for (var a = n > 1 ? void 0 : n ? $(e, i) : e, l = t.length - 1, p; l >= 0; l--)
+    (p = t[l]) && (a = (n ? p(e, i, a) : p(a)) || a);
+  return n && a && D(e, i, a), a;
+}, g = (t, e, i) => {
+  if (!e.has(t))
+    throw TypeError("Cannot " + i);
+}, c = (t, e, i) => (g(t, e, "read from private field"), i ? i.call(t) : e.get(t)), f = (t, e, i) => {
+  if (e.has(t))
     throw TypeError("Cannot add the same private member more than once");
-  i instanceof WeakSet ? i.add(t) : i.set(t, e);
-}, $ = (t, i, e, a) => (g(t, i, "write to private field"), a ? a.call(t, e) : i.set(t, e), e), E = (t, i, e) => (g(t, i, "access private method"), e), s, h, y;
-let o = class extends _(b) {
+  e instanceof WeakSet ? e.add(t) : e.set(t, i);
+}, S = (t, e, i, n) => (g(t, e, "write to private field"), n ? n.call(t, i) : e.set(t, i), i), E = (t, e, i) => (g(t, e, "access private method"), i), s, h, m;
+let o = class extends y(b) {
   constructor() {
-    super(), m(this, h), m(this, s, void 0), this._documentUnique = "", this.pageName = "", this.loading = !0, this.waiting = !1, this.consumeContext(k, (t) => {
-      const i = t;
-      this.observe(i.unique, (a) => {
-        this._documentUnique = a;
-      });
+    super(), f(this, h), f(this, s, void 0), this._documentUnique = "", this.loading = !0, this.waiting = !1, this.consumeContext(k, (t) => {
       const e = t;
-      console.log(e.getName()), this.pageName = e.getName();
+      this.observe(e.unique, (i) => {
+        this._documentUnique = i;
+      });
     }), this.consumeContext(C, (t) => {
-      $(this, s, t), this.observe(t.pageData, (i) => {
-        var e;
-        this.pageData = i, this.pageData != null && typeof ((e = this.pageData) == null ? void 0 : e.totalSize) < "u" && (this.loading = !1);
+      S(this, s, t), this.observe(t.pageData, (e) => {
+        var i;
+        this.pageData = e, this.pageData != null && typeof ((i = this.pageData) == null ? void 0 : i.totalSize) < "u" && (this.loading = !1);
       });
     });
   }
@@ -38,7 +36,7 @@ let o = class extends _(b) {
     this.waiting = !0, this._documentUnique && (await ((t = c(this, s)) == null ? void 0 : t.checkPage(this._documentUnique, !1)), this.waiting = !1);
   }
   render() {
-    var t, i, e;
+    var t, e, i, n;
     return this.loading ? u`
           <uui-box headline="Loading sustainability report...">
               <p>It looks like you haven't run a report on this page yet. Click the button below to get started.</p>
@@ -48,14 +46,15 @@ let o = class extends _(b) {
           </uui-box>
       ` : u`
             <div class="container">
-              ${f(
+              ${v(
       (t = this.pageData) == null ? void 0 : t.resourceGroups,
       (a) => a.name,
-      (a) => E(this, h, y).call(this, a)
+      (a) => E(this, h, m).call(this, a)
     )}
             </div>
             <div class="container">
-              <uui-box headline="Sustainability report">
+              <uui-box headline="Carbon rating">
+                <sustainability-carbon-rating .carbonRating=${(e = this.pageData) == null ? void 0 : e.carbonRating}></sustainability-carbon-rating>
                 <p><strong>Last tested:</strong> ${new Intl.DateTimeFormat("en-GB", { dateStyle: "long", timeStyle: "short" }).format(new Date((i = this.pageData) == null ? void 0 : i.lastRunDate))}</p>
                 <uui-button label="Run again" look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : void 0}>
                   Run again
@@ -65,7 +64,7 @@ let o = class extends _(b) {
                 ${(this.pageData.totalSize / 1024).toFixed(2)}KB
               </uui-box>
               <uui-box headline="CO₂ per page view">
-                ${(e = this.pageData) == null ? void 0 : e.totalEmissions.toFixed(4)}g
+                ${(n = this.pageData) == null ? void 0 : n.totalEmissions.toFixed(4)}g
               </uui-box>
             </div>
           `;
@@ -73,22 +72,22 @@ let o = class extends _(b) {
 };
 s = /* @__PURE__ */ new WeakMap();
 h = /* @__PURE__ */ new WeakSet();
-y = function(t) {
-  var i;
-  if (((i = t.resources) == null ? void 0 : i.length) !== 0)
+m = function(t) {
+  var e;
+  if (((e = t.resources) == null ? void 0 : e.length) !== 0)
     return u`
           <uui-box headline=${t.name}>
             <ul>
-            ${f(
+            ${v(
       t.resources,
-      (e) => e.url,
-      (e) => u`<li>${e.url} (${(e.size / 1024).toFixed(2)}KB)</li>`
+      (i) => i.url,
+      (i) => u`<li>${i.url} (${(i.size / 1024).toFixed(2)}KB)</li>`
     )}
             </ul>
           </uui-box>
         `;
 };
-o.styles = w`
+o.styles = _`
         :host {
             display: grid;
             gap: var(--uui-size-layout-1);
@@ -103,11 +102,8 @@ o.styles = w`
         }
     `;
 r([
-  v()
+  w()
 ], o.prototype, "_documentUnique", 2);
-r([
-  v()
-], o.prototype, "pageName", 2);
 r([
   d({ type: Boolean })
 ], o.prototype, "loading", 2);
@@ -120,9 +116,9 @@ r([
 o = r([
   x("sustainability-workspace-view")
 ], o);
-const q = o;
+const T = o;
 export {
   o as SustainabilityWorkspaceElement,
-  q as default
+  T as default
 };
-//# sourceMappingURL=sustainability-workspace-view-uVKEANM0.js.map
+//# sourceMappingURL=sustainability-workspace-view-BPSW3RO0.js.map

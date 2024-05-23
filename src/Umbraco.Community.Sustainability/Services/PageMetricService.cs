@@ -9,7 +9,7 @@ namespace Umbraco.Community.Sustainability.Services
     {
         Task<IEnumerable<PageMetric>> GetOverviewMetrics();
         Task<AveragePageMetrics> GetAverageMetrics();
-        Task<IEnumerable<PageMetric>> GetPageMetrics(int pageId);
+        Task<IEnumerable<PageMetric>> GetPageMetrics(Guid pageKey);
         Task AddPageMetric(PageMetric pageMetric);
     }
 
@@ -61,10 +61,10 @@ namespace Umbraco.Community.Sustainability.Services
             return new();
         }
 
-        public async Task<IEnumerable<PageMetric>> GetPageMetrics(int pageId)
+        public async Task<IEnumerable<PageMetric>> GetPageMetrics(Guid pageKey)
         {
             using var scope = _scopeProvider.CreateScope();
-            var queryResults = await scope.Database.FetchAsync<PageMetric>($"SELECT * FROM {PageMetric.TableName} WHERE NodeId = @0", pageId);
+            var queryResults = await scope.Database.FetchAsync<PageMetric>($"SELECT * FROM {PageMetric.TableName} WHERE NodeKey = @0", pageKey);
             scope.Complete();
 
             return queryResults;

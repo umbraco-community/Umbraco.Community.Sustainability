@@ -1,5 +1,5 @@
 import { html as p, repeat as P, css as T, state as c, property as W, customElement as A } from "@umbraco-cms/backoffice/external/lit";
-import { S as H } from "./index-BxRhZE1m.js";
+import { S as H } from "./index-DJ7ZKaCL.js";
 import { UmbLitElement as q } from "@umbraco-cms/backoffice/lit-element";
 var _ = /* @__PURE__ */ ((e) => (e.ASCENDING = "Ascending", e.DESCENDING = "Descending", e))(_ || {}), L = Object.defineProperty, F = Object.getOwnPropertyDescriptor, r = (e, t, i, l) => {
   for (var s = l > 1 ? void 0 : l ? F(t, i) : t, o = e.length - 1, n; o >= 0; o--)
@@ -216,4 +216,4 @@ export {
   a as StatsRootWorkspaceElement,
   Y as default
 };
-//# sourceMappingURL=stats-workspace.element-gUSvHD7Y.js.map
+//# sourceMappingURL=stats-workspace.element-5Do9I2XQ.js.map

@@ -90,7 +90,7 @@ namespace Umbraco.Community.Sustainability.Controllers
                 return NoContent();
             }
 
-            var pageMetrics = await _pageMetricService.GetPageMetrics(contentItem.Id);
+            var pageMetrics = await _pageMetricService.GetPageMetrics(contentItem.Key);
             var mostRecent = pageMetrics.OrderByDescending(x => x.RequestDate).FirstOrDefault();
             if (mostRecent?.PageData == null)
             {

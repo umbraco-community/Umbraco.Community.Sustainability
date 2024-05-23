@@ -13,9 +13,6 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
   @state()
   private _documentUnique?: string = '';
 
-  @state()
-  pageName?: string = '';
-
   @property({ type: Boolean })
   loading?: boolean = true;
 
@@ -35,11 +32,6 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
       this.observe((workspaceContext).unique, (unique) => {
         this._documentUnique = unique;
       });
-
-      const variantContext = (nodeContext as UmbVariantableWorkspaceContextInterface);
-      console.log(variantContext.getName());
-
-      this.pageName = variantContext.getName();
     });
 
     this.consumeContext(SUSTAINABILITY_CONTEXT, (instance) => {
@@ -97,7 +89,8 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
       )}
             </div>
             <div class="container">
-              <uui-box headline="Sustainability report">
+              <uui-box headline="Carbon rating">
+                <sustainability-carbon-rating .carbonRating=${this.pageData?.carbonRating}></sustainability-carbon-rating>
                 <p><strong>Last tested:</strong> ${new Intl.DateTimeFormat('en-GB', { dateStyle: "long", timeStyle: "short" }).format(new Date(this.pageData?.lastRunDate!))}</p>
                 <uui-button label="Run again" look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
                   Run again
