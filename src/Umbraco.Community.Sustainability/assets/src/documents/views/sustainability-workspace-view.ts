@@ -1,6 +1,6 @@
 import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 import { html, LitElement, customElement, css, state, property, repeat } from '@umbraco-cms/backoffice/external/lit'
-import { UMB_WORKSPACE_CONTEXT, UmbVariantableWorkspaceContextInterface } from "@umbraco-cms/backoffice/workspace";
+import { UMB_WORKSPACE_CONTEXT } from "@umbraco-cms/backoffice/workspace";
 import type { UmbDocumentWorkspaceContext } from '@umbraco-cms/backoffice/document';
 import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from "../../context/sustainability.context";
 import { ExternalResourceGroup, SustainabilityResponse } from "../../api";
@@ -90,7 +90,7 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
             </div>
             <div class="container">
               <uui-box headline="Carbon rating">
-                <sustainability-carbon-rating .carbonRating=${this.pageData?.carbonRating}></sustainability-carbon-rating>
+                <sustainability-carbon-rating slot="header" .carbonRating=${this.pageData?.carbonRating}></sustainability-carbon-rating>
                 <p><strong>Last tested:</strong> ${new Intl.DateTimeFormat('en-GB', { dateStyle: "long", timeStyle: "short" }).format(new Date(this.pageData?.lastRunDate!))}</p>
                 <uui-button label="Run again" look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
                   Run again

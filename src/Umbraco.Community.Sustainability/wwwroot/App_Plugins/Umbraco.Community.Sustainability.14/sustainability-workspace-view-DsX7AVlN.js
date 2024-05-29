@@ -1,7 +1,7 @@
 import { UmbElementMixin as y } from "@umbraco-cms/backoffice/element-api";
 import { LitElement as b, html as u, repeat as v, css as _, state as w, property as d, customElement as x } from "@umbraco-cms/backoffice/external/lit";
 import { UMB_WORKSPACE_CONTEXT as k } from "@umbraco-cms/backoffice/workspace";
-import { S as C } from "./index-DJ7ZKaCL.js";
+import { S as C } from "./index-1W_f7jZE.js";
 var D = Object.defineProperty, $ = Object.getOwnPropertyDescriptor, r = (t, e, i, n) => {
   for (var a = n > 1 ? void 0 : n ? $(e, i) : e, l = t.length - 1, p; l >= 0; l--)
     (p = t[l]) && (a = (n ? p(e, i, a) : p(a)) || a);
@@ -54,7 +54,7 @@ let o = class extends y(b) {
             </div>
             <div class="container">
               <uui-box headline="Carbon rating">
-                <sustainability-carbon-rating .carbonRating=${(e = this.pageData) == null ? void 0 : e.carbonRating}></sustainability-carbon-rating>
+                <sustainability-carbon-rating slot="header" .carbonRating=${(e = this.pageData) == null ? void 0 : e.carbonRating}></sustainability-carbon-rating>
                 <p><strong>Last tested:</strong> ${new Intl.DateTimeFormat("en-GB", { dateStyle: "long", timeStyle: "short" }).format(new Date((i = this.pageData) == null ? void 0 : i.lastRunDate))}</p>
                 <uui-button label="Run again" look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : void 0}>
                   Run again
@@ -121,4 +121,4 @@ export {
   o as SustainabilityWorkspaceElement,
   T as default
 };
-//# sourceMappingURL=sustainability-workspace-view-BPSW3RO0.js.map
+//# sourceMappingURL=sustainability-workspace-view-DsX7AVlN.js.map
