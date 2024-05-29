@@ -2,7 +2,7 @@
   "$schema": "../umbraco-package-schema.json",
   "name": "Umbraco.Community.Sustainability",
   "id": "Umbraco.Community.Sustainability",
-  "version": "1.0.0-alpha.2",
+  "version": "2.0.0",
   "allowTelemetry": true,
   "extensions": [
     {

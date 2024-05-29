@@ -14,7 +14,7 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
   private _documentUnique?: string = '';
 
   @property({ type: Boolean })
-  loading?: boolean = true;
+loading?: boolean = true;
 
   @property({ type: Boolean })
   waiting?: boolean = false;
