@@ -9,6 +9,7 @@ A package from the [Umbraco Community Sustainability Team](https://umbraco.com/b
 ## Installation
 > [!IMPORTANT]
 > **v2.x** supports Umbraco v14.x
+> 
 > **v1.x** supports Umbraco v10.8.x - v13.x
 > To understand more about which Umbraco CMS versions are actively supported by Umbraco HQ, please see [Umbraco's Long-term Support (LTS) and End-of-Life (EOL) policy](https://umbraco.com/products/knowledge-center/long-term-support-and-end-of-life/).
 
