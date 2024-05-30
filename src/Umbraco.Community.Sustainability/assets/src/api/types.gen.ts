@@ -68,7 +68,7 @@ export type $OpenApiTs = {
             };
             res: {
                 /**
- * Success
+ * OK
  */
                 200: SustainabilityResponse;
             };
@@ -78,7 +78,7 @@ export type $OpenApiTs = {
         get: {
             res: {
                 /**
- * Success
+ * OK
  */
                 200: AveragePageMetrics;
             };
@@ -94,7 +94,7 @@ export type $OpenApiTs = {
             };
             res: {
                 /**
- * Success
+ * OK
  */
                 200: PagedResultPageMetricModel;
             };
@@ -107,7 +107,7 @@ export type $OpenApiTs = {
             };
             res: {
                 /**
- * Success
+ * OK
  */
                 200: SustainabilityResponse;
             };
@@ -121,7 +121,7 @@ export type $OpenApiTs = {
             };
             res: {
                 /**
- * Success
+ * OK
  */
                 200: boolean;
             };

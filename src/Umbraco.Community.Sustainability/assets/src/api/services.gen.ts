@@ -8,7 +8,7 @@ import type { $OpenApiTs } from './types.gen';
 
 export class SustainabilityService {
     /**
- * @returns unknown Success
+ * @returns unknown OK
  * @throws ApiError
  */
     public static checkPage(data: $OpenApiTs['/umbraco/sustainability/api/v1/checkPage']['get']['req'] = {}): CancelablePromise<$OpenApiTs['/umbraco/sustainability/api/v1/checkPage']['get']['res'][200]> {
@@ -23,7 +23,7 @@ export class SustainabilityService {
     }
     
     /**
- * @returns unknown Success
+ * @returns unknown OK
  * @throws ApiError
  */
     public static getAverageData(): CancelablePromise<$OpenApiTs['/umbraco/sustainability/api/v1/getAverageData']['get']['res'][200]> {
@@ -34,7 +34,7 @@ export class SustainabilityService {
     }
     
     /**
- * @returns unknown Success
+ * @returns unknown OK
  * @throws ApiError
  */
     public static getOverviewData(data: $OpenApiTs['/umbraco/sustainability/api/v1/getOverviewData']['get']['req'] = {}): CancelablePromise<$OpenApiTs['/umbraco/sustainability/api/v1/getOverviewData']['get']['res'][200]> {
@@ -52,7 +52,7 @@ export class SustainabilityService {
     }
     
     /**
- * @returns unknown Success
+ * @returns unknown OK
  * @throws ApiError
  */
     public static getPageData(data: $OpenApiTs['/umbraco/sustainability/api/v1/getPageData']['get']['req'] = {}): CancelablePromise<$OpenApiTs['/umbraco/sustainability/api/v1/getPageData']['get']['res'][200]> {
@@ -67,7 +67,7 @@ export class SustainabilityService {
     }
     
     /**
- * @returns boolean Success
+ * @returns boolean OK
  * @throws ApiError
  */
     public static savePageData(data: $OpenApiTs['/umbraco/sustainability/api/v1/savePageData']['post']['req'] = {}): CancelablePromise<$OpenApiTs['/umbraco/sustainability/api/v1/savePageData']['post']['res'][200]> {

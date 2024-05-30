@@ -18,7 +18,7 @@ const X = {
   type: "workspaceView",
   alias: "Umbraco.Community.Sustainability.Workspace",
   name: "Sustainability Workspace",
-  js: () => import("./sustainability-workspace-view-pzuXAvW7.js"),
+  js: () => import("./sustainability-workspace-view-BAesFlx-.js"),
   weight: 10,
   meta: {
     icon: "icon-eco",
@@ -46,7 +46,7 @@ const X = {
   type: "workspace",
   alias: te,
   name: "Overview Root Workspace",
-  js: () => import("./overview-workspace.element-CpVWFoVQ.js"),
+  js: () => import("./overview-workspace.element-Qpnh3gaK.js"),
   meta: {
     entityType: x
   }
@@ -76,7 +76,7 @@ const X = {
   type: "workspace",
   alias: le,
   name: "Stats Root Workspace",
-  js: () => import("./stats-workspace.element-of0rff16.js"),
+  js: () => import("./stats-workspace.element-snm_eYu_.js"),
   meta: {
     entityType: k
   }
@@ -407,7 +407,7 @@ const m = {
 });
 class v {
   /**
-  * @returns unknown Success
+  * @returns unknown OK
   * @throws ApiError
   */
   static checkPage(e = {}) {
@@ -421,7 +421,7 @@ class v {
     });
   }
   /**
-  * @returns unknown Success
+  * @returns unknown OK
   * @throws ApiError
   */
   static getAverageData() {
@@ -431,7 +431,7 @@ class v {
     });
   }
   /**
-  * @returns unknown Success
+  * @returns unknown OK
   * @throws ApiError
   */
   static getOverviewData(e = {}) {
@@ -448,7 +448,7 @@ class v {
     });
   }
   /**
-  * @returns unknown Success
+  * @returns unknown OK
   * @throws ApiError
   */
   static getPageData(e = {}) {
@@ -462,7 +462,7 @@ class v {
     });
   }
   /**
-  * @returns boolean Success
+  * @returns boolean OK
   * @throws ApiError
   */
   static savePageData(e = {}) {
@@ -611,4 +611,4 @@ export {
   Pe as c,
   Ve as o
 };
-//# sourceMappingURL=index-BUMtF1SV.js.map
+//# sourceMappingURL=index-Clx-kk79.js.map
