@@ -9,9 +9,6 @@ export class SustainabilityContext extends UmbControllerBase {
   
   #repository: SustainabilityRepository;
 
-  #pageData = new UmbObjectState<SustainabilityResponse | undefined>(undefined);
-  public readonly pageData = this.#pageData.asObservable();
-
   #overviewData = new UmbObjectState<PagedResultPageMetricModel | undefined>(undefined);
   public readonly overviewData = this.#overviewData.asObservable();
 
@@ -26,23 +23,23 @@ export class SustainabilityContext extends UmbControllerBase {
   async checkPage(pageGuid: string, initialLoad: boolean = true) {
     const { data } = await this.#repository.checkPage(pageGuid);
     if (data) {
-      this.#pageData.setValue(data);
-
       if (!initialLoad) {
         await this.savePageData(pageGuid, data);
       }
+
+      return data;
     }
+
+    return undefined;
   }
 
-  async getPageData(pageGuid: string, initialLoad: boolean = true) {
+  async getPageData(pageGuid: string) {
     const { data } = await this.#repository.getPageData(pageGuid);
     if (data) {
-      this.#pageData.setValue(data);
-
-      if (!initialLoad) {
-        await this.savePageData(pageGuid, data);
-      }
+      return data;
     }
+
+    return undefined;
   }
   
   async savePageData(pageGuid: string, sustainabilityResponse: SustainabilityResponse) {

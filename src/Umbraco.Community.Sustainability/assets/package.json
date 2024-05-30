@@ -1,7 +1,7 @@
 {
-  "name": "assets",
+  "name": "Umbraco.Community.Sustainability",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,13 +11,13 @@
     "generate": "openapi-ts --input http://localhost:35066/umbraco/swagger/sustainability/swagger.json --output src/api --debug true --enums typescript --lint true --schemas false"
   },
   "dependencies": {
-    "@tgwf/co2": "^0.14.4",
+    "@tgwf/co2": "^0.15.0",
     "@types/tgwf__co2": "^0.14.2",
     "lit": "^3.1.0"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "^0.40.0",
-    "@umbraco-cms/backoffice": "^14.0.0-rc5",
+    "@hey-api/openapi-ts": "^0.46.3",
+    "@umbraco-cms/backoffice": "^14.0.0",
     "typescript": "^5.2.2",
     "umbracodegen": "^1.0.0-alpha.5",
     "vite": "^5.2.8"

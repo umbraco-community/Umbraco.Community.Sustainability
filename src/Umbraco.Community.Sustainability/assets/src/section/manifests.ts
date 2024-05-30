@@ -15,6 +15,12 @@ const section: ManifestSection = {
     label: "Sustainability",
     pathname: "sustainability",
   },
+  conditions: [
+    {
+      alias: 'Umb.Condition.SectionUserPermission',
+      match: sectionAlias
+    }
+  ]
 };
 
 const sectionView: ManifestSectionView = {

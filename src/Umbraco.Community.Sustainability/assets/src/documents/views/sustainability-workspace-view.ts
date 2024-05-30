@@ -1,5 +1,5 @@
 import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
-import { html, LitElement, customElement, css, state, property, repeat } from '@umbraco-cms/backoffice/external/lit'
+import { html, LitElement, customElement, css, state, repeat } from '@umbraco-cms/backoffice/external/lit'
 import { UMB_WORKSPACE_CONTEXT } from "@umbraco-cms/backoffice/workspace";
 import type { UmbDocumentWorkspaceContext } from '@umbraco-cms/backoffice/document';
 import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from "../../context/sustainability.context";
@@ -13,20 +13,16 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
   @state()
   private _documentUnique?: string = '';
 
-  @property({ type: Boolean })
-loading?: boolean = true;
-
-  @property({ type: Boolean })
+  @state()
   waiting?: boolean = false;
 
-  @property({ type: Object })
-  pageData?: SustainabilityResponse;
+  @state()
+  pageData?: SustainabilityResponse | undefined = undefined;
 
   constructor() {
     super();
 
     this.consumeContext(UMB_WORKSPACE_CONTEXT, (nodeContext) => {
-
       const workspaceContext = (nodeContext as UmbDocumentWorkspaceContext);
 
       this.observe((workspaceContext).unique, (unique) => {
@@ -36,26 +32,15 @@ loading?: boolean = true;
 
     this.consumeContext(SUSTAINABILITY_CONTEXT, (instance) => {
       this.#sustainabilityContext = instance;
-
-      this.observe(instance.pageData, (_pageData) => {
-        this.pageData = _pageData;
-        if (this.pageData != null) {
-          if (typeof this.pageData?.totalSize !== "undefined") {
-            this.loading = false;
-          }
-        }
-      })
-    })
+    });
   }
 
-  connectedCallback(): void {
+  async connectedCallback() {
     super.connectedCallback();
 
     if (this.#sustainabilityContext != null) {
-      if (this.loading) {
-        if (this._documentUnique) {
-          this.#sustainabilityContext.getPageData(this._documentUnique);
-        }
+      if (this._documentUnique) {
+        this.pageData = await this.#sustainabilityContext.getPageData(this._documentUnique);
       }
     }
   }
@@ -63,13 +48,13 @@ loading?: boolean = true;
   async checkPage() {
     this.waiting = true;
     if (this._documentUnique) {
-      await this.#sustainabilityContext?.checkPage(this._documentUnique, false);
+      this.pageData = await this.#sustainabilityContext?.checkPage(this._documentUnique, false);
       this.waiting = false;
     }
   }
 
   render() {
-    if (this.loading) {
+    if (this.pageData === undefined) {
       return html`
           <uui-box headline="Loading sustainability report...">
               <p>It looks like you haven't run a report on this page yet. Click the button below to get started.</p>
