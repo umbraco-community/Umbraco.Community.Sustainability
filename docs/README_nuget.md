@@ -20,8 +20,14 @@ On each content page, a Content App is added which allows users to see and bench
 ![Umbraco.Community.Sustainability content app](https://raw.githubusercontent.com/rickbutterfield/Umbraco.Community.Sustainability/main/.github/assets/sustainability-contentapp-2.jpeg)
 
 ## Installation
+> [!IMPORTANT]
+> **v2.x** supports Umbraco v14.x
+> 
+> **v1.x** supports Umbraco v10.8.x - v13.x
+> 
+> To understand more about which Umbraco CMS versions are actively supported by Umbraco HQ, please see [Umbraco's Long-term Support (LTS) and End-of-Life (EOL) policy](https://umbraco.com/products/knowledge-center/long-term-support-and-end-of-life/).
 
-Add the package to an existing Umbraco website (v10.8.0+) from nuget:
+Add the package to an existing Umbraco website from NuGet:
 
 `dotnet add package Umbraco.Community.Sustainability`
 
