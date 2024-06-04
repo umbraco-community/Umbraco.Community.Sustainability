@@ -6,4 +6,4 @@ export {
   s as SustainabilityRepository,
   r as onInit
 };
-//# sourceMappingURL=Umbraco.Community.Sustainability.js.map
+//# sourceMappingURL=assets.js.map
