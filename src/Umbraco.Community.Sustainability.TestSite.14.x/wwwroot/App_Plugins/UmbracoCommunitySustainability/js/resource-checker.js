@@ -1,4 +1,4 @@
-import { co2, hosting } from 'https://cdn.skypack.dev/@tgwf/co2';
+import { co2, hosting } from 'https://cdn.skypack.dev/@tgwf/co2@0.15';
 
 scrollPage();
 
