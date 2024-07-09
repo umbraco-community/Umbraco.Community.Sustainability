@@ -24,7 +24,7 @@ namespace Umbraco.Community.Sustainability.Services
             // Add our script to report data
             await page.AddScriptTagAsync(new PageAddScriptTagOptions()
             {
-                Url = "/App_Plugins/UmbracoCommunitySustainability/js/resource-checker.js",
+                Url = "/App_Plugins/Umbraco.Community.Sustainability.14/resource-checker.js",
                 Type = "module"
             });
 
