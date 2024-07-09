@@ -39,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Playwright" Version="1.44.0" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.45.0" />
     <PackageReference Include="Umbraco.Cms.Web.Website" Version="[14.0.0, 15.0.0)" />
     <PackageReference Include="Umbraco.Cms.Api.Common" Version="[14.0.0, 15.0.0)" />
   </ItemGroup>
