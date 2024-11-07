@@ -51,22 +51,14 @@ Once added, a new Content App will be available alongside your Umbraco pages all
 
 ## Configuration
 
-You will need to add the following configuration to you appSettings.json file. 
-The AcceptedFileTypes are the media types that you can create in the media library, not the file extensions of your files
+Example configuration that can be added for this package.
 
   ```
-  "Umbraco": {
-    "CMS":{
-        "MediaLibrary" : {
-            "Optimisation":{
-                "Enable" : bool,
-                "AcceptedFileTypes" : 
-                {
-                    "<<Media File Type here>>" : "<<MAX file size in bytes here>>",
-                    "<<Media File Type here>>" : "<<MAX file size in bytes here>>"
-                }
-            }
-        }
+  "UmbracoCommunitySustainability": {
+    "Enabled": true,
+    "MediaOptimisation": {
+      "ShowWarnings": true,
+      "FileTypes": { "Image": "2000000" }
     }
   }
   ```
