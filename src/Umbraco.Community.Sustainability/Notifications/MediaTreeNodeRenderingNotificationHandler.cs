@@ -1,54 +1,37 @@
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Notifications;
+using Umbraco.Community.Sustainability.Configuration;
 using Umbraco.Community.Sustainability.Services;
 
 namespace Umbraco.Community.Sustainability.Notifications
 {
     public class MediaTreeNodeRenderingNotificationHandler : INotificationHandler<TreeNodesRenderingNotification>
     {
-        private readonly ILogger<MediaTreeNodeRenderingNotificationHandler> _logger;
-        private readonly IImageSizeService _imageSizeService;
-        private readonly IMediaLibraryService _mediaLibraryService;
+        private readonly IMediaOptimisationService _mediaOptimisationService;
+        private readonly SustainabilityConfiguration _configuration;
 
-        public MediaTreeNodeRenderingNotificationHandler(ILogger<MediaTreeNodeRenderingNotificationHandler> logger,
-            IImageSizeService imageService, IMediaLibraryService mediaLibraryService)
+        public MediaTreeNodeRenderingNotificationHandler(
+            IMediaOptimisationService mediaOptimisationService,
+            IOptions<SustainabilityConfiguration> configuration)
         {
-            _logger = logger;
-            _imageSizeService = imageService;
-            _mediaLibraryService = mediaLibraryService;
+            _mediaOptimisationService = mediaOptimisationService;
+            _configuration = configuration.Value;
         }
 
         public void Handle(TreeNodesRenderingNotification notification)
         {
-            if (notification.TreeAlias == Cms.Core.Constants.Trees.Media)
+            if (_configuration.Enabled
+                && _configuration.MediaOptimisation.ShowWarnings
+                && notification.TreeAlias == Cms.Core.Constants.Trees.Media)
             {
                 foreach (var node in notification.Nodes)
                 {
-                    int.TryParse(node?.Id?.ToString(), out int nodeId);
+                    int.TryParse(node.Id.ToString(), out int nodeId);
 
-                    if (nodeId > 0)
+                    if (_mediaOptimisationService.ShowMediaWarning(nodeId))
                     {
-                        var mediaItem = _mediaLibraryService.GetMediaLibraryFile(nodeId);
-
-                        if (mediaItem == null)
-                        {
-                            continue;
-                        }
-
-                        var acceptedFileType = _imageSizeService.AcceptedFileExtension(mediaItem);
-                        if (!acceptedFileType)
-                        {
-                            continue;
-                        }
-
-                        var acceptedFileSize = _imageSizeService.AcceptedFileSize(mediaItem);
-                        if (!acceptedFileSize)
-                        {
-                            node.CssClasses.Add("image-size-css");
-                            node.Icon = "icon-thumb-down";
-                            _logger.LogWarning($"Image Size Warning: Node Id: {node.Id} || Node Name: {node.Name}");
-                        }
+                        node.Icon = "icon-alert-alt color-red";
                     }
                 }
             }

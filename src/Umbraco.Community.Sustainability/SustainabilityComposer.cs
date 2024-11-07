@@ -23,20 +23,22 @@ namespace Umbraco.Community.Sustainability
                 throw new Exception($"Playwright exited with code {exitCode}");
             }
 
+            // startup
             builder.AddNotificationHandler<UmbracoApplicationStartingNotification, PageMetricsNotificationHandler>();
             builder.ManifestFilters().Append<SustainabilityManifestFilter>();
-            builder.ContentApps().Append<SustainabilityContentApp>();
 
+            // ui
+            builder.ContentApps().Append<SustainabilityContentApp>();
             builder.Sections().Append<SustainabilitySection>();
 
+            // services
             builder.Services.AddScoped<IPageMetricService, PageMetricService>();
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
+            builder.Services.AddSingleton<IMediaOptimisationService, MediaOptimisationService>();
+            builder.Services.AddOptions<SustainabilityConfiguration>().Bind(builder.Config.GetSection(SustainabilityConfiguration.SectionAlias));
 
-            builder.Services.AddOptions<MediaLibraryOptions>().Bind(builder.Config.GetSection(MediaLibraryOptions.SectionAlias));
-            builder.Services.AddSingleton<IImageSizeService, ImageSizeService>();
-            builder.Services.AddSingleton<IMediaLibraryService, MediaLibraryService>();
+            // notifications
             builder.AddNotificationHandler<TreeNodesRenderingNotification, MediaTreeNodeRenderingNotificationHandler>();
-
         }
     }
 }
