@@ -1,11 +1,11 @@
-import { UmbElementMixin as _ } from "@umbraco-cms/backoffice/element-api";
-import { LitElement as b, html as r, repeat as m, css as y, state as d, customElement as w } from "@umbraco-cms/backoffice/external/lit";
+import { UmbElementMixin as f } from "@umbraco-cms/backoffice/element-api";
+import { LitElement as _, html as r, repeat as m, css as y, state as d, customElement as w } from "@umbraco-cms/backoffice/external/lit";
 import { UMB_WORKSPACE_CONTEXT as x } from "@umbraco-cms/backoffice/workspace";
-import { S as k } from "./index-Clx-kk79.js";
-var C = Object.defineProperty, D = Object.getOwnPropertyDescriptor, u = (t, e, i, n) => {
-  for (var a = n > 1 ? void 0 : n ? D(e, i) : e, l = t.length - 1, c; l >= 0; l--)
-    (c = t[l]) && (a = (n ? c(e, i, a) : c(a)) || a);
-  return n && a && C(e, i, a), a;
+import { S as C } from "./index-BTwfBF87.js";
+var k = Object.defineProperty, D = Object.getOwnPropertyDescriptor, u = (t, e, i, s) => {
+  for (var a = s > 1 ? void 0 : s ? D(e, i) : e, l = t.length - 1, c; l >= 0; l--)
+    (c = t[l]) && (a = (s ? c(e, i, a) : c(a)) || a);
+  return s && a && k(e, i, a), a;
 }, g = (t, e, i) => {
   if (!e.has(t))
     throw TypeError("Cannot " + i);
@@ -13,15 +13,15 @@ var C = Object.defineProperty, D = Object.getOwnPropertyDescriptor, u = (t, e, i
   if (e.has(t))
     throw TypeError("Cannot add the same private member more than once");
   e instanceof WeakSet ? e.add(t) : e.set(t, i);
-}, $ = (t, e, i, n) => (g(t, e, "write to private field"), n ? n.call(t, i) : e.set(t, i), i), S = (t, e, i) => (g(t, e, "access private method"), i), o, h, f;
-let s = class extends _(b) {
+}, $ = (t, e, i, s) => (g(t, e, "write to private field"), s ? s.call(t, i) : e.set(t, i), i), E = (t, e, i) => (g(t, e, "access private method"), i), o, h, b;
+let n = class extends f(_) {
   constructor() {
     super(), v(this, h), v(this, o, void 0), this._documentUnique = "", this.waiting = !1, this.pageData = void 0, this.consumeContext(x, (t) => {
       const e = t;
       this.observe(e.unique, (i) => {
         this._documentUnique = i;
       });
-    }), this.consumeContext(k, (t) => {
+    }), this.consumeContext(C, (t) => {
       $(this, o, t);
     });
   }
@@ -33,7 +33,7 @@ let s = class extends _(b) {
     this.waiting = !0, this._documentUnique && (this.pageData = await ((t = p(this, o)) == null ? void 0 : t.checkPage(this._documentUnique, !1)), this.waiting = !1);
   }
   render() {
-    var t, e, i, n;
+    var t, e, i, s;
     return this.pageData === void 0 ? r`
           <uui-box headline="Loading sustainability report...">
               <p>It looks like you haven't run a report on this page yet. Click the button below to get started.</p>
@@ -46,7 +46,7 @@ let s = class extends _(b) {
               ${m(
       (t = this.pageData) == null ? void 0 : t.resourceGroups,
       (a) => a.name,
-      (a) => S(this, h, f).call(this, a)
+      (a) => E(this, h, b).call(this, a)
     )}
             </div>
             <div class="container">
@@ -61,7 +61,14 @@ let s = class extends _(b) {
                 ${(this.pageData.totalSize / 1024).toFixed(2)}KB
               </uui-box>
               <uui-box headline="CO₂ per page view">
-                ${(n = this.pageData) == null ? void 0 : n.totalEmissions.toFixed(4)}g
+                ${(s = this.pageData) == null ? void 0 : s.totalEmissions.toFixed(4)}g
+              </uui-box>
+              <uui-box headline="Estimations">
+                <p>
+                  This data is based on resources loaded and uses <a href="https://developers.thegreenwebfoundation.org/co2js/overview/">CO2.js</a> to
+                  convert page weight to carbon emissions.
+                </p>
+                <p>Please use as a guideline to diagnose and highlight potential areas of improvement.</p>
               </uui-box>
             </div>
           `;
@@ -69,7 +76,7 @@ let s = class extends _(b) {
 };
 o = /* @__PURE__ */ new WeakMap();
 h = /* @__PURE__ */ new WeakSet();
-f = function(t) {
+b = function(t) {
   var e;
   if (((e = t.resources) == null ? void 0 : e.length) !== 0)
     return r`
@@ -84,7 +91,7 @@ f = function(t) {
           </uui-box>
         `;
 };
-s.styles = y`
+n.styles = y`
         :host {
             display: grid;
             gap: var(--uui-size-layout-1);
@@ -100,19 +107,19 @@ s.styles = y`
     `;
 u([
   d()
-], s.prototype, "_documentUnique", 2);
+], n.prototype, "_documentUnique", 2);
 u([
   d()
-], s.prototype, "waiting", 2);
+], n.prototype, "waiting", 2);
 u([
   d()
-], s.prototype, "pageData", 2);
-s = u([
+], n.prototype, "pageData", 2);
+n = u([
   w("sustainability-workspace-view")
-], s);
-const T = s;
+], n);
+const U = n;
 export {
-  s as SustainabilityWorkspaceElement,
-  T as default
+  n as SustainabilityWorkspaceElement,
+  U as default
 };
-//# sourceMappingURL=sustainability-workspace-view-BAesFlx-.js.map
+//# sourceMappingURL=sustainability-workspace-view-CugZz0fY.js.map

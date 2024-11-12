@@ -87,6 +87,13 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
               <uui-box headline="CO₂ per page view">
                 ${this.pageData?.totalEmissions.toFixed(4)}g
               </uui-box>
+              <uui-box headline="Estimations">
+                <p>
+                  This data is based on resources loaded and uses <a href="https://developers.thegreenwebfoundation.org/co2js/overview/">CO2.js</a> to
+                  convert page weight to carbon emissions.
+                </p>
+                <p>Please use as a guideline to diagnose and highlight potential areas of improvement.</p>
+              </uui-box>
             </div>
           `;
     }

@@ -58,7 +58,7 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
   }
 
   #getStatsData() {
-    if (this._sortingDesc) {
+    if (!this._sortingDesc) {
       this._orderDirection = DirectionModelEnum.DESCENDING;
     }
     else this._orderDirection = DirectionModelEnum.ASCENDING;
@@ -129,9 +129,10 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
                       </uui-symbol-sort>
                     </uui-button>
                   </uui-table-head-cell>
-                  <uui-table-head-cell>Scripts</uui-table-head-cell>
                   <uui-table-head-cell>Images</uui-table-head-cell>
-                  <uui-table-head-cell>Styles</uui-table-head-cell>
+                  <uui-table-head-cell>Scripts</uui-table-head-cell>
+                  <uui-table-head-cell>Links</uui-table-head-cell>
+                  <uui-table-head-cell>CSS</uui-table-head-cell>
                   <uui-table-head-cell>Other</uui-table-head-cell>
                   <uui-table-head-cell style="text-align: right;">
                     <uui-button
@@ -178,15 +179,19 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
                       </uui-table-cell>
 
                       <uui-table-cell>
-                        ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'Scripts')?.resources?.length}
-                      </uui-table-cell>
-
-                      <uui-table-cell>
                         ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'Images')?.resources?.length}
                       </uui-table-cell>
 
                       <uui-table-cell>
-                        ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'Styles')?.resources?.length}
+                        ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'Scripts')?.resources?.length}
+                      </uui-table-cell>
+
+                      <uui-table-cell>
+                        ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'Links')?.resources?.length}
+                      </uui-table-cell>
+
+                      <uui-table-cell>
+                        ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'CSS')?.resources?.length}
                       </uui-table-cell>
 
                       <uui-table-cell>

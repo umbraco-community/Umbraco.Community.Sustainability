@@ -1,4 +1,4 @@
-import { S as H } from "./index-Clx-kk79.js";
+import { S as H } from "./index-BTwfBF87.js";
 import { UmbLitElement as P } from "@umbraco-cms/backoffice/lit-element";
 import { DirectionModel as W } from "@umbraco-cms/backoffice/external/backend-api";
 import { html as u, css as z, state as k, customElement as q, repeat as j } from "@umbraco-cms/backoffice/external/lit";
@@ -257,4 +257,4 @@ export {
   f as OverviewRootWorkspaceElement,
   se as default
 };
-//# sourceMappingURL=overview-workspace.element-Qpnh3gaK.js.map
+//# sourceMappingURL=overview-workspace.element-DGi9EiaN.js.map
