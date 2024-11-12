@@ -14,8 +14,6 @@ namespace Umbraco.Community.Sustainability
                 Version = assembly.GetName()?.Version?.ToString(3) ?? "0.1.0",
                 AllowPackageTelemetry = true,
                 Scripts = new string[] {
-                    // List any Script files
-                    // Urls should start '/App_Plugins/UmbracoCommunitySustainability/' not '/wwwroot/UmbracoCommunitySustainability/', e.g.
                     "/App_Plugins/UmbracoCommunitySustainability/js/sustainability.resource.js",
                     "/App_Plugins/UmbracoCommunitySustainability/js/sustainability-stats.controller.js",
                     "/App_Plugins/UmbracoCommunitySustainability/js/sustainability-overview.controller.js",
@@ -23,9 +21,7 @@ namespace Umbraco.Community.Sustainability
                 },
                 Stylesheets = new string[]
                 {
-                    // List any Stylesheet files
-                    // Urls should start '/App_Plugins/UmbracoCommunitySustainability/' not '/wwwroot/Umbraco.Community.Sustainability/', e.g.
-                    // "/App_Plugins/UmbracoCommunitySustainability/Styles/styles.css"
+                    "/App_Plugins/UmbracoCommunitySustainability/css/sustainability.styles.css"
                 }
             });
         }

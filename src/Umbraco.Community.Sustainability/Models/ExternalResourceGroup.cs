@@ -47,7 +47,7 @@ namespace Umbraco.Community.Sustainability.Models
         Scripts,
         [Display(Name = "Links")]
         Links,
-        [Display(Name = "Css")]
+        [Display(Name = "CSS")]
         Css,
         [Display(Name = "Other")]
         Other

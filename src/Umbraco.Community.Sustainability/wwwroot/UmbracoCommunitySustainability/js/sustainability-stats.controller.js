@@ -1,8 +1,16 @@
-angular.module('umbraco').controller('Umbraco.Sustainability.Stats.Controller',
-  ['$scope', '$routeParams', 'navigationService', 'Umbraco.Sustainability.Resources.SustainabilityResource',
+angular
+  .module("umbraco")
+  .controller("Umbraco.Sustainability.Stats.Controller", [
+    "$scope",
+    "$routeParams",
+    "navigationService",
+    "Umbraco.Sustainability.Resources.SustainabilityResource",
     function ($scope, $routeParams, navigationService, sustainabilityResource) {
-
-      navigationService.syncTree({ tree: $routeParams.tree, path: [-1, $routeParams.method], forceReload: false });
+      navigationService.syncTree({
+        tree: $routeParams.tree,
+        path: [-1, $routeParams.method],
+        forceReload: false,
+      });
 
       let vm = this;
 
@@ -12,7 +20,7 @@ angular.module('umbraco').controller('Umbraco.Sustainability.Stats.Controller',
       vm.pageSize = 10;
       vm.sustainabilityData = [];
       vm.sortingDesc = false;
-      vm.sortingColumn = 'CarbonRating';
+      vm.sortingColumn = "CarbonRating";
 
       vm.changePageNumber = changePageNumber;
       vm.getTagColour = sustainabilityResource.getTagColour;
@@ -21,29 +29,46 @@ angular.module('umbraco').controller('Umbraco.Sustainability.Stats.Controller',
       init();
 
       function init() {
-        sustainabilityResource.getOverviewData(vm.pageNumber, vm.pageSize, vm.sortingColumn, vm.sortingDesc).then(function (data) {
-          vm.sustainabilityData = data.items;
+        sustainabilityResource
+          .getOverviewData(
+            vm.pageNumber,
+            vm.pageSize,
+            vm.sortingColumn,
+            vm.sortingDesc
+          )
+          .then(function (data) {
+            vm.sustainabilityData = data.items;
 
-          vm.pageNumber = data.pageNumber;
-          vm.pageSize = data.pageSize;
-          vm.totalItems = data.totalItems;
-          vm.totalPages = data.totalPages;
+            vm.pageNumber = data.pageNumber;
+            vm.pageSize = data.pageSize;
+            vm.totalItems = data.totalItems;
+            vm.totalPages = data.totalPages;
 
-          angular.forEach(vm.sustainabilityData, function (item) {
-            item.RequestDate = moment(item.RequestDate).format(
-              "MMM Do YYYY HH:mm:ss"
-            );
+            angular.forEach(vm.sustainabilityData, function (item) {
+              item.RequestDate = moment(item.RequestDate).format(
+                "MMM Do YYYY HH:mm:ss"
+              );
 
-            item.PageData = JSON.parse(item.PageData);
-            item.Scripts = item.PageData.ResourceGroups.find(x => x.Name === 'Scripts').Resources.length;
-            item.Images = item.PageData.ResourceGroups.find(x => x.Name === 'Images').Resources.length;
-            item.Styles = item.PageData.ResourceGroups.find(x => x.Name === 'Styles').Resources.length;
-            item.Other = item.PageData.ResourceGroups.find(x => x.Name === 'Other').Resources.length;
+              item.PageData = JSON.parse(item.PageData);
+              item.Scripts = item.PageData.ResourceGroups.find(
+                (x) => x.Name === "Scripts"
+              )?.Resources?.length;
+              item.Images = item.PageData.ResourceGroups.find(
+                (x) => x.Name === "Images"
+              )?.Resources?.length;
+              item.Css = item.PageData.ResourceGroups.find(
+                (x) => x.Name === "Css"
+              )?.Resources?.length;
+              item.Links = item.PageData.ResourceGroups.find(
+                (x) => x.Name === "Links"
+              )?.Resources?.length;
+              item.Other = item.PageData.ResourceGroups.find(
+                (x) => x.Name === "Other"
+              )?.Resources?.length;
+            });
 
+            vm.loading = false;
           });
-
-          vm.loading = false;
-        });
       }
 
       function changePageNumber(pageNumber) {
@@ -54,17 +79,16 @@ angular.module('umbraco').controller('Umbraco.Sustainability.Stats.Controller',
       function getTagColour(carbonRating) {
         if (carbonRating == "E" || carbonRating == "F") {
           return "danger";
-        }
-        else if (carbonRating == "D") {
+        } else if (carbonRating == "D") {
           return "warning";
-        }
-        else return "positive";
+        } else return "positive";
       }
 
       function sortingHandler(columnName) {
-        vm.sortingDesc = vm.sortingColumn === columnName ? !vm.sortingDesc : false;
+        vm.sortingDesc =
+          vm.sortingColumn === columnName ? !vm.sortingDesc : false;
         vm.sortingColumn = columnName;
         init();
       }
-    }
+    },
   ]);
