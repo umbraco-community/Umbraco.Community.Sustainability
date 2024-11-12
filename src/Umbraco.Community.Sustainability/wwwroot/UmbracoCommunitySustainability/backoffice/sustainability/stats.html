@@ -1,118 +1,108 @@
+
 <div ng-controller="Umbraco.Sustainability.Stats.Controller as vm">
+    <umb-editor-view footer="false">
+        <umb-editor-header name="vm.name"
+                           name-locked="true"
+                           hide-alias="true"
+                           hide-description="true"
+                           hide-icon="true">
+        </umb-editor-header>
 
-  <umb-editor-view footer="false">
+        <umb-editor-container>
+            <div style="display: flex; justify-content: right">
+                <umb-box>
+                    <uui-tab-group>
+                        <uui-tab label="Table" active=""
+                                 ng-click="vm.setViewMode('table')">
+                            <uui-icon slot="icon" name="icon-info"></uui-icon>
+                        </uui-tab>
+                        <uui-tab label="Chart"
+                                 ng-click="vm.setViewMode('chart')">
+                            <uui-icon slot="icon" name="icon-chart"></uui-icon>
+                        </uui-tab>
+                    </uui-tab-group>
+                </umb-box>
+            </div>
 
-    <umb-editor-header name="vm.name"
-                       name-locked="true"
-                       hide-alias="true"
-                       hide-description="true"
-                       hide-icon="true">
-    </umb-editor-header>
+            <uui-box ng-if="!vm.loading && vm.sustainabilityData.length != 0 && vm.viewMode === 'table'">
+                <uui-table>
+                    <uui-table-head>
+                        <uui-table-head-cell></uui-table-head-cell>
+                        <uui-table-head-cell>
+                            <button style="display: contents; font-weight: bold; padding: var(--uui-size-4) var(--uui-size-5);"
+                                    ng-click="vm.sortingHandler('RequestDate')">
+                                Last Run Date
+                                <uui-symbol-sort ng-attr-active="{{vm.sortingColumn === 'RequestDate' || undefined}}"
+                                                 ng-attr-descending="{{vm.sortingDesc || undefined}}"></uui-symbol-sort>
+                            </button>
+                        </uui-table-head-cell>
+                        <uui-table-head-cell>
+                            <button style="display: contents; font-weight: bold; padding: var(--uui-size-4) var(--uui-size-5);"
+                                    ng-click="vm.sortingHandler('CarbonRating')">
+                                Carbon Rating
+                                <uui-symbol-sort ng-attr-active="{{vm.sortingColumn === 'CarbonRating' || undefined}}"
+                                                 ng-attr-descending="{{vm.sortingDesc || undefined}}"></uui-symbol-sort>
+                            </button>
+                        </uui-table-head-cell>
+                        <uui-table-head-cell>Scripts</uui-table-head-cell>
+                        <uui-table-head-cell>Images</uui-table-head-cell>
+                        <uui-table-head-cell>Styles</uui-table-head-cell>
+                        <uui-table-head-cell>Other</uui-table-head-cell>
+                        <uui-table-head-cell style="text-align: right;">
+                            <button style="display: contents; font-weight: bold; padding: var(--uui-size-4) var(--uui-size-5);"
+                                    ng-click="vm.sortingHandler('TotalSize')">
+                                Page Size
+                                <uui-symbol-sort ng-attr-active="{{vm.sortingColumn === 'TotalSize' || undefined}}"
+                                                 ng-attr-descending="{{vm.sortingDesc || undefined}}"></uui-symbol-sort>
+                            </button>
+                        </uui-table-head-cell>
+                        <uui-table-head-cell style="text-align: right;">
+                            <button style="display: contents; font-weight: bold; padding: var(--uui-size-4) var(--uui-size-5);"
+                                    ng-click="vm.sortingHandler('TotalEmissions')">
+                                CO₂ per page view
+                                <uui-symbol-sort ng-attr-active="{{vm.sortingColumn === 'TotalEmissions' || undefined}}"
+                                                 ng-attr-descending="{{vm.sortingDesc || undefined}}"></uui-symbol-sort>
+                            </button>
+                        </uui-table-head-cell>
+                    </uui-table-head>
+                    <uui-table-row ng-repeat="data in vm.sustainabilityData">
+                        <uui-table-cell>
+                            <a style="text-decoration: underline;" href="/umbraco/#/content/content/edit/{{data.NodeKey}}">{{data.NodeName}}</a>
+                        </uui-table-cell>
+                        <uui-table-cell>{{data.RequestDate}}</uui-table-cell>
+                        <uui-table-cell>
+                            <uui-tag style="font-size: 14px" color="{{vm.getTagColour(data.CarbonRating)}}">
+                                {{data.CarbonRating}}
+                            </uui-tag>
+                        </uui-table-cell>
+                        <uui-table-cell>{{data.Scripts}}</uui-table-cell>
+                        <uui-table-cell>{{data.Images}}</uui-table-cell>
+                        <uui-table-cell>{{data.Styles}}</uui-table-cell>
+                        <uui-table-cell>{{data.Other}}</uui-table-cell>
+                        <uui-table-cell style="text-align: right;">{{(data.TotalSize / 1024).toFixed(2)}}KB</uui-table-cell>
+                        <uui-table-cell style="text-align: right;">{{data.TotalEmissions.toFixed(4)}}g</uui-table-cell>
+                    </uui-table-row>
+                </uui-table>
+            </uui-box>
 
-    <umb-editor-container>
-      <uui-box ng-if="!vm.loading && vm.sustainabilityData.length != 0">
-        <uui-table>
+            <div ng-if="vm.viewMode === 'chart'" ng-init="initCharts()" style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div style="width: 48%; height: 400px; background-color: white; padding: 15px; border-radius: 8px; overflow: hidden;">
+                    <canvas id="resourceBreakdown" width="400" height="400"></canvas>
+                </div>
+                <div style="width: 48%; height: 400px; background-color: white; padding: 15px; border-radius: 8px; overflow: hidden;">
+                    <canvas id="co2Trend" width="400" height="400"></canvas>
+                </div>
+            </div>
 
-          <uui-table-head>
-            <uui-table-head-cell></uui-table-head-cell>
+            <div ng-if="!vm.loading" class="flex justify-center">
+                <umb-pagination page-number="vm.pageNumber"
+                                total-pages="vm.totalPages"
+                                on-change="vm.changePageNumber(pageNumber)">
+                </umb-pagination>
+            </div>
 
-            <uui-table-head-cell>
-              <button style="display: contents; font-weight: bold; padding: var(--uui-size-4) var(--uui-size-5);"
-                      ng-click="vm.sortingHandler('RequestDate')">
-                Last Run Date
-                <uui-symbol-sort ng-attr-active="{{vm.sortingColumn === 'RequestDate' || undefined}}"
-                                 ng-attr-descending="{{vm.sortingDesc || undefined}}">
-                </uui-symbol-sort>
-              </button>
-            </uui-table-head-cell>
-
-            <uui-table-head-cell>
-              <button style="display: contents; font-weight: bold; padding: var(--uui-size-4) var(--uui-size-5);"
-                      ng-click="vm.sortingHandler('CarbonRating')">
-                Carbon Rating
-                <uui-symbol-sort ng-attr-active="{{vm.sortingColumn === 'CarbonRating' || undefined}}"
-                                 ng-attr-descending="{{vm.sortingDesc || undefined}}">
-                </uui-symbol-sort>
-              </button>
-            </uui-table-head-cell>
-            <uui-table-head-cell>Scripts</uui-table-head-cell>
-            <uui-table-head-cell>Images</uui-table-head-cell>
-            <uui-table-head-cell>Styles</uui-table-head-cell>
-            <uui-table-head-cell>Other</uui-table-head-cell>
-            <uui-table-head-cell style="text-align: right;">
-              <button style="display: contents; font-weight: bold; padding: var(--uui-size-4) var(--uui-size-5);"
-                      ng-click="vm.sortingHandler('TotalSize')">
-                Page Size
-                <uui-symbol-sort ng-attr-active="{{vm.sortingColumn === 'TotalSize' || undefined}}"
-                                 ng-attr-descending="{{vm.sortingDesc || undefined}}">
-                </uui-symbol-sort>
-              </button>
-            </uui-table-head-cell>
-            <uui-table-head-cell style="text-align: right;">
-              <button style="display: contents; font-weight: bold; padding: var(--uui-size-4) var(--uui-size-5);"
-                      ng-click="vm.sortingHandler('TotalEmissions')">
-                CO₂ per page view
-                <uui-symbol-sort ng-attr-active="{{vm.sortingColumn === 'TotalEmissions' || undefined}}"
-                                 ng-attr-descending="{{vm.sortingDesc || undefined}}">
-                </uui-symbol-sort>
-              </button>
-            </uui-table-head-cell>
-          </uui-table-head>
-
-          <uui-table-row ng-repeat="data in vm.sustainabilityData">
-            <uui-table-cell>
-              <a style="text-decoration: underline;" href="/umbraco/#/content/content/edit/{{data.NodeKey}}">{{data.NodeName}}</a>
-            </uui-table-cell>
-
-            <uui-table-cell>
-              {{data.RequestDate}}
-            </uui-table-cell>
-
-            <uui-table-cell>
-              <uui-tag style="font-size: 14px" color="{{vm.getTagColour(data.CarbonRating)}}">
-                {{data.CarbonRating}}
-              </uui-tag>
-            </uui-table-cell>
-
-            <uui-table-cell>
-              {{data.Scripts}}
-            </uui-table-cell>
-
-            <uui-table-cell>
-              {{data.Images}}
-            </uui-table-cell>
-
-            <uui-table-cell>
-              {{data.Styles}}
-            </uui-table-cell>
-
-            <uui-table-cell>
-              {{data.Other}}
-            </uui-table-cell>
-
-            <uui-table-cell style="text-align: right;">
-              {{(data.TotalSize / 1024).toFixed(2)}}KB
-            </uui-table-cell>
-
-            <uui-table-cell style="text-align: right;">
-              {{data.TotalEmissions.toFixed(4)}}g
-            </uui-table-cell>
-          </uui-table-row>
-        </uui-table>
-
-      </uui-box>
-
-      <div ng-if="!vm.loading" class="flex justify-center">
-        <umb-pagination page-number="vm.pageNumber"
-                        total-pages="vm.totalPages"
-                        on-change="vm.changePageNumber(pageNumber)">
-        </umb-pagination>
-      </div>
-
-      <umb-empty-state ng-if="vm.sustainabilityData.length == 0"
-                       position="center">
-        <p>No data to show yet.</p>
-      </umb-empty-state>
-    </umb-editor-container>
-  </umb-editor-view>
-</div>
+            <umb-empty-state ng-if="vm.sustainabilityData.length == 0" position="center">
+                <p>No data to show yet.</p>
+            </umb-empty-state>
+        </umb-editor-container>
+    </umb-editor-view>

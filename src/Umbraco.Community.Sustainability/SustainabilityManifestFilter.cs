@@ -19,7 +19,9 @@ namespace Umbraco.Community.Sustainability
                     "/App_Plugins/UmbracoCommunitySustainability/js/sustainability.resource.js",
                     "/App_Plugins/UmbracoCommunitySustainability/js/sustainability-stats.controller.js",
                     "/App_Plugins/UmbracoCommunitySustainability/js/sustainability-overview.controller.js",
-                    "/App_Plugins/UmbracoCommunitySustainability/js/sustainability-content-app.controller.js"
+                    "/App_Plugins/UmbracoCommunitySustainability/js/sustainability-content-app.controller.js",
+                    "/App_Plugins/UmbracoCommunitySustainability/js/chart.min.js"
+
                 },
                 Stylesheets = new string[]
                 {
