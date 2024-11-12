@@ -49,6 +49,20 @@ Add the package to an existing Umbraco website from nuget:
 
 Once added, a new Content App will be available alongside your Umbraco pages allowing you to trigger a sustainability report.
 
+## Configuration
+
+Example configuration that can be added for this package.
+
+  ```
+  "UmbracoCommunitySustainability": {
+    "Enabled": true,
+    "MediaOptimisation": {
+      "ShowWarnings": true,
+      "FileTypes": { "Image": "2000000" }
+    }
+  }
+  ```
+
 ## Contributing
 
 Contributions to this package are most welcome! Please read the [Contributing Guidelines](CONTRIBUTING.md) for how to get involved.

@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
+using Umbraco.Community.Sustainability.Configuration;
 using Umbraco.Community.Sustainability.ContentApps;
 using Umbraco.Community.Sustainability.Notifications;
 using Umbraco.Community.Sustainability.Sections;
@@ -22,14 +23,22 @@ namespace Umbraco.Community.Sustainability
                 throw new Exception($"Playwright exited with code {exitCode}");
             }
 
+            // startup
             builder.AddNotificationHandler<UmbracoApplicationStartingNotification, PageMetricsNotificationHandler>();
             builder.ManifestFilters().Append<SustainabilityManifestFilter>();
-            builder.ContentApps().Append<SustainabilityContentApp>();
 
+            // ui
+            builder.ContentApps().Append<SustainabilityContentApp>();
             builder.Sections().Append<SustainabilitySection>();
 
+            // services
             builder.Services.AddScoped<IPageMetricService, PageMetricService>();
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
+            builder.Services.AddSingleton<IMediaOptimisationService, MediaOptimisationService>();
+            builder.Services.AddOptions<SustainabilityConfiguration>().Bind(builder.Config.GetSection(SustainabilityConfiguration.SectionAlias));
+
+            // notifications
+            builder.AddNotificationHandler<TreeNodesRenderingNotification, MediaTreeNodeRenderingNotificationHandler>();
         }
     }
 }
