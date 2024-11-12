@@ -63,10 +63,10 @@ angular.module('umbraco').controller('Umbraco.Sustainability.ContentApp.Controll
       }
 
       function updateBadge() {
-        let badgeType = "";
+        let badgeType = "default";
         let score = $scope.sustainabilityData.totalEmissions;
 
-        if (score > 0.186 && score < 0.656) {
+        if (score >= 0.186 && score < 0.656) {
           badgeType = "warning";
         } else if (score >= 0.656) {
           badgeType = "alert";

@@ -33,7 +33,7 @@
         </uui-button>
       </uui-box>
 
-      <div class="umb-box-row">
+      <div class="umb-box-row" style="margin-bottom: 16px;">
         <uui-box headline="Page size" style="margin-left: 10px; margin-right: 10px; flex: 1;">
           {{(sustainabilityData.totalSize / 1024).toFixed(2)}}KB
         </uui-box>
@@ -41,7 +41,16 @@
         <uui-box headline="CO₂ per page view" style="margin-left: 10px; margin-right: 10px; flex: 1;">
           {{sustainabilityData.totalEmissions.toFixed(4)}}g
         </uui-box>
+
       </div>
+
+      <uui-box headline="Estimations">
+        <p>
+          This data is based on resources loaded and uses <a href="https://developers.thegreenwebfoundation.org/co2js/overview/">CO2.js</a> to
+          convert page weight to carbon emissions.
+        </p>
+        <p>Please use as a guideline to diagnose and highlight potential areas of improvement.</p>
+      </uui-box>
     </div>
   </div>
 </div>
