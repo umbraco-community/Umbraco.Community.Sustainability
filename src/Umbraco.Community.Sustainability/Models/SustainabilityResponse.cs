@@ -11,7 +11,7 @@ namespace Umbraco.Community.Sustainability.Models
         public decimal TotalSize { get; set; } = 0;
 
         [JsonProperty("totalEmissions")]
-        public float TotalEmissions { get; set; } = 0;
+        public double TotalEmissions { get; set; } = 0;
 
         [JsonProperty("carbonRating")]
         public string? CarbonRating { get; set; }
