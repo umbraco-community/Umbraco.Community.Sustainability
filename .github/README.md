@@ -8,6 +8,8 @@ A package from the [Umbraco Community Sustainability Team](https://umbraco.com/b
 
 ## Installation
 > [!IMPORTANT]
+> **v3.x** supports Umbraco v15.x
+> 
 > **v2.x** supports Umbraco v14.x
 > 
 > **v1.x** supports Umbraco v10.8.x - v13.x
