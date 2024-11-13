@@ -1,4 +1,4 @@
-import type { ManifestWorkspace, ManifestWorkspaceContext } from "@umbraco-cms/backoffice/extension-registry";
+import type { ManifestWorkspace, ManifestWorkspaceContext } from "@umbraco-cms/backoffice/workspace";
 import { SUSTAINABILITY_OVERVIEW_ROOT_ENTITY_TYPE } from "../types";
 
 const workspaceAlias = "Sustainability.Workspace.Overview";

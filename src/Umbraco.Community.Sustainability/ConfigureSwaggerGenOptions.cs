@@ -1,10 +1,7 @@
-#if NET8_0
-using Asp.Versioning;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Umbraco.Cms.Api.Common.OpenApi;
 
 namespace Umbraco.Community.Sustainability
 {
@@ -25,4 +22,3 @@ namespace Umbraco.Community.Sustainability
         }
     }
 }
-#endif

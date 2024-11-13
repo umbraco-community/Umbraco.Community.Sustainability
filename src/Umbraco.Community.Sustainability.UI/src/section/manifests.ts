@@ -1,4 +1,5 @@
-import { ManifestMenu, ManifestSection, ManifestSectionSidebarApp, ManifestSectionView } from "@umbraco-cms/backoffice/extension-registry";
+import { ManifestMenu } from "@umbraco-cms/backoffice/menu";
+import { ManifestSection, ManifestSectionSidebarApp, ManifestSectionView } from "@umbraco-cms/backoffice/section";
 
 import { manifests as overviewManifests } from './overview/manifests';
 import { manifests as statsManifests } from './stats/manifests';

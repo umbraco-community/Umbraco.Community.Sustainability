@@ -1,4 +1,3 @@
-#if NET8_0
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Web.Common.Authorization;
@@ -14,4 +13,3 @@ namespace Umbraco.Community.Sustainability.Controllers
     public class SustainabilityWorkspaceControllerBase : Controller
     { }
 }
-#endif

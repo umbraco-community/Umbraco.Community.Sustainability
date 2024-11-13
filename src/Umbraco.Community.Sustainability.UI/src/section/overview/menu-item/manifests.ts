@@ -1,4 +1,4 @@
-import type { ManifestMenuItem } from '@umbraco-cms/backoffice/extension-registry';
+import type { ManifestMenuItem } from "@umbraco-cms/backoffice/menu";
 import { SUSTAINABILITY_OVERVIEW_ROOT_ENTITY_TYPE } from '../types';
 
 const menuItem: ManifestMenuItem = {
