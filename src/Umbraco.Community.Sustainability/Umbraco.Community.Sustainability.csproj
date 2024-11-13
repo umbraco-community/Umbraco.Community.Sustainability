@@ -28,15 +28,6 @@
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README_nuget.md</PackageReadmeFile>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="assets\public\resource-checker.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="assets\public\resource-checker.js">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Playwright" Version="1.44.0" />
@@ -56,9 +47,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\App_Plugins\Umbraco.Community.Sustainability.14\resource-checker.js">
+    <Content Update="wwwroot\App_Plugins\Umbraco.Community.Sustainability\resource-checker.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Umbraco.Community.Sustainability.UI\Umbraco.Community.Sustainability.UI.esproj">
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Umbraco.Community.Sustainab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Umbraco.Community.Sustainability.TestSite.14.x", "Umbraco.Community.Sustainability.TestSite.14.x\Umbraco.Community.Sustainability.TestSite.14.x.csproj", "{26617F66-02C5-4EB4-B358-1683B1E7E04A}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Umbraco.Community.Sustainability.UI", "Umbraco.Community.Sustainability.UI\Umbraco.Community.Sustainability.UI.esproj", "{D920A609-E034-429E-A543-4D74581F1B93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,12 @@ Global
 		{26617F66-02C5-4EB4-B358-1683B1E7E04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26617F66-02C5-4EB4-B358-1683B1E7E04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26617F66-02C5-4EB4-B358-1683B1E7E04A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D920A609-E034-429E-A543-4D74581F1B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D920A609-E034-429E-A543-4D74581F1B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D920A609-E034-429E-A543-4D74581F1B93}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D920A609-E034-429E-A543-4D74581F1B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D920A609-E034-429E-A543-4D74581F1B93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D920A609-E034-429E-A543-4D74581F1B93}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

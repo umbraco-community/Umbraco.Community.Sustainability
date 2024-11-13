@@ -1,0 +1,24 @@
+{
+  "name": "assets",
+  "private": true,
+  "version": "2.0.3",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "watch": "vite build --watch",
+    "generate": "openapi-ts --file openapi-ts.config.ts"
+  },
+  "dependencies": {
+    "@tgwf/co2": "^0.15.0",
+    "@types/tgwf__co2": "^0.14.2",
+    "lit": "^3.1.0"
+  },
+  "devDependencies": {
+    "@hey-api/openapi-ts": "^0.48.1",
+    "@umbraco-cms/backoffice": "^14.0.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.8"
+  }
+}

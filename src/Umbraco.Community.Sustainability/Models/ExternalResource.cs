@@ -8,11 +8,11 @@ namespace Umbraco.Community.Sustainability.Models
         public string? Url { get; set; }
 
         [JsonProperty("size")]
-        public decimal Size { get; set; } = 0;
+        public int? Size { get; set; } = 0;
 
         public ExternalResource() { }
 
-        public ExternalResource(string url, decimal size)
+        public ExternalResource(string url, int? size)
         {
             Url = url;
             Size = size;
