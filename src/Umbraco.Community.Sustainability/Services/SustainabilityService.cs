@@ -46,9 +46,9 @@ namespace Umbraco.Community.Sustainability.Services
 
             return new SustainabilityResponse()
             {
-                TotalSize = sustainabilityData.pageWeight,
-                TotalEmissions = sustainabilityData.emissions.co2,
-                CarbonRating = sustainabilityData.carbonRating,
+                TotalSize = sustainabilityData?.pageWeight.GetValueOrDefault() ?? 0,
+                TotalEmissions = sustainabilityData?.emissions?.co2.GetValueOrDefault() ?? 0,
+                CarbonRating = sustainabilityData?.carbonRating,
                 ResourceGroups = resourceGroups
             };
         }
@@ -56,13 +56,13 @@ namespace Umbraco.Community.Sustainability.Services
         private ExternalResourceGroup GetExternalResourceGroup(ResourceGroupType groupType, IList<Resource> resources)
         {
             var initiator = ExternalResourceGroup.GetInitiatorType(groupType);
-            var resourcesByType = resources.Where(x => x.initiatorType.Equals(initiator) && x.transferSize > 0);
+            var resourcesByType = resources.Where(x => !string.IsNullOrEmpty(x.initiatorType) && x.initiatorType.Equals(initiator) && x.transferSize > 0);
 
             var transferSize = 0;
             var resourceList = new List<ExternalResource>();
             foreach (var resource in resourcesByType.OrderByDescending(x => x.transferSize))
             {
-                transferSize += resource.transferSize;
+                transferSize += resource.transferSize.GetValueOrDefault();
                 resourceList.Add(new ExternalResource(resource.name, resource.transferSize));
             }
 

@@ -1,6 +1,6 @@
 <div ng-controller="Umbraco.Sustainability.ContentApp.Controller as vm">
   <div class="umb-logviewer">
-    <div class="umb-logviewer__main-content">
+    <div class="umb-logviewer__main-content" style="width: calc(100% - 420px)">
       <uui-box headline="Loading sustainability report" ng-if="loading">
         <p>It looks like you haven't run a report on this page yet. Click the button below to get started.</p>
         <uui-button look="primary"
@@ -12,7 +12,7 @@
       </uui-box>
 
       <uui-box style="margin-bottom: 16px;" headline="{{group.name}}" ng-repeat="group in sustainabilityData.resourceGroups" ng-if="!loading">
-        <p style="margin-bottom: 0;" slot="header">Total size: {{(group.totalSize / 1024).toFixed(2)}}KB</p>
+        <p style="margin-bottom: 0;" slot="header-actions">Total size: {{(group.totalSize / 1024).toFixed(2)}}KB</p>
         <ul>
           <li ng-repeat="resource in group.resources">
             {{resource.url}} ({{(resource.size / 1024).toFixed(2)}}KB)
@@ -21,9 +21,9 @@
       </uui-box>
     </div>
 
-    <div class="umb-logviewer__sidebar" ng-if="!loading">
+    <div class="umb-logviewer__sidebar" style="flex: 0 0 400px;" ng-if="!loading">
       <uui-box headline="Sustainability report" style="margin-bottom: 16px;">
-        <p slot="header" style="margin-bottom: 0;">Last tested: {{lastTested}}</p>
+        <p slot="headline" style="margin-bottom: 0; font-weight: 400;">Last tested: {{lastTested}}</p>
 
         <uui-button look="primary"
                     ng-click="vm.clickButton()"
@@ -34,11 +34,11 @@
       </uui-box>
 
       <div class="umb-box-row" style="margin-bottom: 16px;">
-        <uui-box headline="Page size" style="margin-left: 10px; margin-right: 10px; flex: 1;">
+        <uui-box headline="Page size" style="margin-left: 8px; margin-right: 8px; flex: 1;">
           {{(sustainabilityData.totalSize / 1024).toFixed(2)}}KB
         </uui-box>
 
-        <uui-box headline="CO₂ per page view" style="margin-left: 10px; margin-right: 10px; flex: 1;">
+        <uui-box headline="CO₂ per page view" style="margin-left: 8px; margin-right: 8px; flex: 1;">
           {{sustainabilityData.totalEmissions.toFixed(4)}}g
         </uui-box>
 
