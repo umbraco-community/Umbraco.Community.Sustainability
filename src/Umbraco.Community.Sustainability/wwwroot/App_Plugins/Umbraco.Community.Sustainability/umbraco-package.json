@@ -8,7 +8,7 @@
     {
       "name": "Umbraco.Community.Sustainability.EntryPoint",
       "alias": "Umbraco.Community.Sustainability.EntryPoint",
-      "type": "entryPoint",
+      "type": "backofficeEntryPoint",
       "js": "/App_Plugins/Umbraco.Community.Sustainability/assets.js"
     }
   ]
