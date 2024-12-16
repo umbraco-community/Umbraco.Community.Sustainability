@@ -11,7 +11,10 @@ namespace Umbraco.Community.Sustainability
     {
         public void Compose(IUmbracoBuilder builder)
         {
-            var exitCode = Microsoft.Playwright.Program.Main(new[] { "install" });
+            string value = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            Environment.SetEnvironmentVariable("PLAYWRIGHT_BROWSERS_PATH", $"{value}{Path.DirectorySeparatorChar}ms-playwright");
+
+            var exitCode = Microsoft.Playwright.Program.Main(new[] { "install", "chromium" });
             if (exitCode != 0)
             {
                 throw new Exception($"Playwright exited with code {exitCode}");
