@@ -16,22 +16,29 @@ namespace Umbraco.Community.Sustainability.Services
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions() { Headless = true });
 
-            // Create a new incognito browser context and go to web page
-            var context = await browser.NewContextAsync();
-            var page = await context.NewPageAsync();
-            await page.GotoAsync(url, new PageGotoOptions()
+            var baseUri = new Uri(url);
+            var page = await browser.NewPageAsync();
+
+            var response = await page.GotoAsync(url, new PageGotoOptions()
             {
                 WaitUntil = WaitUntilState.DOMContentLoaded
             });
 
-            // Add our script to report data
-            await page.AddScriptTagAsync(new PageAddScriptTagOptions()
+            if (response == null || response?.Ok == false)
+            {
+                return new SustainabilityResponse();
+            }
+
+            var addedScript = await page.AddScriptTagAsync(new PageAddScriptTagOptions()
             {
                 Url = "/App_Plugins/UmbracoCommunitySustainability/js/resource-checker.js",
                 Type = "module"
             });
 
-            // Retrieve data from page
+            await page.Locator("[data-testid=\"sustainabilityData\"]").WaitForAsync(new LocatorWaitForOptions()
+            {
+                Timeout = 60000
+            });
             var data = await page.GetByTestId("sustainabilityData").TextContentAsync();
             var sustainabilityData = JsonSerializer.Deserialize<SustainabilityData>(data);
 
@@ -42,6 +49,7 @@ namespace Umbraco.Community.Sustainability.Services
                 resourceGroups.Add(resources);
             }
 
+            await page.CloseAsync();
             await browser.CloseAsync();
 
             return new SustainabilityResponse()
