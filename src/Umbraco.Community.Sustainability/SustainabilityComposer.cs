@@ -11,8 +11,25 @@ namespace Umbraco.Community.Sustainability
     {
         public void Compose(IUmbracoBuilder builder)
         {
-            string value = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            Environment.SetEnvironmentVariable("PLAYWRIGHT_BROWSERS_PATH", $"{value}{Path.DirectorySeparatorChar}ms-playwright");
+            string playwrightPath;
+            string? xdgDataHome = Environment.GetEnvironmentVariable("XDG_DATA_HOME");
+
+            if (!string.IsNullOrEmpty(xdgDataHome))
+            {
+                playwrightPath = Path.Combine(xdgDataHome, "ms-playwright");
+            }
+            else
+            {
+                string homePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                playwrightPath = Path.Combine(homePath, "ms-playwright");
+            }
+
+            if (!Directory.Exists(playwrightPath))
+            {
+                Directory.CreateDirectory(playwrightPath);
+            }
+
+            Environment.SetEnvironmentVariable("PLAYWRIGHT_BROWSERS_PATH", playwrightPath);
 
             var exitCode = Microsoft.Playwright.Program.Main(new[] { "install", "chromium" });
             if (exitCode != 0)

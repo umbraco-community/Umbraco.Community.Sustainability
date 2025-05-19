@@ -1,7 +1,6 @@
 import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 import { html, LitElement, customElement, css, state, repeat } from '@umbraco-cms/backoffice/external/lit'
-import { UMB_WORKSPACE_CONTEXT } from "@umbraco-cms/backoffice/workspace";
-import type { UmbDocumentWorkspaceContext } from '@umbraco-cms/backoffice/document';
+import { UMB_DOCUMENT_WORKSPACE_CONTEXT } from '@umbraco-cms/backoffice/document';
 import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from "../../context/sustainability.context";
 import { ExternalResourceGroup, SustainabilityResponse } from "../../api";
 
@@ -22,11 +21,10 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
   constructor() {
     super();
 
-    this.consumeContext(UMB_WORKSPACE_CONTEXT, (nodeContext) => {
-      const workspaceContext = (nodeContext as UmbDocumentWorkspaceContext);
+    this.consumeContext(UMB_DOCUMENT_WORKSPACE_CONTEXT, (instance) => {
 
-      this.observe((workspaceContext).unique, (unique) => {
-        this._documentUnique = unique;
+      this.observe(instance.unique, (unique) => {
+        this._documentUnique = unique?.toString();
       });
     });
 
