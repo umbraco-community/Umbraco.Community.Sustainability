@@ -1,7 +1,9 @@
 using System.Text.Json;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Community.Sustainability.Models;
@@ -18,15 +20,18 @@ namespace Umbraco.Community.Sustainability.Controllers
         private readonly IPublishedContentQuery _contentQuery;
         private readonly IPageMetricService _pageMetricService;
         private readonly ISustainabilityService _sustainabilityService;
+        private readonly WebRoutingSettings _webRoutingSettings;
 
         public SustainabilityWorkspaceController(
             IPublishedContentQuery contentQuery,
             IPageMetricService pageMetricService,
-            ISustainabilityService sustainabilityService)
+            ISustainabilityService sustainabilityService,
+            IOptions<WebRoutingSettings> webRoutingSettings)
         {
             _contentQuery = contentQuery;
             _pageMetricService = pageMetricService;
             _sustainabilityService = sustainabilityService;
+            _webRoutingSettings = webRoutingSettings.Value;
         }
 
         [HttpGet("getOverviewData")]
@@ -111,8 +116,9 @@ namespace Umbraco.Community.Sustainability.Controllers
                 return Ok("Page not found");
             }
 
+            var applicationUri = HttpContext.Request.GetApplicationUri(_webRoutingSettings);
             var url = contentItem.Url(mode: UrlMode.Absolute);
-            var sustainabilityData = await _sustainabilityService.GetSustainabilityData(url);
+            var sustainabilityData = await _sustainabilityService.GetSustainabilityData(url, applicationUri.AbsoluteUri);
 
             return Ok(sustainabilityData);
         }
