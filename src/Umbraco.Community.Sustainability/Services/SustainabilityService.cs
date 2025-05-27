@@ -1,7 +1,5 @@
 using System.Text.Json;
-using Microsoft.Extensions.Options;
 using Microsoft.Playwright;
-using Umbraco.Cms.Core.Configuration.Models;
 using Umbraco.Community.Sustainability.Models;
 
 namespace Umbraco.Community.Sustainability.Services
@@ -16,12 +14,17 @@ namespace Umbraco.Community.Sustainability.Services
         public async Task<SustainabilityResponse> GetSustainabilityData(string url, string applicationUrl = "")
         {
             using var playwright = await Playwright.CreateAsync();
-            await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions() { Headless = true });
+            await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
+            {
+                Headless = false,
+                Args = new[] { "--disable-web-security" }
+            });
 
             var baseUri = new Uri(url);
             var context = await browser.NewContextAsync(new()
             {
-                BypassCSP = true
+                BypassCSP = true,
+                IgnoreHTTPSErrors = true,
             });
 
             var page = await context.NewPageAsync();
