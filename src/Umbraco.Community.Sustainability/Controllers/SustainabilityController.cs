@@ -103,9 +103,16 @@ namespace Umbraco.Community.Sustainability.Controllers
                 return Ok("Page not found");
             }
 
+            var nodeUrl = contentItem.Url(mode: UrlMode.Absolute);
+
             var applicationUri = HttpContext.Request.GetApplicationUri(_webRoutingSettings);
-            var url = contentItem.Url(mode: UrlMode.Absolute);
-            var sustainabilityData = await _sustainabilityService.GetSustainabilityData(url, applicationUri.AbsoluteUri);
+            var hostWithSchemeAndPort = $"{applicationUri.Scheme}://{applicationUri.Authority}";
+
+#if DEBUG
+            nodeUrl = "https://rickbutterfield.dev/";
+#endif
+
+            var sustainabilityData = await _sustainabilityService.GetSustainabilityData(nodeUrl, hostWithSchemeAndPort);
 
             return Ok(sustainabilityData);
         }
@@ -113,11 +120,6 @@ namespace Umbraco.Community.Sustainability.Controllers
         [HttpPost]
         public async Task<IActionResult> SavePageData([FromQuery] Guid pageKey, [FromBody] SustainabilityResponse data)
         {
-            if (data.TotalSize == 0)
-            {
-                return Ok("Missing data to update");
-            }
-
             var pageMetric = new PageMetric()
             {
                 NodeKey = pageKey,

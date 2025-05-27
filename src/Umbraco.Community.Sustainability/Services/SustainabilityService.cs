@@ -1,12 +1,13 @@
 using System.Text.Json;
 using Microsoft.Playwright;
 using Umbraco.Community.Sustainability.Models;
+using Umbraco.Extensions;
 
 namespace Umbraco.Community.Sustainability.Services
 {
     public interface ISustainabilityService
     {
-        Task<SustainabilityResponse> GetSustainabilityData(string url, string applicationUrl = "");
+        public Task<SustainabilityResponse> GetSustainabilityData(string url, string applicationUrl = "");
     }
 
     public class SustainabilityService : ISustainabilityService
@@ -14,16 +15,15 @@ namespace Umbraco.Community.Sustainability.Services
         public async Task<SustainabilityResponse> GetSustainabilityData(string url, string applicationUrl = "")
         {
             using var playwright = await Playwright.CreateAsync();
-            await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions() {
-                Headless = true,
-                Args = new[] { "--disable-web-security" }
+            await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
+            {
+                Headless = true
             });
 
             var baseUri = new Uri(url);
             var context = await browser.NewContextAsync(new()
             {
-                BypassCSP = true,
-                IgnoreHTTPSErrors = true
+                BypassCSP = true
             });
 
             var page = await context.NewPageAsync();
@@ -40,7 +40,7 @@ namespace Umbraco.Community.Sustainability.Services
 
             try
             {
-                string scriptUrl = string.Concat(applicationUrl, "App_Plugins/UmbracoCommunitySustainability/js/resource-checker.js");
+                string scriptUrl = string.Concat(applicationUrl.EnsureEndsWith('/'), "App_Plugins/UmbracoCommunitySustainability/js/resource-checker.js");
 
                 var scriptResponse = await page.EvaluateAsync($@"() => {{  
                     import('{scriptUrl}')  
