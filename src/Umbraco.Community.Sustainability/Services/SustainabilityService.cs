@@ -17,7 +17,7 @@ namespace Umbraco.Community.Sustainability.Services
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
             {
-                Headless = false
+                Headless = true
             });
 
             var baseUri = new Uri(url);
