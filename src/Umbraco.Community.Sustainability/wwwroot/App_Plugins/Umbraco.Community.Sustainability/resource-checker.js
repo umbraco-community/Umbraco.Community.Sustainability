@@ -1,6 +1,6 @@
 import { co2, hosting } from 'https://cdn.skypack.dev/@tgwf/co2@0.15';
 
-export async function reportEmissions() {
+async function reportEmissions() {
   console.log("reportEmissions called");
 
   await scrollPage();
@@ -35,6 +35,8 @@ async function getEmissionsData() {
   const co2Emission = new co2({ model: "swd" });
   const emissions = co2Emission.perVisitTrace(bytesSent, hostCheck);
 
+  debugger;
+
   return {
     pageWeight: bytesSent,
     carbonRating: calculateGrade(emissions.co2),
@@ -62,3 +64,5 @@ function calculateGrade(score) {
   if (score < 0.846) return 'E';
   return 'F';
 }
+
+await reportEmissions();

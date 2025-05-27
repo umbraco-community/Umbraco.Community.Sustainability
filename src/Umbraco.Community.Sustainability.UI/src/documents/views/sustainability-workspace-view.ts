@@ -47,11 +47,13 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
     this.waiting = true;
     if (this._documentUnique) {
       this.pageData = await this.#sustainabilityContext?.checkPage(this._documentUnique, false);
-      this.waiting = false;
+      if (this.pageData) {
+        this.waiting = false;
+      }
     }
   }
 
-  render() {
+  override render() {
     if (this.pageData === undefined) {
       return html`
           <uui-box headline="Loading sustainability report...">
@@ -102,20 +104,18 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
   }
 
   #renderResourceGroup(group: ExternalResourceGroup) {
-    if (group.resources?.length !== 0) {
-      return html`
-          <uui-box headline=${group.name!}>
-          <p slot="header-actions" style="margin: 0">Total size: ${(group.totalSize / 1024).toFixed(2)}KB</p>
-            <ul style="margin: 0; padding-left: var(--uui-size-layout-1);">
-            ${repeat(
-        group.resources!,
-              (resource) => resource.url,
-              (resource) => html`<li>${resource.url} (${(resource?.size! / 1024).toFixed(2)}KB)</li>`
-      )}
-            </ul>
-          </uui-box>
-        `;
-    }
+    return html`
+        <uui-box headline=${group.name!}>
+        <p slot="header-actions" style="margin: 0">Total size: ${(group.totalSize / 1024).toFixed(2)}KB</p>
+          <ul style="margin: 0; padding-left: var(--uui-size-layout-1);">
+          ${repeat(
+      group.resources!,
+            (resource) => resource.url,
+            (resource) => html`<li>${resource.url} (${(resource?.size! / 1024).toFixed(2)}KB)</li>`
+    )}
+          </ul>
+        </uui-box>
+      `;
   }
 
   static styles = css`

@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
+using Umbraco.Cms.Web.Common.ApplicationBuilder;
+using Umbraco.Community.Sustainability.Middleware;
 using Umbraco.Community.Sustainability.Notifications;
 using Umbraco.Community.Sustainability.Services;
 
@@ -43,6 +46,13 @@ namespace Umbraco.Community.Sustainability
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
 
             builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
+
+            builder.Services.Configure<UmbracoPipelineOptions>(options =>
+            {
+                options.AddFilter(new UmbracoPipelineFilter(
+                    "CorsMiddleware",
+                    applicationBuilder => applicationBuilder.UseMiddleware<CorsMiddleware>()));
+            });
         }
     }
 }

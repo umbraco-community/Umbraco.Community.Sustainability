@@ -116,9 +116,12 @@ namespace Umbraco.Community.Sustainability.Controllers
                 return Ok("Page not found");
             }
 
+            var nodeUrl = contentItem.Url(mode: UrlMode.Absolute);
+
             var applicationUri = HttpContext.Request.GetApplicationUri(_webRoutingSettings);
-            var url = contentItem.Url(mode: UrlMode.Absolute);
-            var sustainabilityData = await _sustainabilityService.GetSustainabilityData(url, applicationUri.AbsoluteUri);
+            var hostWithSchemeAndPort = $"{applicationUri.Scheme}://{applicationUri.Authority}";
+
+            var sustainabilityData = await _sustainabilityService.GetSustainabilityData(nodeUrl, hostWithSchemeAndPort);
 
             return Ok(sustainabilityData);
         }
@@ -127,11 +130,6 @@ namespace Umbraco.Community.Sustainability.Controllers
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<IActionResult> SavePageData([FromQuery] string pageGuid, [FromBody] SustainabilityResponse data)
         {
-            if (data.TotalSize == 0)
-            {
-                return Ok(false);
-            }
-
             var contentItem = _contentQuery.Content(pageGuid);
 
             if (contentItem == null)

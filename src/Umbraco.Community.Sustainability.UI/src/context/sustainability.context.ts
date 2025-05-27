@@ -6,7 +6,7 @@ import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 import { UmbObjectState } from "@umbraco-cms/backoffice/observable-api";
 
 export class SustainabilityContext extends UmbControllerBase {
-  
+
   #repository: SustainabilityRepository;
 
   #overviewData = new UmbObjectState<PagedResultPageMetricModel | undefined>(undefined);
@@ -41,7 +41,7 @@ export class SustainabilityContext extends UmbControllerBase {
 
     return undefined;
   }
-  
+
   async savePageData(pageGuid: string, sustainabilityResponse: SustainabilityResponse) {
     const saved = await this.#repository.savePageData(pageGuid, sustainabilityResponse);
     return saved;
@@ -60,7 +60,7 @@ export class SustainabilityContext extends UmbControllerBase {
       this.#averageData.setValue(data);
     }
   }
-  
+
 }
 
 export default SustainabilityContext;
