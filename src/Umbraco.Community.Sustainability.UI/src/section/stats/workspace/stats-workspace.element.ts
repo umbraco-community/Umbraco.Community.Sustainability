@@ -1,5 +1,5 @@
 import { css, customElement, html, property, repeat, state } from "@umbraco-cms/backoffice/external/lit";
-import { DirectionModel, PageMetric, PagedResultPageMetricModel } from "../../../api";
+import { DirectionModel, GetOverviewDataResponse, PageMetric,  } from "../../../api";
 import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from "../../../context/sustainability.context";
 import { UUIPaginationEvent } from "@umbraco-cms/backoffice/external/uui";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
@@ -21,7 +21,7 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
   };
 
   @state()
-  _data?: PagedResultPageMetricModel;
+  _data?: GetOverviewDataResponse;
 
   @property({ type: Boolean })
   _loaded?: boolean = false
@@ -47,7 +47,7 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
     this.consumeContext(SUSTAINABILITY_CONTEXT, (instance) => {
       this.#sustainabilityContext = instance;
 
-      this.observe(this.#sustainabilityContext.overviewData, (data) => {
+      this.observe(this.#sustainabilityContext?.overviewData, (data) => {
         if (!data) return;
         this._loaded = true;
         this._data = data;

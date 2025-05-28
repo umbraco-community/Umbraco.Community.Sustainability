@@ -1,40 +1,36 @@
-import { html as p, repeat as L, css as H, state as c, property as q, customElement as j } from "@umbraco-cms/backoffice/external/lit";
-import { S as F } from "./index-DylV9Ngt.js";
-import { UmbLitElement as K } from "@umbraco-cms/backoffice/lit-element";
-var _ = /* @__PURE__ */ ((t) => (t.ASCENDING = "Ascending", t.DESCENDING = "Descending", t))(_ || {}), M = Object.defineProperty, U = Object.getOwnPropertyDescriptor, u = (t, e, a, l) => {
-  for (var r = l > 1 ? void 0 : l ? U(e, a) : e, o = t.length - 1, n; o >= 0; o--)
-    (n = t[o]) && (r = (l ? n(e, a, r) : n(r)) || r);
-  return l && r && M(e, a, r), r;
-}, m = (t, e, a) => {
-  if (!e.has(t))
-    throw TypeError("Cannot " + a);
-}, f = (t, e, a) => (m(t, e, "read from private field"), a ? a.call(t) : e.get(t)), d = (t, e, a) => {
-  if (e.has(t))
-    throw TypeError("Cannot add the same private member more than once");
-  e instanceof WeakSet ? e.add(t) : e.set(t, a);
-}, X = (t, e, a, l) => (m(t, e, "write to private field"), l ? l.call(t, a) : e.set(t, a), a), h = (t, e, a) => (m(t, e, "access private method"), a), b, v, g, y, S, W, D, A;
-const Y = "stats-workspace";
-let i = class extends K {
+import { html as g, repeat as A, css as L, state as d, property as H, customElement as j } from "@umbraco-cms/backoffice/external/lit";
+import { S as q } from "./index-BMf2rr-p.js";
+import { UmbLitElement as F } from "@umbraco-cms/backoffice/lit-element";
+var p = /* @__PURE__ */ ((t) => (t.ASCENDING = "Ascending", t.DESCENDING = "Descending", t))(p || {}), K = Object.defineProperty, M = Object.getOwnPropertyDescriptor, P = (t) => {
+  throw TypeError(t);
+}, r = (t, e, a, u) => {
+  for (var l = u > 1 ? void 0 : u ? M(e, a) : e, n = t.length - 1, c; n >= 0; n--)
+    (c = t[n]) && (l = (u ? c(e, a, l) : c(l)) || l);
+  return u && l && K(e, a, l), l;
+}, D = (t, e, a) => e.has(t) || P("Cannot " + a), v = (t, e, a) => (D(t, e, "read from private field"), e.get(t)), y = (t, e, a) => e.has(t) ? P("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, a), U = (t, e, a, u) => (D(t, e, "write to private field"), e.set(t, a), a), h = (t, e, a) => (D(t, e, "access private method"), a), b, m, o, _, T, W;
+const X = "stats-workspace";
+let i = class extends F {
   constructor() {
-    super(), d(this, g), d(this, S), d(this, D), d(this, b, void 0), d(this, v, {
+    super(), y(this, o), y(this, b), y(this, m, {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
       hour12: !0
-    }), this._loaded = !1, this._sortingDesc = !1, this._orderDirection = _.DESCENDING, this._orderBy = "RequestDate", this._pageNumber = 1, this._pageSize = 10, this.consumeContext(F, (t) => {
-      X(this, b, t), this.observe(f(this, b).overviewData, (e) => {
-        e && (this._loaded = !0, this._data = e);
-      }), h(this, g, y).call(this);
+    }), this._loaded = !1, this._sortingDesc = !1, this._orderDirection = p.DESCENDING, this._orderBy = "RequestDate", this._pageNumber = 1, this._pageSize = 10, this.consumeContext(q, (t) => {
+      var e;
+      U(this, b, t), this.observe((e = v(this, b)) == null ? void 0 : e.overviewData, (a) => {
+        a && (this._loaded = !0, this._data = a);
+      }), h(this, o, _).call(this);
     });
   }
   _sortingHandler(t) {
-    this._sortingDesc = this._orderBy === t ? !this._sortingDesc : !1, this._orderBy = t, this._pageNumber = 1, h(this, g, y).call(this);
+    this._sortingDesc = this._orderBy === t ? !this._sortingDesc : !1, this._orderBy = t, this._pageNumber = 1, h(this, o, _).call(this);
   }
   render() {
     var t;
-    return this._loaded ? p`
+    return this._loaded ? g`
         <umb-body-layout headline="Stats">
           <div id="main">
             <uui-box>
@@ -95,12 +91,12 @@ let i = class extends K {
                     </uui-button>
                   </uui-table-head-cell>
                 </uui-table-head>
-                ${L(
+                ${A(
       (t = this._data) == null ? void 0 : t.items,
       (e) => e,
       (e) => {
-        var a, l, r, o, n, $, w, C, N, E, z, O, x, R, k, B, G, I, P, T;
-        return p`
+        var a, u, l, n, c, f, S, $, C, N, w, E, z, O, R, x, B, k, G, I;
+        return g`
                     <uui-table-row>
                       <uui-table-cell>
                         <a href='/umbraco/section/content/workspace/document/edit/${e.nodeKey}'>
@@ -108,7 +104,7 @@ let i = class extends K {
                         </a>
                       </uui-table-cell>
                       <uui-table-cell>
-                        <umb-localize-date date=${e.requestDate} .options=${f(this, v)}>
+                        <umb-localize-date date=${e.requestDate} .options=${v(this, m)}>
                         </umb-localize-date>
                       </uui-table-cell>
                       <uui-table-cell>
@@ -117,23 +113,23 @@ let i = class extends K {
                       </uui-table-cell>
 
                       <uui-table-cell>
-                        ${(o = (r = (l = (a = e.pageDataObject) == null ? void 0 : a.resourceGroups) == null ? void 0 : l.find((s) => s.name === "Images")) == null ? void 0 : r.resources) == null ? void 0 : o.length}
+                        ${(n = (l = (u = (a = e.pageDataObject) == null ? void 0 : a.resourceGroups) == null ? void 0 : u.find((s) => s.name === "Images")) == null ? void 0 : l.resources) == null ? void 0 : n.length}
                       </uui-table-cell>
 
                       <uui-table-cell>
-                        ${(C = (w = ($ = (n = e.pageDataObject) == null ? void 0 : n.resourceGroups) == null ? void 0 : $.find((s) => s.name === "Scripts")) == null ? void 0 : w.resources) == null ? void 0 : C.length}
+                        ${($ = (S = (f = (c = e.pageDataObject) == null ? void 0 : c.resourceGroups) == null ? void 0 : f.find((s) => s.name === "Scripts")) == null ? void 0 : S.resources) == null ? void 0 : $.length}
                       </uui-table-cell>
 
                       <uui-table-cell>
-                        ${(O = (z = (E = (N = e.pageDataObject) == null ? void 0 : N.resourceGroups) == null ? void 0 : E.find((s) => s.name === "Links")) == null ? void 0 : z.resources) == null ? void 0 : O.length}
+                        ${(E = (w = (N = (C = e.pageDataObject) == null ? void 0 : C.resourceGroups) == null ? void 0 : N.find((s) => s.name === "Links")) == null ? void 0 : w.resources) == null ? void 0 : E.length}
                       </uui-table-cell>
 
                       <uui-table-cell>
-                        ${(B = (k = (R = (x = e.pageDataObject) == null ? void 0 : x.resourceGroups) == null ? void 0 : R.find((s) => s.name === "CSS")) == null ? void 0 : k.resources) == null ? void 0 : B.length}
+                        ${(x = (R = (O = (z = e.pageDataObject) == null ? void 0 : z.resourceGroups) == null ? void 0 : O.find((s) => s.name === "CSS")) == null ? void 0 : R.resources) == null ? void 0 : x.length}
                       </uui-table-cell>
 
                       <uui-table-cell>
-                        ${(T = (P = (I = (G = e.pageDataObject) == null ? void 0 : G.resourceGroups) == null ? void 0 : I.find((s) => s.name === "Other")) == null ? void 0 : P.resources) == null ? void 0 : T.length}
+                        ${(I = (G = (k = (B = e.pageDataObject) == null ? void 0 : B.resourceGroups) == null ? void 0 : k.find((s) => s.name === "Other")) == null ? void 0 : G.resources) == null ? void 0 : I.length}
                       </uui-table-cell>
 
                       <uui-table-cell style="text-align: right;">
@@ -149,41 +145,39 @@ let i = class extends K {
     )}
               </uui-table>
 
-              ${h(this, D, A).call(this)}
+              ${h(this, o, W).call(this)}
             </uui-box>
           </div>
         </umb-body-layout>
-      ` : p`
+      ` : g`
         <div id="loader-container">
           <uui-loader></uui-loader>
         </div>`;
   }
 };
 b = /* @__PURE__ */ new WeakMap();
-v = /* @__PURE__ */ new WeakMap();
-g = /* @__PURE__ */ new WeakSet();
-y = function() {
+m = /* @__PURE__ */ new WeakMap();
+o = /* @__PURE__ */ new WeakSet();
+_ = function() {
   var t;
-  this._sortingDesc ? this._orderDirection = _.ASCENDING : this._orderDirection = _.DESCENDING, (t = f(this, b)) == null || t.getOverviewData(this._orderDirection, this._orderBy, this._pageNumber, this._pageSize);
+  this._sortingDesc ? this._orderDirection = p.ASCENDING : this._orderDirection = p.DESCENDING, (t = v(this, b)) == null || t.getOverviewData(this._orderDirection, this._orderBy, this._pageNumber, this._pageSize);
 };
-S = /* @__PURE__ */ new WeakSet();
-W = function(t) {
-  this._pageNumber = t.target.current, h(this, g, y).call(this);
+T = function(t) {
+  this._pageNumber = t.target.current, h(this, o, _).call(this);
 };
-D = /* @__PURE__ */ new WeakSet();
-A = function() {
+W = function() {
   var t, e, a;
   if (((t = this._data) == null ? void 0 : t.totalPages) !== 1)
-    return p`
+    return g`
       <uui-pagination
         .total=${(e = this._data) == null ? void 0 : e.totalPages}
         .current=${(a = this._data) == null ? void 0 : a.pageNumber}
-        @change=${h(this, S, W)}>
+        @change=${h(this, o, T)}>
       </uui-pagination>
     `;
 };
 i.styles = [
-  H`
+  L`
       #loader-container {
 				display: flex;
 				justify-content: center;
@@ -192,33 +186,33 @@ i.styles = [
 			}
     `
 ];
-u([
-  c()
+r([
+  d()
 ], i.prototype, "_data", 2);
-u([
-  q({ type: Boolean })
+r([
+  H({ type: Boolean })
 ], i.prototype, "_loaded", 2);
-u([
-  c()
+r([
+  d()
 ], i.prototype, "_sortingDesc", 2);
-u([
-  c()
+r([
+  d()
 ], i.prototype, "_orderDirection", 2);
-u([
-  c()
+r([
+  d()
 ], i.prototype, "_orderBy", 2);
-u([
-  c()
+r([
+  d()
 ], i.prototype, "_pageNumber", 2);
-u([
-  c()
+r([
+  d()
 ], i.prototype, "_pageSize", 2);
-i = u([
-  j(Y)
+i = r([
+  j(X)
 ], i);
-const Z = i;
+const V = i;
 export {
   i as StatsRootWorkspaceElement,
-  Z as default
+  V as default
 };
-//# sourceMappingURL=stats-workspace.element-o7jAPSEV.js.map
+//# sourceMappingURL=stats-workspace.element-BNz4oQMS.js.map

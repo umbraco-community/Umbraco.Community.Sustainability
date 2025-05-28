@@ -5,27 +5,36 @@ import { manifests as sectionManifests } from './section/manifests.ts';
 
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth';
 import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from './context/sustainability.context.ts';
-import { OpenAPI } from './api/index.ts';
+import { client } from './api/index.ts';
 
 export * from './components/index';
 export * from './repository/index';
 
 export const onInit: UmbEntryPointOnInit = (host, extensionRegistry) => {
 
-  extensionRegistry.registerMany([
-    ...documentManifests,
-    ...sectionManifests
-  ]);
+  host.consumeContext(UMB_AUTH_CONTEXT, async (authContext) => {
+    if (!authContext) return;
 
-  host.consumeContext(UMB_AUTH_CONTEXT, async (auth) => {
-    if (!auth) return;
+    const config = authContext.getOpenApiConfiguration();
 
-    const umbOpenApi = auth.getOpenApiConfiguration();
-    OpenAPI.BASE = umbOpenApi.base;
-    OpenAPI.TOKEN = umbOpenApi.token;
-    OpenAPI.WITH_CREDENTIALS = umbOpenApi.withCredentials;
-    OpenAPI.CREDENTIALS = umbOpenApi.credentials;
+    client.setConfig({
+      auth: () => authContext.getLatestToken(),
+      baseUrl: config.base,
+      credentials: config.credentials,
+    });
+
+    client.interceptors.request.use(async (request, _options) => {
+      const token = await config.token();
+      request.headers.set('Authorization', `Bearer ${token}`);
+      return request;
+    });
+
+    extensionRegistry.registerMany([
+      ...documentManifests,
+      ...sectionManifests
+    ]);
+
+    host.provideContext(SUSTAINABILITY_CONTEXT, new SustainabilityContext(host));
   });
 
-  host.provideContext(SUSTAINABILITY_CONTEXT, new SustainabilityContext(host));
 };

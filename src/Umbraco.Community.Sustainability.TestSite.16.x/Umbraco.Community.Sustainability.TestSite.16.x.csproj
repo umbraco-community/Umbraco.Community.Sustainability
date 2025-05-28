@@ -3,12 +3,12 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Umbraco.Community.Sustainability.TestSite._15.x</RootNamespace>
+    <RootNamespace>Umbraco.Community.Sustainability.TestSite._16.x</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Umbraco.Cms" Version="15.4.1" />
-    <PackageReference Include="Umbraco.TheStarterKit" Version="15.0.0" />
+    <PackageReference Include="Umbraco.Cms" Version="16.0.0-rc3" />
+    <PackageReference Include="Umbraco.TheStarterKit" Version="16.0.0-rc" />
   </ItemGroup>
 
   <ItemGroup>

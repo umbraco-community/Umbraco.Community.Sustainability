@@ -2,7 +2,7 @@ import { SUSTAINABILITY_CONTEXT, SustainabilityContext } from "../../../context/
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { DirectionModel } from "@umbraco-cms/backoffice/external/backend-api";
 import { css, customElement, html, repeat, state } from "@umbraco-cms/backoffice/external/lit";
-import { AveragePageMetrics, PageMetric, PagedResultPageMetricModel } from "../../../api";
+import { AveragePageMetrics, PageMetric, GetOverviewDataResponse } from "../../../api";
 import { hosting } from '@tgwf/co2';
 
 const elementName = "overview-workspace";
@@ -22,7 +22,7 @@ export class OverviewRootWorkspaceElement extends UmbLitElement {
   };
 
   @state()
-  _overviewData?: PagedResultPageMetricModel;
+  _overviewData?: GetOverviewDataResponse;
 
   @state()
   _averageData?: AveragePageMetrics;
@@ -36,15 +36,15 @@ export class OverviewRootWorkspaceElement extends UmbLitElement {
     this.consumeContext(SUSTAINABILITY_CONTEXT, (instance) => {
       this.#sustainabilityContext = instance;
 
-      this.observe(this.#sustainabilityContext.overviewData, (data) => {
+      this.observe(this.#sustainabilityContext?.overviewData, (data) => {
         if (!data) return;
         this._overviewData = data;
       });
 
-      this.observe(this.#sustainabilityContext.averageData, (data) => {
+      this.observe(this.#sustainabilityContext?.averageData, (data) => {
         if (!data) return;
         this._averageData = data;
-      })
+      });
     });
   }
 

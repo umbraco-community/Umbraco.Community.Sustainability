@@ -28,7 +28,7 @@ export type ExternalResourceGroup = {
     type: ResourceGroupType;
     name?: string | null;
     totalSize: number;
-    resources?: Array<(ExternalResource)> | null;
+    resources?: Array<ExternalResource> | null;
 };
 
 export type NotificationHeaderModel = {
@@ -50,12 +50,19 @@ export type PageMetric = {
     pageDataObject?: SustainabilityResponse | null;
 };
 
-export type PagedResultPageMetricModel = {
+export type PagedResultPageMetricModelReadable = {
     pageNumber: number;
     pageSize: number;
     readonly totalPages: number;
     totalItems: number;
-    items?: Array<(PageMetric)> | null;
+    items?: Array<PageMetric> | null;
+};
+
+export type PagedResultPageMetricModelWritable = {
+    pageNumber: number;
+    pageSize: number;
+    totalItems: number;
+    items?: Array<PageMetric> | null;
 };
 
 export enum ResourceGroupType {
@@ -71,92 +78,100 @@ export type SustainabilityResponse = {
     totalSize: number;
     totalEmissions: number;
     carbonRating?: string | null;
-    resourceGroups?: Array<(ExternalResourceGroup)> | null;
+    resourceGroups?: Array<ExternalResourceGroup> | null;
 };
 
 export type CheckPageData = {
-    pageGuid?: string;
+    body?: never;
+    path?: never;
+    query?: {
+        pageGuid?: string;
+    };
+    url: '/umbraco/sustainability/api/v1/checkPage';
 };
 
-export type CheckPageResponse = SustainabilityResponse;
+export type CheckPageResponses = {
+    /**
+     * OK
+     */
+    200: SustainabilityResponse;
+};
 
-export type GetAverageDataResponse = AveragePageMetrics;
+export type CheckPageResponse = CheckPageResponses[keyof CheckPageResponses];
+
+export type GetAverageDataData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/umbraco/sustainability/api/v1/getAverageData';
+};
+
+export type GetAverageDataResponses = {
+    /**
+     * OK
+     */
+    200: AveragePageMetrics;
+};
+
+export type GetAverageDataResponse = GetAverageDataResponses[keyof GetAverageDataResponses];
 
 export type GetOverviewDataData = {
-    direction?: DirectionModel;
-    orderBy?: string;
-    pageNumber?: number;
-    pageSize?: number;
+    body?: never;
+    path?: never;
+    query?: {
+        pageNumber?: number;
+        pageSize?: number;
+        orderBy?: string;
+        direction?: DirectionModel;
+    };
+    url: '/umbraco/sustainability/api/v1/getOverviewData';
 };
 
-export type GetOverviewDataResponse = PagedResultPageMetricModel;
+export type GetOverviewDataResponses = {
+    /**
+     * OK
+     */
+    200: PagedResultPageMetricModelReadable;
+};
+
+export type GetOverviewDataResponse = GetOverviewDataResponses[keyof GetOverviewDataResponses];
 
 export type GetPageDataData = {
-    pageGuid?: string;
+    body?: never;
+    path?: never;
+    query?: {
+        pageGuid?: string;
+    };
+    url: '/umbraco/sustainability/api/v1/getPageData';
 };
 
-export type GetPageDataResponse = SustainabilityResponse;
+export type GetPageDataResponses = {
+    /**
+     * OK
+     */
+    200: SustainabilityResponse;
+};
+
+export type GetPageDataResponse = GetPageDataResponses[keyof GetPageDataResponses];
 
 export type SavePageDataData = {
-    pageGuid?: string;
-    requestBody?: SustainabilityResponse;
+    body?: SustainabilityResponse;
+    path?: never;
+    query?: {
+        pageGuid?: string;
+    };
+    url: '/umbraco/sustainability/api/v1/savePageData';
 };
 
-export type SavePageDataResponse = boolean;
+export type SavePageDataResponses = {
+    /**
+     * OK
+     */
+    200: boolean;
+};
 
-export type $OpenApiTs = {
-    '/umbraco/sustainability/api/v1/checkPage': {
-        get: {
-            req: CheckPageData;
-            res: {
-                /**
-                 * OK
-                 */
-                200: SustainabilityResponse;
-            };
-        };
-    };
-    '/umbraco/sustainability/api/v1/getAverageData': {
-        get: {
-            res: {
-                /**
-                 * OK
-                 */
-                200: AveragePageMetrics;
-            };
-        };
-    };
-    '/umbraco/sustainability/api/v1/getOverviewData': {
-        get: {
-            req: GetOverviewDataData;
-            res: {
-                /**
-                 * OK
-                 */
-                200: PagedResultPageMetricModel;
-            };
-        };
-    };
-    '/umbraco/sustainability/api/v1/getPageData': {
-        get: {
-            req: GetPageDataData;
-            res: {
-                /**
-                 * OK
-                 */
-                200: SustainabilityResponse;
-            };
-        };
-    };
-    '/umbraco/sustainability/api/v1/savePageData': {
-        post: {
-            req: SavePageDataData;
-            res: {
-                /**
-                 * OK
-                 */
-                200: boolean;
-            };
-        };
-    };
+export type SavePageDataResponse = SavePageDataResponses[keyof SavePageDataResponses];
+
+export type ClientOptions = {
+    baseUrl: 'http://localhost:26292' | (string & {});
 };

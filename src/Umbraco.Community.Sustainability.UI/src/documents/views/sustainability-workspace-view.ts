@@ -23,7 +23,7 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
 
     this.consumeContext(UMB_DOCUMENT_WORKSPACE_CONTEXT, (instance) => {
 
-      this.observe(instance.unique, (unique) => {
+      this.observe(instance?.unique, (unique) => {
         this._documentUnique = unique?.toString();
       });
     });
