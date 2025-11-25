@@ -64,7 +64,7 @@ namespace Umbraco.Community.Sustainability.Services
         public async Task<IEnumerable<PageMetric>> GetPageMetrics(Guid pageKey)
         {
             using var scope = _scopeProvider.CreateScope();
-            var queryResults = await scope.Database.FetchAsync<PageMetric>($"SELECT * FROM {PageMetric.TableName} WHERE NodeKey = @0", pageKey);
+            var queryResults = await scope.Database.FetchAsync<PageMetric>($"SELECT * FROM {PageMetric.TableName} WHERE NodeKey = {pageKey}");
             scope.Complete();
 
             return queryResults;
