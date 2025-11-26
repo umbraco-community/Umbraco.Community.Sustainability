@@ -1,22 +1,22 @@
-var G = Object.defineProperty;
-var I = (a) => {
+var Q = Object.defineProperty;
+var k = (a) => {
   throw TypeError(a);
 };
-var K = (a, e, t) => e in a ? G(a, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : a[e] = t;
-var k = (a, e, t) => K(a, typeof e != "symbol" ? e + "" : e, t), R = (a, e, t) => e.has(a) || I("Cannot " + t);
-var l = (a, e, t) => (R(a, e, "read from private field"), t ? t.call(a) : e.get(a)), d = (a, e, t) => e.has(a) ? I("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(a) : e.set(a, t), g = (a, e, t, i) => (R(a, e, "write to private field"), i ? i.call(a, t) : e.set(a, t), t);
+var K = (a, e, t) => e in a ? Q(a, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : a[e] = t;
+var R = (a, e, t) => K(a, typeof e != "symbol" ? e + "" : e, t), E = (a, e, t) => e.has(a) || k("Cannot " + t);
+var l = (a, e, t) => (E(a, e, "read from private field"), t ? t.call(a) : e.get(a)), g = (a, e, t) => e.has(a) ? k("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(a) : e.set(a, t), v = (a, e, t, i) => (E(a, e, "write to private field"), i ? i.call(a, t) : e.set(a, t), t);
 import { UMB_AUTH_CONTEXT as Z } from "@umbraco-cms/backoffice/auth";
 import { UmbControllerBase as N } from "@umbraco-cms/backoffice/class-api";
-import { tryExecute as O } from "@umbraco-cms/backoffice/resources";
+import { tryExecute as T } from "@umbraco-cms/backoffice/resources";
 import { UmbContextToken as ee } from "@umbraco-cms/backoffice/context-api";
-import { UmbObjectState as E } from "@umbraco-cms/backoffice/observable-api";
+import { UmbObjectState as q } from "@umbraco-cms/backoffice/observable-api";
 import { UmbElementMixin as te } from "@umbraco-cms/backoffice/element-api";
 import { LitElement as ae, html as re, property as ie, customElement as se } from "@umbraco-cms/backoffice/external/lit";
 const ne = {
   type: "workspaceView",
   alias: "Umbraco.Community.Sustainability.Workspace",
   name: "Sustainability Workspace",
-  js: () => import("./sustainability-workspace-view-CthUCRDp.js"),
+  js: () => import("./sustainability-workspace-view-Chf7oCph.js"),
   weight: 10,
   meta: {
     icon: "icon-eco",
@@ -29,7 +29,7 @@ const ne = {
       match: "Umb.Workspace.Document"
     }
   ]
-}, oe = [ne], M = "overview-root", le = {
+}, oe = [ne], z = "overview-root", le = {
   type: "menuItem",
   alias: "Sustainability.MenuItem.Overview",
   name: "Overview Menu Item",
@@ -37,16 +37,16 @@ const ne = {
   meta: {
     label: "Overview",
     icon: "icon-eco",
-    entityType: M,
+    entityType: z,
     menus: ["Umb.Menu.Sustainability"]
   }
 }, ce = [le], ue = "Sustainability.Workspace.Overview", me = "Sustainability.Workspace.Context", ye = {
   type: "workspace",
   alias: ue,
   name: "Overview Root Workspace",
-  js: () => import("./overview-workspace.element-Gn_wb_9o.js"),
+  js: () => import("./overview-workspace.element-BGliE5Yv.js"),
   meta: {
-    entityType: M
+    entityType: z
   }
 }, be = {
   type: "workspaceContext",
@@ -59,7 +59,7 @@ const ne = {
 ], pe = [
   ...he,
   ...ce
-], z = "stats-root", fe = {
+], V = "stats-root", fe = {
   type: "menuItem",
   alias: "Sustainability.MenuItem.Stats",
   name: "Stats Menu Item",
@@ -67,23 +67,23 @@ const ne = {
   meta: {
     label: "Stats",
     icon: "icon-chart",
-    entityType: z,
+    entityType: V,
     menus: ["Umb.Menu.Sustainability"]
   }
 }, de = [fe], ge = "Sustainability.Workspace.Stats", ve = {
   type: "workspace",
   alias: ge,
   name: "Stats Root Workspace",
-  js: () => import("./stats-workspace.element-BNz4oQMS.js"),
+  js: () => import("./stats-workspace.element-DGcivFIn.js"),
   meta: {
-    entityType: z
+    entityType: V
   }
 }, we = [
   ve
 ], Se = [
   ...we,
   ...de
-], P = "Umb.Section.Sustainability", V = "Umb.Menu.Sustainability", De = {
+], P = "Umb.Section.Sustainability", B = "Umb.Menu.Sustainability", Oe = {
   type: "section",
   alias: P,
   name: "Sustainability Section",
@@ -98,7 +98,7 @@ const ne = {
       match: P
     }
   ]
-}, Oe = {
+}, De = {
   type: "sectionView",
   alias: "Umb.SectionView.Sustainability",
   name: "Sustainability Section View",
@@ -116,7 +116,7 @@ const ne = {
   ]
 }, Te = {
   type: "menu",
-  alias: V,
+  alias: B,
   name: "Sustainability Menu",
   meta: {
     label: "Sustainability"
@@ -129,7 +129,7 @@ const ne = {
   weight: 200,
   meta: {
     label: "Sustainability",
-    menu: V
+    menu: B
   },
   conditions: [
     {
@@ -137,18 +137,18 @@ const ne = {
       match: P
     }
   ]
-}, _e = [
-  De,
+}, xe = [
   Oe,
+  De,
   Te,
   Ae,
   ...pe,
   ...Se
 ];
-var xe = async (a, e) => {
+var _e = async (a, e) => {
   let t = typeof e == "function" ? await e(a) : e;
   if (t) return a.scheme === "bearer" ? `Bearer ${t}` : a.scheme === "basic" ? `Basic ${btoa(t)}` : t;
-}, Pe = { bodySerializer: (a) => JSON.stringify(a, (e, t) => typeof t == "bigint" ? t.toString() : t) }, je = (a) => {
+}, je = { bodySerializer: (a) => JSON.stringify(a, (e, t) => typeof t == "bigint" ? t.toString() : t) }, Pe = (a) => {
   switch (a) {
     case "label":
       return ".";
@@ -159,7 +159,7 @@ var xe = async (a, e) => {
     default:
       return "&";
   }
-}, Ue = (a) => {
+}, Ce = (a) => {
   switch (a) {
     case "form":
       return ",";
@@ -170,7 +170,7 @@ var xe = async (a, e) => {
     default:
       return ",";
   }
-}, Ce = (a) => {
+}, Ue = (a) => {
   switch (a) {
     case "label":
       return ".";
@@ -181,9 +181,9 @@ var xe = async (a, e) => {
     default:
       return "&";
   }
-}, B = ({ allowReserved: a, explode: e, name: t, style: i, value: n }) => {
+}, L = ({ allowReserved: a, explode: e, name: t, style: i, value: n }) => {
   if (!e) {
-    let s = (a ? n : n.map((c) => encodeURIComponent(c))).join(Ue(i));
+    let s = (a ? n : n.map((c) => encodeURIComponent(c))).join(Ce(i));
     switch (i) {
       case "label":
         return `.${s}`;
@@ -195,33 +195,33 @@ var xe = async (a, e) => {
         return `${t}=${s}`;
     }
   }
-  let o = je(i), r = n.map((s) => i === "label" || i === "simple" ? a ? s : encodeURIComponent(s) : j({ allowReserved: a, name: t, value: s })).join(o);
+  let o = Pe(i), r = n.map((s) => i === "label" || i === "simple" ? a ? s : encodeURIComponent(s) : C({ allowReserved: a, name: t, value: s })).join(o);
   return i === "label" || i === "matrix" ? o + r : r;
-}, j = ({ allowReserved: a, name: e, value: t }) => {
+}, C = ({ allowReserved: a, name: e, value: t }) => {
   if (t == null) return "";
   if (typeof t == "object") throw new Error("Deeply-nested arrays/objects aren’t supported. Provide your own `querySerializer()` to handle these.");
   return `${e}=${a ? t : encodeURIComponent(t)}`;
-}, L = ({ allowReserved: a, explode: e, name: t, style: i, value: n }) => {
-  if (n instanceof Date) return `${t}=${n.toISOString()}`;
+}, Y = ({ allowReserved: a, explode: e, name: t, style: i, value: n, valueOnly: o }) => {
+  if (n instanceof Date) return o ? n.toISOString() : `${t}=${n.toISOString()}`;
   if (i !== "deepObject" && !e) {
-    let s = [];
-    Object.entries(n).forEach(([S, y]) => {
-      s = [...s, S, a ? y : encodeURIComponent(y)];
+    let c = [];
+    Object.entries(n).forEach(([f, x]) => {
+      c = [...c, f, a ? x : encodeURIComponent(x)];
     });
-    let c = s.join(",");
+    let y = c.join(",");
     switch (i) {
       case "form":
-        return `${t}=${c}`;
+        return `${t}=${y}`;
       case "label":
-        return `.${c}`;
+        return `.${y}`;
       case "matrix":
-        return `;${t}=${c}`;
+        return `;${t}=${y}`;
       default:
-        return c;
+        return y;
     }
   }
-  let o = Ce(i), r = Object.entries(n).map(([s, c]) => j({ allowReserved: a, name: i === "deepObject" ? `${t}[${s}]` : s, value: c })).join(o);
-  return i === "label" || i === "matrix" ? o + r : r;
+  let r = Ue(i), s = Object.entries(n).map(([c, y]) => C({ allowReserved: a, name: i === "deepObject" ? `${t}[${c}]` : c, value: y })).join(r);
+  return i === "label" || i === "matrix" ? r + s : s;
 }, $e = /\{[^{}]+\}/g, Ie = ({ path: a, url: e }) => {
   let t = e, i = e.match($e);
   if (i) for (let n of i) {
@@ -230,33 +230,33 @@ var xe = async (a, e) => {
     let c = a[r];
     if (c == null) continue;
     if (Array.isArray(c)) {
-      t = t.replace(n, B({ explode: o, name: r, style: s, value: c }));
-      continue;
-    }
-    if (typeof c == "object") {
       t = t.replace(n, L({ explode: o, name: r, style: s, value: c }));
       continue;
     }
-    if (s === "matrix") {
-      t = t.replace(n, `;${j({ name: r, value: c })}`);
+    if (typeof c == "object") {
+      t = t.replace(n, Y({ explode: o, name: r, style: s, value: c, valueOnly: !0 }));
       continue;
     }
-    let S = encodeURIComponent(s === "label" ? `.${c}` : c);
-    t = t.replace(n, S);
+    if (s === "matrix") {
+      t = t.replace(n, `;${C({ name: r, value: c })}`);
+      continue;
+    }
+    let y = encodeURIComponent(s === "label" ? `.${c}` : c);
+    t = t.replace(n, y);
   }
   return t;
-}, Y = ({ allowReserved: a, array: e, object: t } = {}) => (i) => {
+}, H = ({ allowReserved: a, array: e, object: t } = {}) => (i) => {
   let n = [];
   if (i && typeof i == "object") for (let o in i) {
     let r = i[o];
     if (r != null) if (Array.isArray(r)) {
-      let s = B({ allowReserved: a, explode: !0, name: o, style: "form", value: r, ...e });
+      let s = L({ allowReserved: a, explode: !0, name: o, style: "form", value: r, ...e });
       s && n.push(s);
     } else if (typeof r == "object") {
-      let s = L({ allowReserved: a, explode: !0, name: o, style: "deepObject", value: r, ...t });
+      let s = Y({ allowReserved: a, explode: !0, name: o, style: "deepObject", value: r, ...t });
       s && n.push(s);
     } else {
-      let s = j({ allowReserved: a, name: o, value: r });
+      let s = C({ allowReserved: a, name: o, value: r });
       s && n.push(s);
     }
   }
@@ -273,7 +273,7 @@ var xe = async (a, e) => {
   }
 }, Re = async ({ security: a, ...e }) => {
   for (let t of a) {
-    let i = await xe(t, e.auth);
+    let i = await _e(t, e.auth);
     if (!i) continue;
     let n = t.name ?? "Authorization";
     switch (t.in) {
@@ -290,16 +290,16 @@ var xe = async (a, e) => {
     }
     return;
   }
-}, q = (a) => Ee({ baseUrl: a.baseUrl, path: a.path, query: a.query, querySerializer: typeof a.querySerializer == "function" ? a.querySerializer : Y(a.querySerializer), url: a.url }), Ee = ({ baseUrl: a, path: e, query: t, querySerializer: i, url: n }) => {
+}, W = (a) => Ee({ baseUrl: a.baseUrl, path: a.path, query: a.query, querySerializer: typeof a.querySerializer == "function" ? a.querySerializer : H(a.querySerializer), url: a.url }), Ee = ({ baseUrl: a, path: e, query: t, querySerializer: i, url: n }) => {
   let o = n.startsWith("/") ? n : `/${n}`, r = (a ?? "") + o;
   e && (r = Ie({ path: e, url: r }));
   let s = t ? i(t) : "";
   return s.startsWith("?") && (s = s.substring(1)), s && (r += `?${s}`), r;
-}, W = (a, e) => {
+}, M = (a, e) => {
   var i;
   let t = { ...a, ...e };
-  return (i = t.baseUrl) != null && i.endsWith("/") && (t.baseUrl = t.baseUrl.substring(0, t.baseUrl.length - 1)), t.headers = H(a.headers, e.headers), t;
-}, H = (...a) => {
+  return (i = t.baseUrl) != null && i.endsWith("/") && (t.baseUrl = t.baseUrl.substring(0, t.baseUrl.length - 1)), t.headers = J(a.headers, e.headers), t;
+}, J = (...a) => {
   let e = new Headers();
   for (let t of a) {
     if (!t || typeof t != "object") continue;
@@ -311,7 +311,7 @@ var xe = async (a, e) => {
   return e;
 }, U = class {
   constructor() {
-    k(this, "_fns");
+    R(this, "_fns");
     this._fns = [];
   }
   clear() {
@@ -335,65 +335,65 @@ var xe = async (a, e) => {
   use(a) {
     return this._fns = [...this._fns, a], this._fns.length - 1;
   }
-}, qe = () => ({ error: new U(), request: new U(), response: new U() }), We = Y({ allowReserved: !1, array: { explode: !0, style: "form" }, object: { explode: !0, style: "deepObject" } }), Ne = { "Content-Type": "application/json" }, J = (a = {}) => ({ ...Pe, headers: Ne, parseAs: "auto", querySerializer: We, ...a }), Me = (a = {}) => {
-  let e = W(J(), a), t = () => ({ ...e }), i = (r) => (e = W(e, r), t()), n = qe(), o = async (r) => {
-    let s = { ...e, ...r, fetch: r.fetch ?? e.fetch ?? globalThis.fetch, headers: H(e.headers, r.headers) };
+}, qe = () => ({ error: new U(), request: new U(), response: new U() }), We = H({ allowReserved: !1, array: { explode: !0, style: "form" }, object: { explode: !0, style: "deepObject" } }), Me = { "Content-Type": "application/json" }, F = (a = {}) => ({ ...je, headers: Me, parseAs: "auto", querySerializer: We, ...a }), Ne = (a = {}) => {
+  let e = M(F(), a), t = () => ({ ...e }), i = (r) => (e = M(e, r), t()), n = qe(), o = async (r) => {
+    let s = { ...e, ...r, fetch: r.fetch ?? e.fetch ?? globalThis.fetch, headers: J(e.headers, r.headers) };
     s.security && await Re({ ...s, security: s.security }), s.body && s.bodySerializer && (s.body = s.bodySerializer(s.body)), (s.body === void 0 || s.body === "") && s.headers.delete("Content-Type");
-    let c = q(s), S = { redirect: "follow", ...s }, y = new Request(c, S);
-    for (let u of n.request._fns) u && (y = await u(y, s));
-    let Q = s.fetch, m = await Q(y);
-    for (let u of n.response._fns) u && (m = await u(m, y, s));
-    let A = { request: y, response: m };
-    if (m.ok) {
-      if (m.status === 204 || m.headers.get("Content-Length") === "0") return { data: {}, ...A };
-      let u = (s.parseAs === "auto" ? ke(m.headers.get("Content-Type")) : s.parseAs) ?? "json";
-      if (u === "stream") return { data: m.body, ...A };
-      let x = await m[u]();
-      return u === "json" && (s.responseValidator && await s.responseValidator(x), s.responseTransformer && (x = await s.responseTransformer(x))), { data: x, ...A };
+    let c = W(s), y = { redirect: "follow", ...s }, f = new Request(c, y);
+    for (let m of n.request._fns) m && (f = await m(f, s));
+    let x = s.fetch, u = await x(f);
+    for (let m of n.response._fns) m && (u = await m(u, f, s));
+    let _ = { request: f, response: u };
+    if (u.ok) {
+      if (u.status === 204 || u.headers.get("Content-Length") === "0") return s.responseStyle === "data" ? {} : { data: {}, ..._ };
+      let m = (s.parseAs === "auto" ? ke(u.headers.get("Content-Type")) : s.parseAs) ?? "json";
+      if (m === "stream") return s.responseStyle === "data" ? u.body : { data: u.body, ..._ };
+      let D = await u[m]();
+      return m === "json" && (s.responseValidator && await s.responseValidator(D), s.responseTransformer && (D = await s.responseTransformer(D))), s.responseStyle === "data" ? D : { data: D, ..._ };
     }
-    let _ = await m.text();
+    let j = await u.text();
     try {
-      _ = JSON.parse(_);
+      j = JSON.parse(j);
     } catch {
     }
-    let D = _;
-    for (let u of n.error._fns) u && (D = await u(_, m, y, s));
-    if (D = D || {}, s.throwOnError) throw D;
-    return { error: D, ...A };
+    let O = j;
+    for (let m of n.error._fns) m && (O = await m(j, u, f, s));
+    if (O = O || {}, s.throwOnError) throw O;
+    return s.responseStyle === "data" ? void 0 : { error: O, ..._ };
   };
-  return { buildUrl: q, connect: (r) => o({ ...r, method: "CONNECT" }), delete: (r) => o({ ...r, method: "DELETE" }), get: (r) => o({ ...r, method: "GET" }), getConfig: t, head: (r) => o({ ...r, method: "HEAD" }), interceptors: n, options: (r) => o({ ...r, method: "OPTIONS" }), patch: (r) => o({ ...r, method: "PATCH" }), post: (r) => o({ ...r, method: "POST" }), put: (r) => o({ ...r, method: "PUT" }), request: o, setConfig: i, trace: (r) => o({ ...r, method: "TRACE" }) };
+  return { buildUrl: W, connect: (r) => o({ ...r, method: "CONNECT" }), delete: (r) => o({ ...r, method: "DELETE" }), get: (r) => o({ ...r, method: "GET" }), getConfig: t, head: (r) => o({ ...r, method: "HEAD" }), interceptors: n, options: (r) => o({ ...r, method: "OPTIONS" }), patch: (r) => o({ ...r, method: "PATCH" }), post: (r) => o({ ...r, method: "POST" }), put: (r) => o({ ...r, method: "PUT" }), request: o, setConfig: i, trace: (r) => o({ ...r, method: "TRACE" }) };
 };
-const f = Me(J({
-  baseUrl: "http://localhost:26292",
+const d = Ne(F({
+  baseUrl: "http://localhost:50172",
   throwOnError: !0
 }));
-class T {
+class A {
   static checkPage(e) {
-    return ((e == null ? void 0 : e.client) ?? f).get({
+    return ((e == null ? void 0 : e.client) ?? d).get({
       url: "/umbraco/sustainability/api/v1/checkPage",
       ...e
     });
   }
   static getAverageData(e) {
-    return ((e == null ? void 0 : e.client) ?? f).get({
+    return ((e == null ? void 0 : e.client) ?? d).get({
       url: "/umbraco/sustainability/api/v1/getAverageData",
       ...e
     });
   }
   static getOverviewData(e) {
-    return ((e == null ? void 0 : e.client) ?? f).get({
+    return ((e == null ? void 0 : e.client) ?? d).get({
       url: "/umbraco/sustainability/api/v1/getOverviewData",
       ...e
     });
   }
   static getPageData(e) {
-    return ((e == null ? void 0 : e.client) ?? f).get({
+    return ((e == null ? void 0 : e.client) ?? d).get({
       url: "/umbraco/sustainability/api/v1/getPageData",
       ...e
     });
   }
   static savePageData(e) {
-    return ((e == null ? void 0 : e.client) ?? f).post({
+    return ((e == null ? void 0 : e.client) ?? d).post({
       url: "/umbraco/sustainability/api/v1/savePageData",
       ...e,
       headers: {
@@ -406,26 +406,26 @@ class T {
 var b;
 class ze {
   constructor(e) {
-    d(this, b);
-    g(this, b, e);
+    g(this, b);
+    v(this, b, e);
   }
   async checkPage(e) {
-    return await O(l(this, b), T.checkPage({ query: { pageGuid: e } }));
+    return await T(l(this, b), A.checkPage({ query: { pageGuid: e } }));
   }
   async getPageData(e) {
-    return await O(l(this, b), T.getPageData({ query: { pageGuid: e } }));
+    return await T(l(this, b), A.getPageData({ query: { pageGuid: e } }));
   }
   async savePageData(e, t) {
-    return await O(l(this, b), T.savePageData({
+    return await T(l(this, b), A.savePageData({
       query: { pageGuid: e },
       body: t
     }));
   }
   async getOverviewData(e, t, i, n) {
-    return await O(l(this, b), T.getOverviewData({ query: { direction: e, orderBy: t, pageNumber: i, pageSize: n } }));
+    return await T(l(this, b), A.getOverviewData({ query: { direction: e, orderBy: t, pageNumber: i, pageSize: n } }));
   }
   async getAverageData() {
-    return await O(l(this, b), T.getAverageData());
+    return await T(l(this, b), A.getAverageData());
   }
 }
 b = new WeakMap();
@@ -433,8 +433,8 @@ var h;
 class Ve extends N {
   constructor(t) {
     super(t);
-    d(this, h);
-    g(this, h, new ze(this));
+    g(this, h);
+    v(this, h, new ze(this));
   }
   async checkPage(t) {
     return await l(this, h).checkPage(t);
@@ -453,14 +453,14 @@ class Ve extends N {
   }
 }
 h = new WeakMap();
-var p, v, w;
-class C extends N {
+var p, w, S;
+class $ extends N {
   constructor(t) {
     super(t);
-    d(this, p);
-    d(this, v);
-    d(this, w);
-    g(this, v, new E(void 0)), this.overviewData = l(this, v).asObservable(), g(this, w, new E(void 0)), this.averageData = l(this, w).asObservable(), g(this, p, new Ve(this));
+    g(this, p);
+    g(this, w);
+    g(this, S);
+    v(this, w, new q(void 0)), this.overviewData = l(this, w).asObservable(), v(this, S, new q(void 0)), this.averageData = l(this, S).asObservable(), v(this, p, new Ve(this));
   }
   async checkPage(t, i = !0) {
     const { data: n } = await l(this, p).checkPage(t);
@@ -477,27 +477,27 @@ class C extends N {
   }
   async getOverviewData(t, i, n, o) {
     const { data: r } = await l(this, p).getOverviewData(t, i, n, o);
-    r && l(this, v).setValue(r);
+    r && l(this, w).setValue(r);
   }
   async getAverageData() {
     const { data: t } = await l(this, p).getAverageData();
-    t && l(this, w).setValue(t);
+    t && l(this, S).setValue(t);
   }
 }
-p = new WeakMap(), v = new WeakMap(), w = new WeakMap();
+p = new WeakMap(), w = new WeakMap(), S = new WeakMap();
 const X = new ee("SustainabilityContext"), Be = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   SUSTAINABILITY_CONTEXT: X,
-  SustainabilityContext: C,
-  default: C
+  SustainabilityContext: $,
+  default: $
 }, Symbol.toStringTag, { value: "Module" }));
-var Le = Object.defineProperty, Ye = Object.getOwnPropertyDescriptor, F = (a, e, t, i) => {
+var Le = Object.defineProperty, Ye = Object.getOwnPropertyDescriptor, G = (a, e, t, i) => {
   for (var n = i > 1 ? void 0 : i ? Ye(e, t) : e, o = a.length - 1, r; o >= 0; o--)
     (r = a[o]) && (n = (i ? r(e, t, n) : r(n)) || n);
   return i && n && Le(e, t, n), n;
 };
 const He = "sustainability-carbon-rating";
-let $ = class extends te(ae) {
+let I = class extends te(ae) {
   constructor() {
     super(...arguments), this.carbonRating = void 0;
   }
@@ -512,34 +512,34 @@ let $ = class extends te(ae) {
     `;
   }
 };
-F([
+G([
   ie({ type: String })
-], $.prototype, "carbonRating", 2);
-$ = F([
+], I.prototype, "carbonRating", 2);
+I = G([
   se(He)
-], $);
+], I);
 const tt = (a, e) => {
   a.consumeContext(Z, async (t) => {
     if (!t) return;
     const i = t.getOpenApiConfiguration();
-    f.setConfig({
+    d.setConfig({
       auth: () => t.getLatestToken(),
       baseUrl: i.base,
       credentials: i.credentials
-    }), f.interceptors.request.use(async (n, o) => {
+    }), d.interceptors.request.use(async (n, o) => {
       const r = await i.token();
       return n.headers.set("Authorization", `Bearer ${r}`), n;
     }), e.registerMany([
       ...oe,
-      ..._e
-    ]), a.provideContext(X, new C(a));
+      ...xe
+    ]), a.provideContext(X, new $(a));
   });
 };
 export {
   X as S,
-  $ as a,
+  I as a,
   Ve as b,
   ze as c,
   tt as o
 };
-//# sourceMappingURL=index-BMf2rr-p.js.map
+//# sourceMappingURL=index-Da7IgOgD.js.map

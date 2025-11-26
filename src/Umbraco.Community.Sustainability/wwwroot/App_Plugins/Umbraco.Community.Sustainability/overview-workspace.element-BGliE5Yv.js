@@ -1,9 +1,9 @@
-import { S as R } from "./index-BMf2rr-p.js";
+import { S as R } from "./index-Da7IgOgD.js";
 import { UmbLitElement as I } from "@umbraco-cms/backoffice/lit-element";
 import { DirectionModel as P } from "@umbraco-cms/backoffice/external/backend-api";
 import { html as u, repeat as j, css as z, state as y, customElement as q } from "@umbraco-cms/backoffice/external/lit";
 function x(e = "") {
-  return { "User-Agent": `co2js/0.15.0 ${e}` };
+  return { "User-Agent": "co2js/".concat("0.16.9", " ").concat(e) };
 }
 var G = Object.getOwnPropertyNames, H = (e, t) => function() {
   return t || (0, e[G(e)[0]])((t = { exports: {} }).exports, t), t.exports;
@@ -54,9 +54,12 @@ function T(e, t) {
   return typeof e == "string" ? F(e, r) : L(e, r);
 }
 async function F(e, t = {}) {
-  const r = await fetch(`https://api.thegreenwebfoundation.org/greencheck/${e}`, {
-    headers: x(t.userAgentIdentifier)
-  });
+  const r = await fetch(
+    "https://api.thegreenwebfoundation.org/greencheck/".concat(e),
+    {
+      headers: x(t.userAgentIdentifier)
+    }
+  );
   if (t != null && t.db)
     return W.check(e, t.db);
   const i = await r.json();
@@ -64,7 +67,7 @@ async function F(e, t = {}) {
 }
 async function L(e, t = {}) {
   try {
-    const r = "https://api.thegreenwebfoundation.org/v2/greencheckmulti", i = JSON.stringify(e), o = await (await fetch(`${r}/${i}`, {
+    const r = "https://api.thegreenwebfoundation.org/v2/greencheckmulti", i = JSON.stringify(e), o = await (await fetch("".concat(r, "/").concat(i), {
       headers: x(t.userAgentIdentifier)
     })).json();
     return t.verbose ? o : M(o);
@@ -81,15 +84,13 @@ var B = {
 function U(e, t) {
   return B.check(e, t);
 }
-var K = {
-  check: U
-}, Y = Object.defineProperty, V = Object.getOwnPropertyDescriptor, O = (e) => {
+var K = U, Y = Object.defineProperty, V = Object.getOwnPropertyDescriptor, O = (e) => {
   throw TypeError(e);
 }, p = (e, t, r, i) => {
   for (var a = i > 1 ? void 0 : i ? V(t, r) : t, o = e.length - 1, d; o >= 0; o--)
     (d = e[o]) && (a = (i ? d(t, r, a) : d(a)) || a);
   return i && a && Y(t, r, a), a;
-}, w = (e, t, r) => t.has(e) || O("Cannot " + r), v = (e, t, r) => (w(e, t, "read from private field"), t.get(e)), _ = (e, t, r) => t.has(e) ? O("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, r), X = (e, t, r, i) => (w(e, t, "write to private field"), t.set(e, r), r), b = (e, t, r) => (w(e, t, "access private method"), r), l, D, h, $, S, N, A, E;
+}, w = (e, t, r) => t.has(e) || O("Cannot " + r), v = (e, t, r) => (w(e, t, "read from private field"), t.get(e)), _ = (e, t, r) => t.has(e) ? O("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, r), X = (e, t, r, i) => (w(e, t, "write to private field"), t.set(e, r), r), b = (e, t, r) => (w(e, t, "access private method"), r), l, D, h, S, N, A, E, $;
 const Q = "overview-workspace";
 let f = class extends I {
   constructor() {
@@ -119,9 +120,9 @@ let f = class extends I {
     return u`
       <umb-body-layout headline="Overview">
         <div id="main">
-          ${b(this, h, $).call(this)}
           ${b(this, h, S).call(this)}
-          ${b(this, h, E).call(this)}
+          ${b(this, h, N).call(this)}
+          ${b(this, h, $).call(this)}
         </div>
       </umb-body-layout>
     `;
@@ -130,7 +131,7 @@ let f = class extends I {
 l = /* @__PURE__ */ new WeakMap();
 D = /* @__PURE__ */ new WeakMap();
 h = /* @__PURE__ */ new WeakSet();
-$ = function() {
+S = function() {
   var e, t;
   if (((t = (e = this._overviewData) == null ? void 0 : e.items) == null ? void 0 : t.length) === 0)
     return u`
@@ -139,7 +140,7 @@ $ = function() {
         </uui-box>
       `;
 };
-S = function() {
+N = function() {
   var e, t, r;
   if (((t = (e = this._overviewData) == null ? void 0 : e.items) == null ? void 0 : t.length) !== 0)
     return u`
@@ -183,7 +184,7 @@ S = function() {
         </div>
       `;
 };
-N = function() {
+A = function() {
   return this._greenHost === void 0 ? u`
         <p style="margin: 0;">Loading...</p>
       ` : this._greenHost === !1 ? u`
@@ -192,20 +193,20 @@ N = function() {
       <p style="margin: 0;">Yes</p>
     `;
 };
-A = function() {
+E = function() {
   return u`
     <uui-box headline="Green hosting" style="margin-bottom: var(--uui-size-space-4);">
       <div slot="header">Powered by <a href="https://www.thegreenwebfoundation.org/co2-js/" target="_blank">CO2.js</a></div>
-      ${b(this, h, N).call(this)}
+      ${b(this, h, A).call(this)}
     </uui-box>
     `;
 };
-E = function() {
+$ = function() {
   var e, t, r, i, a, o;
   if (((t = (e = this._overviewData) == null ? void 0 : e.items) == null ? void 0 : t.length) !== 0)
     return u`
         <div id="right-column">
-          ${b(this, h, A).call(this)}
+          ${b(this, h, E).call(this)}
 
           <uui-box headline="Average carbon rating" style="margin-bottom: var(--uui-size-space-4);">
             <sustainability-carbon-rating .carbonRating=${this._calculateGrade((r = this._averageData) == null ? void 0 : r.emissions)}>
@@ -249,4 +250,4 @@ export {
   f as OverviewRootWorkspaceElement,
   ie as default
 };
-//# sourceMappingURL=overview-workspace.element-Gn_wb_9o.js.map
+//# sourceMappingURL=overview-workspace.element-BGliE5Yv.js.map

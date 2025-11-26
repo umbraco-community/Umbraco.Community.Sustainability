@@ -1,4 +1,4 @@
-import { a as n, c as o, b as s, o as r } from "./index-BMf2rr-p.js";
+import { a as n, c as o, b as s, o as r } from "./index-Da7IgOgD.js";
 import "@umbraco-cms/backoffice/auth";
 export {
   n as SustainabilityCarbonRating,
