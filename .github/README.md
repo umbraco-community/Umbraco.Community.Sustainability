@@ -7,12 +7,12 @@
 A package from the [Umbraco Community Sustainability Team](https://umbraco.com/blog/meet-the-new-community-sustainability-team/) which helps developers and editors see and improve the carbon impact of their websites.
 
 ## Installation
-> [!IMPORTANT]
-> **v3.x** supports Umbraco v15.x
+> [!NOTE]
+> **v5.x** supports Umbraco v17
 > 
-> **v2.x** supports Umbraco v14.x
+> **v4.x** supports Umbraco v16
 > 
-> **v1.x** supports Umbraco v10.8.x - v13.x
+> **v1.x** supports Umbraco v10.x - v13.x
 > 
 > To understand more about which Umbraco CMS versions are actively supported by Umbraco HQ, please see [Umbraco's Long-term Support (LTS) and End-of-Life (EOL) policy](https://umbraco.com/products/knowledge-center/long-term-support-and-end-of-life/).
 
