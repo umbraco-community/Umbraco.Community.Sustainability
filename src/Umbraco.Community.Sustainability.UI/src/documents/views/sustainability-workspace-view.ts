@@ -1,11 +1,11 @@
-import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
-import { html, LitElement, customElement, css, state, repeat } from '@umbraco-cms/backoffice/external/lit'
+import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
+import { html, customElement, css, state, repeat } from '@umbraco-cms/backoffice/external/lit'
 import { UMB_DOCUMENT_WORKSPACE_CONTEXT } from '@umbraco-cms/backoffice/document';
 import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from "../../context/sustainability.context";
 import { ExternalResourceGroup, SustainabilityResponse } from "../../api";
 
 @customElement('sustainability-workspace-view')
-export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) {
+export class SustainabilityWorkspaceElement extends UmbLitElement {
 
   #sustainabilityContext?: SustainabilityContext;
 
@@ -56,10 +56,10 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
   override render() {
     if (this.pageData === undefined) {
       return html`
-          <uui-box headline="Loading sustainability report...">
-              <p>It looks like you haven't run a report on this page yet. Click the button below to get started.</p>
-              <uui-button label="Run sustainability report" look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
-                Run sustainability report
+          <uui-box headline=${this.localize.term('sustainability_loadingReport')}>
+              <p><umb-localize key="sustainability_noReportYet">It looks like you haven't run a report on this page yet. Click the button below to get started.</umb-localize></p>
+              <uui-button label=${this.localize.term('sustainability_runReport')} look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
+                <umb-localize key="sustainability_runReport">Run sustainability report</umb-localize>
               </uui-button>
           </uui-box>
       `;
@@ -74,29 +74,29 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
       )}
             </div>
             <div class="container">
-              <uui-box headline="Carbon rating">
+              <uui-box headline=${this.localize.term('sustainability_carbonRating')}>
                 <sustainability-carbon-rating slot="header-actions" .carbonRating=${this.pageData?.carbonRating}></sustainability-carbon-rating>
-                <p style="margin-top: 0;"><strong>Last tested:</strong> ${new Intl.DateTimeFormat('en-GB', { dateStyle: "long", timeStyle: "short" }).format(new Date(this.pageData?.lastRunDate!))}</p>
-                <uui-button label="Run again" look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
-                  Run again
+                <p class="last-tested"><strong><umb-localize key="sustainability_lastTested">Last tested:</umb-localize></strong> ${new Intl.DateTimeFormat('en-GB', { dateStyle: "long", timeStyle: "short" }).format(new Date(this.pageData?.lastRunDate!))}</p>
+                <uui-button label=${this.localize.term('sustainability_runAgain')} look="primary" @click=${this.checkPage} .state=${this.waiting ? "waiting" : undefined}>
+                  <umb-localize key="sustainability_runAgain">Run again</umb-localize>
                 </uui-button>
               </uui-box>
 
               <div class="flex">
-                <uui-box headline="Page size">
+                <uui-box headline=${this.localize.term('sustainability_pageSize')}>
                   ${(this.pageData!.totalSize / 1024).toFixed(2)}KB
                 </uui-box>
-                <uui-box headline="CO₂ per page view">
+                <uui-box headline=${this.localize.term('sustainability_co2PerPageView')}>
                   ${this.pageData?.totalEmissions.toFixed(4)}g
                 </uui-box>
               </div>
 
-              <uui-box headline="Estimations">
+              <uui-box headline=${this.localize.term('sustainability_estimations')}>
                 <p>
-                  This data is based on resources loaded and uses <a href="https://developers.thegreenwebfoundation.org/co2js/overview/">CO2.js</a> to
+                  <umb-localize key="sustainability_estimationsDescription">This data is based on resources loaded and uses</umb-localize> <a href="https://developers.thegreenwebfoundation.org/co2js/overview/">CO2.js</a> to
                   convert page weight to carbon emissions.
                 </p>
-                <p>Please use as a guideline to diagnose and highlight potential areas of improvement.</p>
+                <p><umb-localize key="sustainability_estimationsGuideline">Please use as a guideline to diagnose and highlight potential areas of improvement.</umb-localize></p>
               </uui-box>
             </div>
           `;
@@ -106,8 +106,8 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
   #renderResourceGroup(group: ExternalResourceGroup) {
     return html`
         <uui-box headline=${group.name!}>
-        <p slot="header-actions" style="margin: 0">Total size: ${(group.totalSize / 1024).toFixed(2)}KB</p>
-          <ul style="margin: 0; padding-left: var(--uui-size-layout-1);">
+        <p slot="header-actions" class="resource-group-header"><umb-localize key="sustainability_totalSize">Total size:</umb-localize> ${(group.totalSize / 1024).toFixed(2)}KB</p>
+          <ul class="resource-list">
           ${repeat(
       group.resources!,
             (resource) => resource.url,
@@ -140,6 +140,19 @@ export class SustainabilityWorkspaceElement extends UmbElementMixin(LitElement) 
           uui-box {
             flex: 1;
           }
+        }
+
+        .resource-group-header {
+          margin: 0;
+        }
+
+        .resource-list {
+          margin: 0;
+          padding-left: var(--uui-size-layout-1);
+        }
+
+        .last-tested {
+          margin-top: 0;
         }
     `
 }

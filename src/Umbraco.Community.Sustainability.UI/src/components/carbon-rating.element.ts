@@ -1,11 +1,11 @@
-import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api"
-import { LitElement, customElement, html, property } from "@umbraco-cms/backoffice/external/lit";
+import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
+import { customElement, html, property } from "@umbraco-cms/backoffice/external/lit";
 import { UUIInterfaceColor } from "@umbraco-cms/backoffice/external/uui";
 
 const elementName = "sustainability-carbon-rating";
 
 @customElement(elementName)
-export class SustainabilityCarbonRating extends UmbElementMixin(LitElement) {
+export class SustainabilityCarbonRating extends UmbLitElement {
 
   @property({type: String}) 
   carbonRating: string | null | undefined = undefined;

@@ -10,7 +10,7 @@ const menuItem: ManifestMenuItem = {
     label: 'Overview',
     icon: 'icon-eco',
     entityType: SUSTAINABILITY_OVERVIEW_ROOT_ENTITY_TYPE,
-    menus: ["Umb.Menu.Sustainability"],
+    menus: ["Umbraco.Community.Sustainability.Menu"],
   }
 };
 

@@ -1,0 +1,37 @@
+import type { UmbLocalizationDictionary } from '@umbraco-cms/backoffice/localization-api';
+
+export default {
+  sustainability: {
+    sectionName: 'Sustainability',
+    overview: 'Overview',
+    stats: 'Stats',
+    noData: "No data to show yet. Once you've run some tests, you'll see an overview of all your data here.",
+    seeMoreData: 'See more data',
+    greenHosting: 'Green hosting',
+    greenHostingPoweredBy: 'Powered by',
+    greenHostingYes: 'Yes',
+    greenHostingNo: 'No',
+    greenHostingLoading: 'Loading...',
+    averageCarbonRating: 'Average carbon rating',
+    averagePageSize: 'Average page size',
+    averageCo2PerPageView: 'Average CO\u2082 per page view',
+    lastRunDate: 'Last Run Date',
+    carbonRating: 'Carbon rating',
+    pageSize: 'Page size',
+    co2PerPageView: 'CO\u2082 per page view',
+    images: 'Images',
+    scripts: 'Scripts',
+    links: 'Links',
+    css: 'CSS',
+    other: 'Other',
+    loadingReport: 'Loading sustainability report...',
+    noReportYet: "It looks like you haven't run a report on this page yet. Click the button below to get started.",
+    runReport: 'Run sustainability report',
+    runAgain: 'Run again',
+    lastTested: 'Last tested:',
+    estimations: 'Estimations',
+    estimationsDescription: 'This data is based on resources loaded and uses',
+    estimationsGuideline: 'Please use as a guideline to diagnose and highlight potential areas of improvement.',
+    totalSize: 'Total size:',
+  }
+} satisfies UmbLocalizationDictionary;

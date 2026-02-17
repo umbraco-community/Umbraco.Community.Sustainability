@@ -2,6 +2,7 @@ import { UmbEntryPointOnInit } from '@umbraco-cms/backoffice/extension-api';
 
 import { manifests as documentManifests } from './documents/manifest.ts';
 import { manifests as sectionManifests } from './section/manifests.ts';
+import { manifests as localizationManifests } from './localization/manifests.ts';
 
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth';
 import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from './context/sustainability.context.ts';
@@ -11,6 +12,8 @@ export * from './components/index';
 export * from './repository/index';
 
 export const onInit: UmbEntryPointOnInit = (host, extensionRegistry) => {
+
+  extensionRegistry.registerMany(localizationManifests);
 
   host.consumeContext(UMB_AUTH_CONTEXT, async (authContext) => {
     if (!authContext) return;

@@ -4,8 +4,8 @@ import { ManifestSection, ManifestSectionSidebarApp, ManifestSectionView } from 
 import { manifests as overviewManifests } from './overview/manifests';
 import { manifests as statsManifests } from './stats/manifests';
 
-const sectionAlias = "Umb.Section.Sustainability";
-const menuAlias = "Umb.Menu.Sustainability";
+const sectionAlias = "Umbraco.Community.Sustainability.Section";
+const menuAlias = "Umbraco.Community.Sustainability.Menu";
 
 const section: ManifestSection = {
   type: "section",
@@ -26,7 +26,7 @@ const section: ManifestSection = {
 
 const sectionView: ManifestSectionView = {
   type: 'sectionView',
-  alias: "Umb.SectionView.Sustainability",
+  alias: "Umbraco.Community.Sustainability.SectionView",
   name: "Sustainability Section View",
   element: () => import('./sustainability-section-view.element'),
   meta: {
@@ -54,7 +54,7 @@ const menu: ManifestMenu = {
 const menuSectionSidebarApp: ManifestSectionSidebarApp = {
   type: "sectionSidebarApp",
   kind: "menu",
-  alias: "Umb.SectionSidebar.Sustainability",
+  alias: "Umbraco.Community.Sustainability.SectionSidebar",
   name: "Sustainability Section Sidebar Menu",
   weight: 200,
   meta: {

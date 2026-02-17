@@ -34,27 +34,26 @@ export class OverviewRootWorkspaceElement extends UmbLitElement {
     super();
 
     this.consumeContext(SUSTAINABILITY_CONTEXT, (instance) => {
+      if (!instance) return;
       this.#sustainabilityContext = instance;
 
-      this.observe(this.#sustainabilityContext?.overviewData, (data) => {
+      this.observe(this.#sustainabilityContext.overviewData, (data) => {
         if (!data) return;
         this._overviewData = data;
       });
 
-      this.observe(this.#sustainabilityContext?.averageData, (data) => {
+      this.observe(this.#sustainabilityContext.averageData, (data) => {
         if (!data) return;
         this._averageData = data;
       });
+
+      this.#sustainabilityContext.getOverviewData(DirectionModel.DESCENDING, "RequestDate", 1, 10);
+      this.#sustainabilityContext.getAverageData();
     });
   }
 
   async connectedCallback() {
     super.connectedCallback();
-
-    if (this.#sustainabilityContext != null) {
-      await this.#sustainabilityContext.getOverviewData(DirectionModel.DESCENDING, "RequestDate", 1, 10);
-      await this.#sustainabilityContext.getAverageData();
-    }
 
     if (hosting.check(window.location.hostname, 'Test')) {
       this._greenHost = true;
@@ -65,7 +64,7 @@ export class OverviewRootWorkspaceElement extends UmbLitElement {
     if (this._overviewData?.items?.length === 0) {
       return html`
         <uui-box>
-          No data to show yet. Once you've run some tests, you'll see an overview of all your data here.
+          <umb-localize key="sustainability_noData">No data to show yet. Once you've run some tests, you'll see an overview of all your data here.</umb-localize>
         </uui-box>
       `
     }
@@ -77,11 +76,11 @@ export class OverviewRootWorkspaceElement extends UmbLitElement {
       return html`
       <div id="left-column">
         <uui-box>
-          <uui-table style="margin-bottom: 24px;">
+          <uui-table class="overview-table">
             <uui-table-head>
               <uui-table-head-cell></uui-table-head-cell>
-              <uui-table-head-cell>Last Run Date</uui-table-head-cell>
-              <uui-table-head-cell>Carbon Rating</uui-table-head-cell>
+              <uui-table-head-cell><umb-localize key="sustainability_lastRunDate">Last Run Date</umb-localize></uui-table-head-cell>
+              <uui-table-head-cell><umb-localize key="sustainability_carbonRating">Carbon Rating</umb-localize></uui-table-head-cell>
             </uui-table-head>
 
             ${repeat(
@@ -108,8 +107,8 @@ export class OverviewRootWorkspaceElement extends UmbLitElement {
       )}
           </uui-table>
 
-          <uui-button label="See more data" look="primary" href="/umbraco/section/sustainability/workspace/stats-root">
-            See more data
+          <uui-button label=${this.localize.term('sustainability_seeMoreData')} look="primary" href="/umbraco/section/sustainability/workspace/stats-root">
+            <umb-localize key="sustainability_seeMoreData">See more data</umb-localize>
           </uui-button>
         </uui-box>
         </div>
@@ -140,23 +139,23 @@ export class OverviewRootWorkspaceElement extends UmbLitElement {
   #renderGreenHostingValue() {
     if (this._greenHost === undefined) {
       return html`
-        <p style="margin: 0;">Loading...</p>
+        <p class="green-hosting-value"><umb-localize key="sustainability_greenHostingLoading">Loading...</umb-localize></p>
       `
     }
     else if (this._greenHost === false) {
       return html`
-        <p style="margin: 0;">No</p>
+        <p class="green-hosting-value"><umb-localize key="sustainability_greenHostingNo">No</umb-localize></p>
       `
     }
     else return html`
-      <p style="margin: 0;">Yes</p>
+      <p class="green-hosting-value"><umb-localize key="sustainability_greenHostingYes">Yes</umb-localize></p>
     `
   }
 
   #renderGreenHosting() {
     return html`
-    <uui-box headline="Green hosting" style="margin-bottom: var(--uui-size-space-4);">
-      <div slot="header">Powered by <a href="https://www.thegreenwebfoundation.org/co2-js/" target="_blank">CO2.js</a></div>
+    <uui-box headline=${this.localize.term('sustainability_greenHosting')} class="sidebar-box">
+      <div slot="header"><umb-localize key="sustainability_greenHostingPoweredBy">Powered by</umb-localize> <a href="https://www.thegreenwebfoundation.org/co2-js/" target="_blank">CO2.js</a></div>
       ${this.#renderGreenHostingValue()}
     </uui-box>
     `
@@ -168,16 +167,16 @@ export class OverviewRootWorkspaceElement extends UmbLitElement {
         <div id="right-column">
           ${this.#renderGreenHosting()}
 
-          <uui-box headline="Average carbon rating" style="margin-bottom: var(--uui-size-space-4);">
+          <uui-box headline=${this.localize.term('sustainability_averageCarbonRating')} class="sidebar-box">
             <sustainability-carbon-rating .carbonRating=${this._calculateGrade(this._averageData?.emissions!)}>
             </sustainability-carbon-rating>
           </uui-box>
 
-          <uui-box headline="Average page size" style="margin-bottom: var(--uui-size-space-4);">
+          <uui-box headline=${this.localize.term('sustainability_averagePageSize')} class="sidebar-box">
             ${(this._averageData?.pageSize! / 1024).toFixed(2)}KB
           </uui-box>
 
-          <uui-box headline="Average CO₂ per page view">
+          <uui-box headline=${this.localize.term('sustainability_averageCo2PerPageView')}>
             ${this._averageData?.emissions?.toFixed(4)}g
           </uui-box>
 
@@ -188,7 +187,7 @@ export class OverviewRootWorkspaceElement extends UmbLitElement {
 
   render() {
     return html`
-      <umb-body-layout headline="Overview">
+      <umb-body-layout headline=${this.localize.term('sustainability_overview')}>
         <div id="main">
           ${this.#renderNoResults()}
           ${this.#renderResults()}
@@ -204,6 +203,18 @@ export class OverviewRootWorkspaceElement extends UmbLitElement {
         display: grid;
         gap: var(--uui-size-layout-1);
         grid-template-columns: 1fr 350px;
+      }
+
+      .overview-table {
+        margin-bottom: 24px;
+      }
+
+      .sidebar-box {
+        margin-bottom: var(--uui-size-space-4);
+      }
+
+      .green-hosting-value {
+        margin: 0;
       }
     `
   ]
