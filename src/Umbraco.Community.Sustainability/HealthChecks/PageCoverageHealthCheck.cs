@@ -48,11 +48,11 @@ namespace Umbraco.Community.Sustainability.HealthChecks
             // Get coverage data
             var coverageData = await _pageMetricService.GetPageCoverageData(_settings.StaleDays);
             var testedCount = coverageData.TestedPageCount;
-            var staleCount = coverageData.StalePageCount;
-            var coveragePercentage = (testedCount * 100.0) / totalPublished;
+            var staleCount = Math.Min(coverageData.StalePageCount, testedCount);
+            var coveragePercentage = Math.Min((testedCount * 100.0) / totalPublished, 100.0);
 
             var message = $"Sustainability test coverage: {coveragePercentage:F1}%\n\n" +
-                         $"Tested pages: {testedCount} of {totalPublished}";
+                         $"Tested published pages: {testedCount} of {totalPublished}";
 
             if (staleCount > 0)
             {

@@ -1,9 +1,9 @@
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core.HealthChecks;
 using Umbraco.Cms.Core.Hosting;
-using Umbraco.Cms.Core.Services;
 
 namespace Umbraco.Community.Sustainability.HealthChecks
 {
@@ -67,7 +67,22 @@ namespace Umbraco.Community.Sustainability.HealthChecks
 
                 var result = await response.Content.ReadFromJsonAsync<GreenWebCheckResponse>();
 
-                if (result?.Green == true)
+                if (result is null || result.Green is null)
+                {
+                    _logger.LogWarning("Unable to parse green hosting response for {Hostname}. Response was null or missing required fields.", hostname);
+
+                    return new[]
+                    {
+                        new HealthCheckStatus(
+                            "Unable to verify green hosting status because the API response could not be parsed.")
+                        {
+                            ResultType = StatusResultType.Warning,
+                            Description = "The Green Web Foundation API returned an unexpected response format."
+                        }
+                    };
+                }
+
+                if (result.Green == true)
                 {
                     var message = $"✓ Your site is hosted on green infrastructure!";
                     if (!string.IsNullOrEmpty(result.HostingProvider))
@@ -118,6 +133,20 @@ namespace Umbraco.Community.Sustainability.HealthChecks
                     }
                 };
             }
+            catch (JsonException ex)
+            {
+                _logger.LogWarning(ex, "Unable to parse green hosting response for {Hostname}", hostname);
+
+                return new[]
+                {
+                    new HealthCheckStatus(
+                        "Unable to verify green hosting status because the API response could not be parsed.")
+                    {
+                        ResultType = StatusResultType.Warning,
+                        Description = "The Green Web Foundation API returned invalid JSON or an unexpected response format."
+                    }
+                };
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error checking green hosting status for {Hostname}", hostname);
@@ -155,7 +184,7 @@ namespace Umbraco.Community.Sustainability.HealthChecks
         private class GreenWebCheckResponse
         {
             [JsonPropertyName("green")]
-            public bool Green { get; set; }
+            public bool? Green { get; set; }
 
             [JsonPropertyName("hosted_by")]
             public string? HostingProvider { get; set; }

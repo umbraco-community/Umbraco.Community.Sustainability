@@ -16,6 +16,12 @@ namespace Umbraco.Community.Sustainability.Services
 
     public class PageMetricService : IPageMetricService
     {
+        private sealed class LatestMetricByNode
+        {
+            public Guid NodeKey { get; set; }
+            public DateTime LatestRequestDate { get; set; }
+        }
+
         private readonly IScopeProvider _scopeProvider;
         private readonly IPublishedContentQuery _contentQuery;
 
@@ -86,24 +92,25 @@ namespace Umbraco.Community.Sustainability.Services
             using var scope = _scopeProvider.CreateScope();
             var staleDate = DateTime.UtcNow.AddDays(-staleDays);
 
-            // Count distinct tested pages
-            var testedCountSql = scope.SqlContext.Sql()
-                .Select("COUNT(DISTINCT NodeKey)")
-                .From("umbPageMetrics")
-                .Where("NodeKey IS NOT NULL");
-            var testedCount = await scope.Database.ExecuteScalarAsync<int>(testedCountSql);
+            var latestMetricsSql = scope.SqlContext.Sql()
+                .Select("NodeKey, MAX(RequestDate) AS LatestRequestDate")
+                .From(PageMetric.TableName)
+                .Where("NodeKey IS NOT NULL")
+                .GroupBy("NodeKey");
 
-            // Count pages with stale metrics (all metrics older than threshold)
-            var staleCountSql = scope.SqlContext.Sql(@"
-                SELECT COUNT(*)
-                FROM (
-                    SELECT NodeKey
-                    FROM umbPageMetrics
-                    WHERE NodeKey IS NOT NULL
-                    GROUP BY NodeKey
-                    HAVING MAX(RequestDate) < @0
-                ) AS StalePages", staleDate);
-            var staleCount = await scope.Database.ExecuteScalarAsync<int>(staleCountSql);
+            var latestMetricsByNode = await scope.Database.FetchAsync<LatestMetricByNode>(latestMetricsSql);
+
+            var publishedMetrics = latestMetricsByNode
+                .Where(x => _contentQuery.Content(x.NodeKey) != null)
+                .ToList();
+
+            var testedCount = publishedMetrics.Count;
+            var staleCount = publishedMetrics.Count(x => x.LatestRequestDate < staleDate);
+
+            if (staleCount > testedCount)
+            {
+                staleCount = testedCount;
+            }
 
             scope.Complete();
 

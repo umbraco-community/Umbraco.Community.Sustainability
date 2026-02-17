@@ -1,5 +1,4 @@
 using Umbraco.Cms.Core.HealthChecks;
-using Umbraco.Cms.Core.Services;
 using Umbraco.Community.Sustainability.Helpers;
 using Umbraco.Community.Sustainability.Services;
 

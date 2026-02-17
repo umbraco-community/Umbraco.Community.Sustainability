@@ -41,7 +41,7 @@ namespace Umbraco.Community.Sustainability
                 throw new Exception($"Playwright exited with code {exitCode}");
             }
 
-            builder.AddNotificationHandler<UmbracoApplicationStartingNotification, PageMetricsNotificationHandler>();
+            builder.AddNotificationAsyncHandler<UmbracoApplicationStartingNotification, PageMetricsNotificationHandler>();
 
             builder.Services.AddScoped<IPageMetricService, PageMetricService>();
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();

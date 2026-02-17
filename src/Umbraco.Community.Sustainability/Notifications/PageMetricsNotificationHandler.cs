@@ -11,7 +11,7 @@ using Umbraco.Community.Sustainability.Schemas;
 
 namespace Umbraco.Community.Sustainability.Notifications
 {
-    public class PageMetricsNotificationHandler : INotificationHandler<UmbracoApplicationStartingNotification>
+    public class PageMetricsNotificationHandler : INotificationAsyncHandler<UmbracoApplicationStartingNotification>
     {
         private readonly IMigrationPlanExecutor _migrationPlanExecutor;
         private readonly ICoreScopeProvider _coreScopeProvider;
@@ -33,7 +33,7 @@ namespace Umbraco.Community.Sustainability.Notifications
             _userGroupService = userGroupService;
         }
 
-        public async void Handle(UmbracoApplicationStartingNotification notification)
+        public async Task HandleAsync(UmbracoApplicationStartingNotification notification, CancellationToken cancellationToken)
         {
             if (_runtimeState.Level < RuntimeLevel.Run)
             {
