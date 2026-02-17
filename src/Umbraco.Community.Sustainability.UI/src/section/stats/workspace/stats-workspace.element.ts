@@ -1,4 +1,4 @@
-import { css, customElement, html, property, repeat, state } from "@umbraco-cms/backoffice/external/lit";
+import { css, customElement, html, repeat, state } from "@umbraco-cms/backoffice/external/lit";
 import { DirectionModel, GetOverviewDataResponse, PageMetric,  } from "../../../api";
 import SustainabilityContext, { SUSTAINABILITY_CONTEXT } from "../../../context/sustainability.context";
 import { UUIPaginationEvent } from "@umbraco-cms/backoffice/external/uui";
@@ -23,8 +23,8 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
   @state()
   _data?: GetOverviewDataResponse;
 
-  @property({ type: Boolean })
-  _loaded?: boolean = false
+  @state()
+  _loaded = false;
 
   @state()
   _sortingDesc = false;
@@ -99,59 +99,59 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
     }
     else {
       return html`
-        <umb-body-layout headline="Stats">
+        <umb-body-layout headline=${this.localize.term('sustainability_stats')}>
           <div id="main">
             <uui-box>
               <uui-table>
                 <uui-table-head>
                   <uui-table-head-cell></uui-table-head-cell>
-                  <uui-table-head-cell style="--uui-table-cell-padding: 0">
+                  <uui-table-head-cell class="sortable">
                     <uui-button
-                      label="Last Run Date"
-                      style="font-weight: bold; padding: var(--uui-size-4) 0"
+                      label=${this.localize.term('sustainability_lastRunDate')}
+                      class="sort-button"
                       @click=${() => this._sortingHandler('RequestDate')}>
-                      Last Run Date
+                      <umb-localize key="sustainability_lastRunDate">Last Run Date</umb-localize>
                       <uui-symbol-sort
                         ?active=${this._orderBy === 'RequestDate'}
                         ?descending=${this._sortingDesc}>
                       </uui-symbol-sort>
                     </uui-button>
                   </uui-table-head-cell>
-                  <uui-table-head-cell style="--uui-table-cell-padding: 0">
+                  <uui-table-head-cell class="sortable">
                     <uui-button
-                      label="Carbon Rating"
-                      style="font-weight: bold; padding: var(--uui-size-4) 0"
+                      label=${this.localize.term('sustainability_carbonRating')}
+                      class="sort-button"
                       @click=${() => this._sortingHandler('CarbonRating')}>
-                      Carbon Rating
+                      <umb-localize key="sustainability_carbonRating">Carbon Rating</umb-localize>
                       <uui-symbol-sort
                         ?active=${this._orderBy === 'CarbonRating'}
                         ?descending=${this._sortingDesc}>
                       </uui-symbol-sort>
                     </uui-button>
                   </uui-table-head-cell>
-                  <uui-table-head-cell>Images</uui-table-head-cell>
-                  <uui-table-head-cell>Scripts</uui-table-head-cell>
-                  <uui-table-head-cell>Links</uui-table-head-cell>
-                  <uui-table-head-cell>CSS</uui-table-head-cell>
-                  <uui-table-head-cell>Other</uui-table-head-cell>
-                  <uui-table-head-cell style="text-align: right;">
+                  <uui-table-head-cell><umb-localize key="sustainability_images">Images</umb-localize></uui-table-head-cell>
+                  <uui-table-head-cell><umb-localize key="sustainability_scripts">Scripts</umb-localize></uui-table-head-cell>
+                  <uui-table-head-cell><umb-localize key="sustainability_links">Links</umb-localize></uui-table-head-cell>
+                  <uui-table-head-cell><umb-localize key="sustainability_css">CSS</umb-localize></uui-table-head-cell>
+                  <uui-table-head-cell><umb-localize key="sustainability_other">Other</umb-localize></uui-table-head-cell>
+                  <uui-table-head-cell class="text-right">
                     <uui-button
-                      label="Page Size"
-                      style="font-weight: bold; padding: var(--uui-size-4) 0"
+                      label=${this.localize.term('sustainability_pageSize')}
+                      class="sort-button"
                       @click=${() => this._sortingHandler('TotalSize')}>
-                      Page Size
+                      <umb-localize key="sustainability_pageSize">Page Size</umb-localize>
                       <uui-symbol-sort
                         ?active=${this._orderBy === 'TotalSize'}
                         ?descending=${this._sortingDesc}>
                       </uui-symbol-sort>
                     </uui-button>
                   </uui-table-head-cell>
-                  <uui-table-head-cell style="text-align: right;">
+                  <uui-table-head-cell class="text-right">
                     <uui-button
-                      label="CO₂ per page view"
-                      style="font-weight: bold; padding: var(--uui-size-4) 0"
+                      label=${this.localize.term('sustainability_co2PerPageView')}
+                      class="sort-button"
                       @click=${() => this._sortingHandler('TotalEmissions')}>
-                      CO₂ per page view
+                      <umb-localize key="sustainability_co2PerPageView">CO₂ per page view</umb-localize>
                       <uui-symbol-sort
                         ?active=${this._orderBy === 'TotalEmissions'}
                         ?descending=${this._sortingDesc}>
@@ -198,11 +198,11 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
                         ${item.pageDataObject?.resourceGroups?.find(x => x.name === 'Other')?.resources?.length}
                       </uui-table-cell>
 
-                      <uui-table-cell style="text-align: right;">
+                      <uui-table-cell class="text-right">
                         ${(item.totalSize / 1024).toFixed(2)}KB
                       </uui-table-cell>
 
-                      <uui-table-cell style="text-align: right;">
+                      <uui-table-cell class="text-right">
                         ${item.totalEmissions.toFixed(4)}g
                       </uui-table-cell>
                     </uui-table-row>
@@ -221,11 +221,24 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
   static styles = [
     css`
       #loader-container {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				margin: 0 var(--uui-size-space-4);
-			}
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 var(--uui-size-space-4);
+      }
+
+      uui-table-head-cell.sortable {
+        --uui-table-cell-padding: 0;
+      }
+
+      .sort-button {
+        font-weight: bold;
+        padding: var(--uui-size-4) 0;
+      }
+
+      .text-right {
+        text-align: right;
+      }
     `
   ]
 }

@@ -10,7 +10,7 @@ const menuItem: ManifestMenuItem = {
     label: 'Stats',
     icon: 'icon-chart',
     entityType: SUSTAINABILITY_STATS_ROOT_ENTITY_TYPE,
-    menus: ["Umb.Menu.Sustainability"],
+    menus: ["Umbraco.Community.Sustainability.Menu"],
   }
 };
 

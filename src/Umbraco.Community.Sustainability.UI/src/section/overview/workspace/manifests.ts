@@ -17,7 +17,7 @@ const workspace: ManifestWorkspace = {
 const context: ManifestWorkspaceContext = {
   type: 'workspaceContext',
   alias: contextAlias,
-  name: 'Stats Workspace Context',
+  name: 'Overview Workspace Context',
   js: () => import('../../../context/sustainability.context'),
 };
 

@@ -649,3 +649,7 @@ __pycache__/
 # Ensure VisualStudio.gitignore is included before this
 !**/App_Data/[Pp]ackages/
 !**/[Uu]mbraco/[Dd]eveloper/[Pp]ackages
+
+# Local config
+.claude/settings.local.json
+.env.local
