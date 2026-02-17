@@ -1,7 +1,7 @@
 import { UmbLitElement as v } from "@umbraco-cms/backoffice/lit-element";
 import { html as n, repeat as m, css as f, state as d, customElement as z } from "@umbraco-cms/backoffice/external/lit";
 import { UMB_DOCUMENT_WORKSPACE_CONTEXT as x } from "@umbraco-cms/backoffice/document";
-import { S as w } from "./index-B1QtHjXB.js";
+import { S as w } from "./index-K_FP3dB7.js";
 var k = Object.defineProperty, $ = Object.getOwnPropertyDescriptor, y = (t) => {
   throw TypeError(t);
 }, r = (t, i, e, s) => {
@@ -142,4 +142,4 @@ export {
   o as SustainabilityWorkspaceElement,
   T as default
 };
-//# sourceMappingURL=sustainability-workspace-view-Cb1D5WUA.js.map
+//# sourceMappingURL=sustainability-workspace-view-CZfqbYSB.js.map

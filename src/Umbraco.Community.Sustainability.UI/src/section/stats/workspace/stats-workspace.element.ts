@@ -80,11 +80,11 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
   }
 
   #renderPagination() {
-    if (this._data?.totalPages === 1) return;
+    if (this._data?.total === 1) return;
     return html`
       <uui-pagination
-        .total=${this._data?.totalPages!}
-        .current=${this._data?.pageNumber!}
+        .total=${this._data?.total}
+        .current=${this._pageNumber}
         @change=${this.#onChange}>
       </uui-pagination>
     `;

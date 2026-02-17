@@ -58,12 +58,9 @@ export type PageMetric = {
     pageDataObject?: SustainabilityResponse | null;
 };
 
-export type PagedResultPageMetricModel = {
-    pageNumber: number;
-    pageSize: number;
-    readonly totalPages: number;
-    totalItems: number;
-    items?: Array<PageMetric> | null;
+export type PagedPageMetricModel = {
+    total: number;
+    items: Array<PageMetric>;
 };
 
 export const ResourceGroupType = {
@@ -82,13 +79,6 @@ export type SustainabilityResponse = {
     totalEmissions: number;
     carbonRating?: string | null;
     resourceGroups?: Array<ExternalResourceGroup> | null;
-};
-
-export type PagedResultPageMetricModelWritable = {
-    pageNumber: number;
-    pageSize: number;
-    totalItems: number;
-    items?: Array<PageMetric> | null;
 };
 
 export type CheckPageData = {
@@ -141,7 +131,7 @@ export type GetOverviewDataResponses = {
     /**
      * OK
      */
-    200: PagedResultPageMetricModel;
+    200: PagedPageMetricModel;
 };
 
 export type GetOverviewDataResponse = GetOverviewDataResponses[keyof GetOverviewDataResponses];

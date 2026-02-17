@@ -1,17 +1,17 @@
-import { html as g, repeat as A, css as H, state as n, customElement as L } from "@umbraco-cms/backoffice/external/lit";
-import { S as j } from "./index-B1QtHjXB.js";
+import { html as _, repeat as A, css as H, state as n, customElement as L } from "@umbraco-cms/backoffice/external/lit";
+import { S as j } from "./index-K_FP3dB7.js";
 import { UmbLitElement as q } from "@umbraco-cms/backoffice/lit-element";
 const m = {
   ASCENDING: "Ascending",
   DESCENDING: "Descending"
 };
-var M = Object.defineProperty, F = Object.getOwnPropertyDescriptor, I = (t) => {
+var M = Object.defineProperty, F = Object.getOwnPropertyDescriptor, P = (t) => {
   throw TypeError(t);
 }, o = (t, e, i, u) => {
   for (var l = u > 1 ? void 0 : u ? F(e, i) : e, c = t.length - 1, b; c >= 0; c--)
     (b = t[c]) && (l = (u ? b(e, i, l) : b(l)) || l);
   return u && l && M(e, i, l), l;
-}, z = (t, e, i) => e.has(t) || I("Cannot " + i), y = (t, e, i) => (z(t, e, "read from private field"), e.get(t)), p = (t, e, i) => e.has(t) ? I("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), K = (t, e, i, u) => (z(t, e, "write to private field"), e.set(t, i), i), d = (t, e, i) => (z(t, e, "access private method"), i), h, D, r, _, T, W;
+}, z = (t, e, i) => e.has(t) || P("Cannot " + i), y = (t, e, i) => (z(t, e, "read from private field"), e.get(t)), p = (t, e, i) => e.has(t) ? P("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), K = (t, e, i, u) => (z(t, e, "write to private field"), e.set(t, i), i), d = (t, e, i) => (z(t, e, "access private method"), i), h, D, r, g, T, W;
 const U = "stats-workspace";
 let a = class extends q {
   constructor() {
@@ -26,15 +26,15 @@ let a = class extends q {
       var e;
       K(this, h, t), this.observe((e = y(this, h)) == null ? void 0 : e.overviewData, (i) => {
         i && (this._loaded = !0, this._data = i);
-      }), d(this, r, _).call(this);
+      }), d(this, r, g).call(this);
     });
   }
   _sortingHandler(t) {
-    this._sortingDesc = this._orderBy === t ? !this._sortingDesc : !1, this._orderBy = t, this._pageNumber = 1, d(this, r, _).call(this);
+    this._sortingDesc = this._orderBy === t ? !this._sortingDesc : !1, this._orderBy = t, this._pageNumber = 1, d(this, r, g).call(this);
   }
   render() {
     var t;
-    return this._loaded ? g`
+    return this._loaded ? _`
         <umb-body-layout headline=${this.localize.term("sustainability_stats")}>
           <div id="main">
             <uui-box>
@@ -99,8 +99,8 @@ let a = class extends q {
       (t = this._data) == null ? void 0 : t.items,
       (e) => e,
       (e) => {
-        var i, u, l, c, b, v, f, $, S, k, N, C, E, w, R, x, O, P, B, G;
-        return g`
+        var i, u, l, c, b, v, f, $, S, k, N, C, E, w, R, x, O, B, G, I;
+        return _`
                     <uui-table-row>
                       <uui-table-cell>
                         <a href='/umbraco/section/content/workspace/document/edit/${e.nodeKey}'>
@@ -133,7 +133,7 @@ let a = class extends q {
                       </uui-table-cell>
 
                       <uui-table-cell>
-                        ${(G = (B = (P = (O = e.pageDataObject) == null ? void 0 : O.resourceGroups) == null ? void 0 : P.find((s) => s.name === "Other")) == null ? void 0 : B.resources) == null ? void 0 : G.length}
+                        ${(I = (G = (B = (O = e.pageDataObject) == null ? void 0 : O.resourceGroups) == null ? void 0 : B.find((s) => s.name === "Other")) == null ? void 0 : G.resources) == null ? void 0 : I.length}
                       </uui-table-cell>
 
                       <uui-table-cell class="text-right">
@@ -153,7 +153,7 @@ let a = class extends q {
             </uui-box>
           </div>
         </umb-body-layout>
-      ` : g`
+      ` : _`
         <div id="loader-container">
           <uui-loader></uui-loader>
         </div>`;
@@ -162,20 +162,20 @@ let a = class extends q {
 h = /* @__PURE__ */ new WeakMap();
 D = /* @__PURE__ */ new WeakMap();
 r = /* @__PURE__ */ new WeakSet();
-_ = function() {
+g = function() {
   var t;
   this._sortingDesc ? this._orderDirection = m.ASCENDING : this._orderDirection = m.DESCENDING, (t = y(this, h)) == null || t.getOverviewData(this._orderDirection, this._orderBy, this._pageNumber, this._pageSize);
 };
 T = function(t) {
-  this._pageNumber = t.target.current, d(this, r, _).call(this);
+  this._pageNumber = t.target.current, d(this, r, g).call(this);
 };
 W = function() {
-  var t, e, i;
-  if (((t = this._data) == null ? void 0 : t.totalPages) !== 1)
-    return g`
+  var t, e;
+  if (((t = this._data) == null ? void 0 : t.total) !== 1)
+    return _`
       <uui-pagination
-        .total=${(e = this._data) == null ? void 0 : e.totalPages}
-        .current=${(i = this._data) == null ? void 0 : i.pageNumber}
+        .total=${(e = this._data) == null ? void 0 : e.total}
+        .current=${this._pageNumber}
         @change=${d(this, r, T)}>
       </uui-pagination>
     `;
@@ -232,4 +232,4 @@ export {
   a as StatsRootWorkspaceElement,
   J as default
 };
-//# sourceMappingURL=stats-workspace.element-MMt-fZrr.js.map
+//# sourceMappingURL=stats-workspace.element-DjkKik5D.js.map

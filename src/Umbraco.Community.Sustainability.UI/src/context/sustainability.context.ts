@@ -1,4 +1,4 @@
-import { AveragePageMetrics, DirectionModel, PagedResultPageMetricModel, SustainabilityResponse } from "../api";
+import { AveragePageMetrics, DirectionModel, PagedPageMetricModel, SustainabilityResponse } from "../api";
 import { SustainabilityRepository } from "../repository/sustainability.repository";
 import { UmbControllerBase } from "@umbraco-cms/backoffice/class-api";
 import { UmbContextToken } from "@umbraco-cms/backoffice/context-api";
@@ -11,7 +11,7 @@ export class SustainabilityContext extends UmbControllerBase {
   #repository: SustainabilityRepository;
   #notificationContext?: typeof UMB_NOTIFICATION_CONTEXT.TYPE;
 
-  #overviewData = new UmbObjectState<PagedResultPageMetricModel | undefined>(undefined);
+  #overviewData = new UmbObjectState<PagedPageMetricModel | undefined>(undefined);
   public readonly overviewData = this.#overviewData.asObservable();
 
   #averageData = new UmbObjectState<AveragePageMetrics | undefined>(undefined);

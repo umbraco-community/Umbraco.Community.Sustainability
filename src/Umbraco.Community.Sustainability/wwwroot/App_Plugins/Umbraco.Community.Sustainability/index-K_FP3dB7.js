@@ -17,7 +17,7 @@ const oe = {
   type: "workspaceView",
   alias: "Umbraco.Community.Sustainability.Workspace",
   name: "Sustainability Workspace",
-  js: () => import("./sustainability-workspace-view-Cb1D5WUA.js"),
+  js: () => import("./sustainability-workspace-view-CZfqbYSB.js"),
   weight: 10,
   meta: {
     icon: "icon-eco",
@@ -45,7 +45,7 @@ const oe = {
   type: "workspace",
   alias: me,
   name: "Overview Root Workspace",
-  js: () => import("./overview-workspace.element-BEfwJC-E.js"),
+  js: () => import("./overview-workspace.element-CrFs0rBl.js"),
   meta: {
     entityType: V
   }
@@ -75,7 +75,7 @@ const oe = {
   type: "workspace",
   alias: ve,
   name: "Stats Root Workspace",
-  js: () => import("./stats-workspace.element-MMt-fZrr.js"),
+  js: () => import("./stats-workspace.element-DjkKik5D.js"),
   meta: {
     entityType: B
   }
@@ -582,4 +582,4 @@ export {
   Be as c,
   it as o
 };
-//# sourceMappingURL=index-B1QtHjXB.js.map
+//# sourceMappingURL=index-K_FP3dB7.js.map
