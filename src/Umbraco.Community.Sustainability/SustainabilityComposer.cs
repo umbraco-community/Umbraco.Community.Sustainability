@@ -45,6 +45,15 @@ namespace Umbraco.Community.Sustainability
             builder.Services.AddScoped<IPageMetricService, PageMetricService>();
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
 
+            // Health check configuration
+            builder.Services.Configure<Models.SustainabilityHealthCheckSettings>(
+                builder.Config.GetSection("Sustainability:HealthChecks"));
+
+            // Named HTTP client for Green Web Foundation API
+            builder.Services.AddHttpClient("GreenWebFoundation", c =>
+                c.DefaultRequestHeaders.UserAgent.ParseAdd(
+                    "Umbraco.Community.Sustainability/5.0"));
+
             builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
 
             builder.Services.Configure<UmbracoPipelineOptions>(options =>

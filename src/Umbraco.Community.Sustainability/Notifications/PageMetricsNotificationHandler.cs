@@ -49,12 +49,13 @@ namespace Umbraco.Community.Sustainability.Notifications
             migrationPlan.From(string.Empty)
                 .To<AddPageMetricsTable>("pagemetrics-init")
                 .To<AddCarbonRating>("pagemetrics-carbonrating")
-                .To<ChangeNodeIdToNodeKey>("pagemetrics-nodeidtonodekey");
+                .To<ChangeNodeIdToNodeKey>("pagemetrics-nodeidtonodekey")
+                .To<ChangePageDataToNVarcharMax>("pagemetrics-pagedatatonvarcharmax");
 
             // Go and upgrade our site (Will check if it needs to do the work or not)
             // Based on the current/latest step
             var upgrader = new Upgrader(migrationPlan);
-            upgrader.Execute(
+            await upgrader.ExecuteAsync(
                 _migrationPlanExecutor,
                 _coreScopeProvider,
                 _keyValueService);

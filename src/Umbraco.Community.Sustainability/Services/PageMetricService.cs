@@ -7,10 +7,11 @@ namespace Umbraco.Community.Sustainability.Services
 {
     public interface IPageMetricService
     {
-        Task<IEnumerable<PageMetric>> GetOverviewMetrics();
-        Task<AveragePageMetrics> GetAverageMetrics();
-        Task<IEnumerable<PageMetric>> GetPageMetrics(Guid pageKey);
-        Task AddPageMetric(PageMetric pageMetric);
+        public Task<IEnumerable<PageMetric>> GetOverviewMetrics();
+        public Task<AveragePageMetrics> GetAverageMetrics();
+        public Task<IEnumerable<PageMetric>> GetPageMetrics(Guid pageKey);
+        public Task AddPageMetric(PageMetric pageMetric);
+        public Task<PageCoverageData> GetPageCoverageData(int staleDays);
     }
 
     public class PageMetricService : IPageMetricService
@@ -36,8 +37,11 @@ namespace Umbraco.Community.Sustainability.Services
 
             foreach (var result in queryResults)
             {
-                var node = _contentQuery.Content(result.NodeKey);
-                result.NodeName = node?.Name;
+                if (result.NodeKey != null)
+                {
+                    var node = _contentQuery.Content(result.NodeKey);
+                    result.NodeName = node?.Name;
+                }
             }
 
             scope.Complete();
@@ -75,6 +79,37 @@ namespace Umbraco.Community.Sustainability.Services
             using var scope = _scopeProvider.CreateScope();
             await scope.Database.InsertAsync(pageMetric);
             scope.Complete();
+        }
+
+        public async Task<PageCoverageData> GetPageCoverageData(int staleDays)
+        {
+            using var scope = _scopeProvider.CreateScope();
+            var staleDate = DateTime.UtcNow.AddDays(-staleDays);
+
+            // Count distinct tested pages
+            var testedCountSql = scope.SqlContext.Sql()
+                .Select("COUNT(DISTINCT NodeKey)")
+                .From("umbPageMetrics");
+            var testedCount = await scope.Database.ExecuteScalarAsync<int>(testedCountSql);
+
+            // Count pages with stale metrics (all metrics older than threshold)
+            var staleCountSql = scope.SqlContext.Sql(@"
+                SELECT COUNT(*)
+                FROM (
+                    SELECT NodeKey
+                    FROM umbPageMetrics
+                    GROUP BY NodeKey
+                    HAVING MAX(RequestDate) < @0
+                ) AS StalePages", staleDate);
+            var staleCount = await scope.Database.ExecuteScalarAsync<int>(staleCountSql);
+
+            scope.Complete();
+
+            return new PageCoverageData
+            {
+                TestedPageCount = testedCount,
+                StalePageCount = staleCount
+            };
         }
     }
 }
