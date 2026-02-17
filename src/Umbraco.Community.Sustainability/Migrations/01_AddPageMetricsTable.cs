@@ -4,13 +4,13 @@ using Umbraco.Community.Sustainability.Schemas;
 
 namespace Umbraco.Community.Sustainability.Migrations
 {
-    public class AddPageMetricsTable : MigrationBase
+    public class AddPageMetricsTable : AsyncMigrationBase
     {
         public AddPageMetricsTable(IMigrationContext context) : base(context)
         {
         }
 
-        protected override void Migrate()
+        protected override Task MigrateAsync()
         {
             Logger.LogDebug("Running migration {MigrationStep}", "AddPageMetricsTable");
 
@@ -22,6 +22,8 @@ namespace Umbraco.Community.Sustainability.Migrations
             {
                 Logger.LogDebug("The database table {DbTable} already exists, skipping", PageMetric.TableName);
             }
+
+            return Task.CompletedTask;
         }
     }
 }

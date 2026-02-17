@@ -4,13 +4,13 @@ using Umbraco.Community.Sustainability.Schemas;
 
 namespace Umbraco.Community.Sustainability.Migrations
 {
-    public class AddCarbonRating : MigrationBase
+    public class AddCarbonRating : AsyncMigrationBase
     {
         public AddCarbonRating(IMigrationContext context) : base(context)
         {
         }
 
-        protected override void Migrate()
+        protected override Task MigrateAsync()
         {
             Logger.LogDebug("Running migration {MigrationStep}", "AddCarbonRating");
 
@@ -22,6 +22,8 @@ namespace Umbraco.Community.Sustainability.Migrations
             {
                 Logger.LogDebug("The column CarbonRating already exists, skipping");
             }
+
+            return Task.CompletedTask;
         }
     }
 }
