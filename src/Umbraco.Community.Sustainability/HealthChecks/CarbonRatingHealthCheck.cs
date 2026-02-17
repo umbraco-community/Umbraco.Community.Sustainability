@@ -13,14 +13,10 @@ namespace Umbraco.Community.Sustainability.HealthChecks
     public class CarbonRatingHealthCheck : HealthCheck
     {
         private readonly IPageMetricService _pageMetricService;
-        private readonly ILocalizedTextService _textService;
 
-        public CarbonRatingHealthCheck(
-            IPageMetricService pageMetricService,
-            ILocalizedTextService textService)
+        public CarbonRatingHealthCheck(IPageMetricService pageMetricService)
         {
             _pageMetricService = pageMetricService;
-            _textService = textService;
         }
 
         public override async Task<IEnumerable<HealthCheckStatus>> GetStatusAsync()

@@ -89,7 +89,8 @@ namespace Umbraco.Community.Sustainability.Services
             // Count distinct tested pages
             var testedCountSql = scope.SqlContext.Sql()
                 .Select("COUNT(DISTINCT NodeKey)")
-                .From("umbPageMetrics");
+                .From("umbPageMetrics")
+                .Where("NodeKey IS NOT NULL");
             var testedCount = await scope.Database.ExecuteScalarAsync<int>(testedCountSql);
 
             // Count pages with stale metrics (all metrics older than threshold)
@@ -98,6 +99,7 @@ namespace Umbraco.Community.Sustainability.Services
                 FROM (
                     SELECT NodeKey
                     FROM umbPageMetrics
+                    WHERE NodeKey IS NOT NULL
                     GROUP BY NodeKey
                     HAVING MAX(RequestDate) < @0
                 ) AS StalePages", staleDate);

@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Logging;
 using Umbraco.Cms.Core.HealthChecks;
 using Umbraco.Cms.Core.Hosting;
 using Umbraco.Cms.Core.Services;
@@ -15,16 +16,16 @@ namespace Umbraco.Community.Sustainability.HealthChecks
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly ILocalizedTextService _textService;
+        private readonly ILogger<GreenHostingHealthCheck> _logger;
 
         public GreenHostingHealthCheck(
             IHttpClientFactory httpClientFactory,
             IHostingEnvironment hostingEnvironment,
-            ILocalizedTextService textService)
+            ILogger<GreenHostingHealthCheck> logger)
         {
             _httpClientFactory = httpClientFactory;
             _hostingEnvironment = hostingEnvironment;
-            _textService = textService;
+            _logger = logger;
         }
 
         public override async Task<IEnumerable<HealthCheckStatus>> GetStatusAsync()
@@ -119,13 +120,15 @@ namespace Umbraco.Community.Sustainability.HealthChecks
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error checking green hosting status for {Hostname}", hostname);
+
                 return new[]
                 {
                     new HealthCheckStatus(
                         "An error occurred while checking green hosting status.")
                     {
                         ResultType = StatusResultType.Warning,
-                        Description = ex.Message
+                        Description = "Unable to verify green hosting status. Please check the logs for more details."
                     }
                 };
             }

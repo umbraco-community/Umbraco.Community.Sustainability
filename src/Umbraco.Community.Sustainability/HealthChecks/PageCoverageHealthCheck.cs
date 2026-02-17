@@ -15,18 +15,15 @@ namespace Umbraco.Community.Sustainability.HealthChecks
     {
         private readonly IPageMetricService _pageMetricService;
         private readonly IContentService _contentService;
-        private readonly ILocalizedTextService _textService;
         private readonly SustainabilityHealthCheckSettings _settings;
 
         public PageCoverageHealthCheck(
             IPageMetricService pageMetricService,
             IContentService contentService,
-            ILocalizedTextService textService,
             IOptions<SustainabilityHealthCheckSettings> settings)
         {
             _pageMetricService = pageMetricService;
             _contentService = contentService;
-            _textService = textService;
             _settings = settings.Value;
         }
 
