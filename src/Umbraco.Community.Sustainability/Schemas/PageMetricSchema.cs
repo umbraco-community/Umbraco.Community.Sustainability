@@ -41,6 +41,7 @@ namespace Umbraco.Community.Sustainability.Schemas
 
         [Column("PageData")]
         [NullSetting(NullSetting = NullSettings.Null)]
+        [SpecialDbType(SpecialDbTypes.NTEXT)]
         public string? PageData { get; set; }
 
         [Ignore]
