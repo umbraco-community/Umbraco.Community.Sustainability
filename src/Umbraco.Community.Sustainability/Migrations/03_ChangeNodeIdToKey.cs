@@ -4,13 +4,13 @@ using Umbraco.Community.Sustainability.Schemas;
 
 namespace Umbraco.Community.Sustainability.Migrations
 {
-    public class ChangeNodeIdToNodeKey : MigrationBase
+    public class ChangeNodeIdToNodeKey : AsyncMigrationBase
     {
         public ChangeNodeIdToNodeKey(IMigrationContext context) : base(context)
         {
         }
 
-        protected override void Migrate()
+        protected override Task MigrateAsync()
         {
             Logger.LogDebug("Running migration {MigrationStep}", "ChangeNodeIdToNodeKey");
 
@@ -19,8 +19,8 @@ namespace Umbraco.Community.Sustainability.Migrations
                 Alter.Table(PageMetric.TableName).AddColumn("NodeKey").AsGuid().Nullable().Do();
 
                 Database.Execute($@"UPDATE {PageMetric.TableName} SET NodeKey = {Cms.Core.Constants.DatabaseSchema.Tables.Node}.uniqueId
-FROM {Cms.Core.Constants.DatabaseSchema.Tables.Node}
-INNER JOIN {PageMetric.TableName} ON {Cms.Core.Constants.DatabaseSchema.Tables.Node}.id = {PageMetric.TableName}.NodeId");
+                    FROM {Cms.Core.Constants.DatabaseSchema.Tables.Node}
+                    INNER JOIN {PageMetric.TableName} ON {Cms.Core.Constants.DatabaseSchema.Tables.Node}.id = {PageMetric.TableName}.NodeId");
 
                 Delete.Column("NodeId").FromTable(PageMetric.TableName).Do();
             }
@@ -28,6 +28,8 @@ INNER JOIN {PageMetric.TableName} ON {Cms.Core.Constants.DatabaseSchema.Tables.N
             {
                 Logger.LogDebug("The column NodeKey already exists, skipping");
             }
+
+            return Task.CompletedTask;
         }
     }
 }
