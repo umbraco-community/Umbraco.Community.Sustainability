@@ -4,7 +4,7 @@ namespace Umbraco.Community.Sustainability
     {
         public static string Alias => "sustainability";
         public static string Name => "Sustainability";
-        public static string SectionAlias => $"Umb.Section.{Name}";
+        public static string SectionAlias => "Umbraco.Community.Sustainability.Section";
         public static string DashboardAlias => $"{Alias}Dashboard";
     }
 }

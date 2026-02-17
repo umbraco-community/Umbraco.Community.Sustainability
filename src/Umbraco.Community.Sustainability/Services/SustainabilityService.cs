@@ -54,11 +54,15 @@ namespace Umbraco.Community.Sustainability.Services
                 var dataJson = await locator.TextContentAsync();
 
                 if (string.IsNullOrWhiteSpace(dataJson))
+                {
                     return new SustainabilityResponse();
+                }
 
                 var sustainabilityData = JsonSerializer.Deserialize<SustainabilityData>(dataJson);
                 if (sustainabilityData?.resources == null)
+                {
                     return new SustainabilityResponse();
+                }
 
                 var resourceGroups = new List<ExternalResourceGroup>();
                 foreach (ResourceGroupType resourceGroupType in Enum.GetValues(typeof(ResourceGroupType)))
@@ -98,7 +102,7 @@ namespace Umbraco.Community.Sustainability.Services
             foreach (var resource in resourcesByType.OrderByDescending(x => x.transferSize))
             {
                 transferSize += resource.transferSize.GetValueOrDefault();
-                resourceList.Add(new ExternalResource(resource.name, resource.transferSize));
+                resourceList.Add(new ExternalResource(resource.name!, resource.transferSize));
             }
 
             return new ExternalResourceGroup(groupType)

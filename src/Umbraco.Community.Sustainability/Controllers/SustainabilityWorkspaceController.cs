@@ -2,9 +2,9 @@ using System.Text.Json;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Umbraco.Cms.Api.Common.ViewModels.Pagination;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.Configuration.Models;
-using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Community.Sustainability.Models;
 using Umbraco.Community.Sustainability.Schemas;
@@ -35,7 +35,7 @@ namespace Umbraco.Community.Sustainability.Controllers
         }
 
         [HttpGet("getOverviewData")]
-        [ProducesResponseType(typeof(PagedResult<PageMetric>), 200)]
+        [ProducesResponseType(typeof(PagedViewModel<PageMetric>), 200)]
         public async Task<IActionResult> GetOverviewData(int pageNumber = 1, int pageSize = 10, string orderBy = nameof(PageMetric.CarbonRating), Direction direction = Direction.Ascending)
         {
             var overviewMetrics = await _pageMetricService.GetOverviewMetrics();
@@ -47,7 +47,7 @@ namespace Umbraco.Community.Sustainability.Controllers
             switch (orderBy)
             {
                 case nameof(PageMetric.CarbonRating):
-                    filter = x => GetCarbonRatingOrder(x.CarbonRating);
+                    filter = x => GetCarbonRatingOrder(x.CarbonRating!);
                     break;
                 case nameof(PageMetric.RequestDate):
                     filter = x => x.RequestDate;
@@ -68,8 +68,9 @@ namespace Umbraco.Community.Sustainability.Controllers
 
             filteredMetrics = filteredMetrics.Skip((pageNumber - 1) * pageSize).Take(pageSize);
 
-            PagedResult<PageMetric> pagedMetrics = new PagedResult<PageMetric>(total, pageNumber, pageSize)
+            PagedViewModel<PageMetric> pagedMetrics = new PagedViewModel<PageMetric>()
             {
+                Total = total,
                 Items = filteredMetrics
             };
 
