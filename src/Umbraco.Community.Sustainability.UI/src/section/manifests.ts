@@ -1,8 +1,8 @@
 import { ManifestMenu } from "@umbraco-cms/backoffice/menu";
 import { ManifestSection, ManifestSectionSidebarApp, ManifestSectionView } from "@umbraco-cms/backoffice/section";
 
-import { manifests as overviewManifests } from './overview/manifests';
 import { manifests as statsManifests } from './stats/manifests';
+import { manifests as sitecheckManifests } from './sitecheck/manifests';
 
 const sectionAlias = "Umbraco.Community.Sustainability.Section";
 const menuAlias = "Umbraco.Community.Sustainability.Menu";
@@ -74,6 +74,6 @@ export const manifests = [
   sectionView,
   menu,
   menuSectionSidebarApp,
-  ...overviewManifests,
-  ...statsManifests
+  ...statsManifests,
+  ...sitecheckManifests
 ]

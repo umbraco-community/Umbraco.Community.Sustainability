@@ -1,0 +1,27 @@
+@using Umbraco.Cms.Core.Models.Blocks
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@inherits UmbracoViewPage<BlockGridItem<ContentModels.Form>>
+@inject IVariationContextAccessor _variationContextAccessor
+
+@{
+    var additionalData = new Dictionary<string, string?>();
+    additionalData.Add("fieldOne", "This is field one on form one");
+    additionalData.Add("fieldTwo", "This is field two on form one");
+}
+
+@if (Model.Content.FormPicker != null)
+{
+    <umb-forms-render form-id="@Model.Content.FormPicker.Value" additional-data="@additionalData">
+    </umb-forms-render>
+
+    <button type="button" class="btn" onclick="cloneUmbracoForm(this)">Clone Form</button>
+    <script>
+        function cloneUmbracoForm(btn) {
+            debugger;
+            var formEl = btn.closest('.umb-block-grid__layout-item');
+            var clone = formEl.cloneNode(true);
+            formEl.parentNode.insertBefore(clone, formEl.nextSibling);
+            document.dispatchEvent(new CustomEvent('umbracoFormsReinitialize'));
+        }
+    </script>
+}

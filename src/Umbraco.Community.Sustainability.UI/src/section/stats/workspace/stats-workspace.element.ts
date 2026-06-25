@@ -80,10 +80,11 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
   }
 
   #renderPagination() {
-    if (this._data?.total === 1) return;
+    const totalPages = Math.ceil((this._data?.total ?? 0) / this._pageSize);
+    if (totalPages <= 1) return;
     return html`
       <uui-pagination
-        .total=${this._data?.total}
+        .total=${totalPages}
         .current=${this._pageNumber}
         @change=${this.#onChange}>
       </uui-pagination>
@@ -165,9 +166,12 @@ export class StatsRootWorkspaceElement extends UmbLitElement  {
                   (item: PageMetric) => html`
                     <uui-table-row>
                       <uui-table-cell>
-                        <a href='/umbraco/section/content/workspace/document/edit/${item.nodeKey}'>
+                        <uui-button
+                          href='/umbraco/section/content/workspace/document/edit/${item.nodeKey}'
+                          label=${item.nodeName}
+                          compact>
                           ${item.nodeName}
-                        </a>
+                        </uui-button>
                       </uui-table-cell>
                       <uui-table-cell>
                         <umb-localize-date date=${item.requestDate} .options=${this.#localizeDateOptions}>

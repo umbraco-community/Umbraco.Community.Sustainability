@@ -1,5 +1,6 @@
 import { UmbEntryPointOnInit } from '@umbraco-cms/backoffice/extension-api';
 
+import { manifests as contextManifests } from './context/manifests';
 import { manifests as documentManifests } from './documents/manifest.ts';
 import { manifests as sectionManifests } from './section/manifests.ts';
 import { manifests as localizationManifests } from './localization/manifests.ts';
@@ -33,6 +34,7 @@ export const onInit: UmbEntryPointOnInit = (host, extensionRegistry) => {
     });
 
     extensionRegistry.registerMany([
+      ...contextManifests,
       ...documentManifests,
       ...sectionManifests
     ]);

@@ -9,13 +9,12 @@ export default defineConfig({
   plugins: [
     {
       name: "@hey-api/client-fetch",
-      bundle: false,
       exportFromIndex: true,
       throwOnError: true,
     },
     {
       name: "@hey-api/typescript",
-      enums: true,
+      enums: 'typescript',
     },
     {
       name: "@hey-api/sdk",

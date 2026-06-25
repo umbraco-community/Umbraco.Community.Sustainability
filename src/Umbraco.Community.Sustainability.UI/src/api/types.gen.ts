@@ -10,22 +10,18 @@ export type AveragePageMetrics = {
     emissions?: number | null;
 };
 
-export const DirectionModel = {
-    ASCENDING: 'Ascending',
-    DESCENDING: 'Descending'
-} as const;
+export enum DirectionModel {
+    ASCENDING = 'Ascending',
+    DESCENDING = 'Descending'
+}
 
-export type DirectionModel = typeof DirectionModel[keyof typeof DirectionModel];
-
-export const EventMessageTypeModel = {
-    DEFAULT: 'Default',
-    INFO: 'Info',
-    ERROR: 'Error',
-    SUCCESS: 'Success',
-    WARNING: 'Warning'
-} as const;
-
-export type EventMessageTypeModel = typeof EventMessageTypeModel[keyof typeof EventMessageTypeModel];
+export enum EventMessageTypeModel {
+    DEFAULT = 'Default',
+    INFO = 'Info',
+    ERROR = 'Error',
+    SUCCESS = 'Success',
+    WARNING = 'Warning'
+}
 
 export type ExternalResource = {
     url?: string | null;
@@ -63,15 +59,27 @@ export type PagedPageMetricModel = {
     items: Array<PageMetric>;
 };
 
-export const ResourceGroupType = {
-    IMAGES: 'Images',
-    SCRIPTS: 'Scripts',
-    LINKS: 'Links',
-    CSS: 'Css',
-    OTHER: 'Other'
-} as const;
+export enum ResourceGroupType {
+    IMAGES = 'Images',
+    SCRIPTS = 'Scripts',
+    LINKS = 'Links',
+    CSS = 'Css',
+    OTHER = 'Other'
+}
 
-export type ResourceGroupType = typeof ResourceGroupType[keyof typeof ResourceGroupType];
+export type SiteCheckProgressDto = {
+    type: string;
+    url?: string | null;
+    nodeKey?: string | null;
+    nodeName?: string | null;
+    success: boolean;
+    carbonRating?: string | null;
+    totalSize: number;
+    totalEmissions: number;
+    error?: string | null;
+    totalPages: number;
+    pagesCompleted: number;
+};
 
 export type SustainabilityResponse = {
     lastRunDate: string;
@@ -154,6 +162,22 @@ export type GetPageDataResponses = {
 
 export type GetPageDataResponse = GetPageDataResponses[keyof GetPageDataResponses];
 
+export type IsSiteCheckRunningData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/umbraco/sustainability/api/v1/isSiteCheckRunning';
+};
+
+export type IsSiteCheckRunningResponses = {
+    /**
+     * OK
+     */
+    200: boolean;
+};
+
+export type IsSiteCheckRunningResponse = IsSiteCheckRunningResponses[keyof IsSiteCheckRunningResponses];
+
 export type SavePageDataData = {
     body?: SustainabilityResponse;
     path?: never;
@@ -171,3 +195,19 @@ export type SavePageDataResponses = {
 };
 
 export type SavePageDataResponse = SavePageDataResponses[keyof SavePageDataResponses];
+
+export type StartSiteCheckData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/umbraco/sustainability/api/v1/startSiteCheck';
+};
+
+export type StartSiteCheckResponses = {
+    /**
+     * OK
+     */
+    200: SiteCheckProgressDto;
+};
+
+export type StartSiteCheckResponse = StartSiteCheckResponses[keyof StartSiteCheckResponses];

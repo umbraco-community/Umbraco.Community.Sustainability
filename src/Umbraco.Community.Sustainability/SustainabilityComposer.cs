@@ -4,9 +4,11 @@ using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
+using Umbraco.Community.Sustainability.Configuration;
 using Umbraco.Community.Sustainability.Middleware;
 using Umbraco.Community.Sustainability.Notifications;
 using Umbraco.Community.Sustainability.Services;
+using Umbraco.Community.Sustainability.Services.Discovery;
 
 namespace Umbraco.Community.Sustainability
 {
@@ -44,6 +46,19 @@ namespace Umbraco.Community.Sustainability
 
             builder.Services.AddScoped<IPageMetricService, PageMetricService>();
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
+
+            // Site-check configuration and services
+            builder.Services.AddOptions<SustainabilitySettings>()
+                .Bind(builder.Config.GetSection("Sustainability"));
+
+            builder.Services.AddScoped<ISiteCheckService, SiteCheckService>();
+
+            // URL discovery strategies
+            builder.Services.AddScoped<IUrlDiscoveryStrategy, UmbracoContentUrlDiscoveryStrategy>();
+            builder.Services.AddScoped<IUrlDiscoveryStrategy, SitemapUrlDiscoveryStrategy>();
+
+            // HttpClient for sitemap fetching
+            builder.Services.AddHttpClient("SustainabilitySitemap", c => c.Timeout = TimeSpan.FromSeconds(30));
 
             builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
 
