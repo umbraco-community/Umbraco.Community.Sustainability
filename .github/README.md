@@ -8,9 +8,9 @@ A package from the [Umbraco Community Sustainability Team](https://umbraco.com/b
 
 ## Installation
 > [!NOTE]
-> **v5.x** supports Umbraco v17
+> **v6.x** supports Umbraco v18
 > 
-> **v4.x** supports Umbraco v16
+> **v5.x** supports Umbraco v17
 > 
 > **v1.x** supports Umbraco v10.x - v13.x
 > 
