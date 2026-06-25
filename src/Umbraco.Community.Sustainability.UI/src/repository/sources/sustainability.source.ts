@@ -19,7 +19,7 @@ export class SustainabilityManagementDataSource implements SustainabilityDataSou
   }
 
   async checkPage(pageGuid: string): Promise<UmbDataSourceResponse<SustainabilityResponse>> {
-    return await tryExecute(this.#host, SustainabilityService.checkPage({ query: { pageGuid: pageGuid } }));
+    return await tryExecute(this.#host, SustainabilityService.getCheckPage({ query: { pageGuid: pageGuid } }));
   }
 
   async getPageData(pageGuid: string): Promise<UmbDataSourceResponse<SustainabilityResponse>> {
@@ -27,7 +27,7 @@ export class SustainabilityManagementDataSource implements SustainabilityDataSou
   }
 
   async savePageData(pageGuid: string, sustainabilityResponse: SustainabilityResponse): Promise<UmbDataSourceResponse<boolean>> {
-    return await tryExecute(this.#host, SustainabilityService.savePageData({
+    return await tryExecute(this.#host, SustainabilityService.postSavePageData({
       query: { pageGuid: pageGuid },
       body: sustainabilityResponse
     }))

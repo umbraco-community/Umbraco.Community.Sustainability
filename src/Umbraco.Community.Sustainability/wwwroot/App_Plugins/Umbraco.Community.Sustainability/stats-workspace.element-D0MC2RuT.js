@@ -1,36 +1,32 @@
 import { html as _, repeat as A, css as H, state as n, customElement as L } from "@umbraco-cms/backoffice/external/lit";
-import { S as j } from "./index-K_FP3dB7.js";
+import { S as j } from "./index-RhASU_aP.js";
 import { UmbLitElement as q } from "@umbraco-cms/backoffice/lit-element";
-const m = {
-  ASCENDING: "Ascending",
-  DESCENDING: "Descending"
-};
-var M = Object.defineProperty, F = Object.getOwnPropertyDescriptor, P = (t) => {
+var g = /* @__PURE__ */ ((t) => (t.ASCENDING = "Ascending", t.DESCENDING = "Descending", t))(g || {}), F = Object.defineProperty, K = Object.getOwnPropertyDescriptor, P = (t) => {
   throw TypeError(t);
-}, o = (t, e, i, u) => {
-  for (var l = u > 1 ? void 0 : u ? F(e, i) : e, c = t.length - 1, b; c >= 0; c--)
+}, r = (t, e, i, u) => {
+  for (var l = u > 1 ? void 0 : u ? K(e, i) : e, c = t.length - 1, b; c >= 0; c--)
     (b = t[c]) && (l = (u ? b(e, i, l) : b(l)) || l);
-  return u && l && M(e, i, l), l;
-}, z = (t, e, i) => e.has(t) || P("Cannot " + i), y = (t, e, i) => (z(t, e, "read from private field"), e.get(t)), p = (t, e, i) => e.has(t) ? P("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), K = (t, e, i, u) => (z(t, e, "write to private field"), e.set(t, i), i), d = (t, e, i) => (z(t, e, "access private method"), i), h, D, r, g, T, W;
+  return u && l && F(e, i, l), l;
+}, v = (t, e, i) => e.has(t) || P("Cannot " + i), y = (t, e, i) => (v(t, e, "read from private field"), e.get(t)), m = (t, e, i) => e.has(t) ? P("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), M = (t, e, i, u) => (v(t, e, "write to private field"), e.set(t, i), i), h = (t, e, i) => (v(t, e, "access private method"), i), d, D, o, p, T, W;
 const U = "stats-workspace";
 let a = class extends q {
   constructor() {
-    super(), p(this, r), p(this, h), p(this, D, {
+    super(), m(this, o), m(this, d), m(this, D, {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
       hour12: !0
-    }), this._loaded = !1, this._sortingDesc = !1, this._orderDirection = m.DESCENDING, this._orderBy = "RequestDate", this._pageNumber = 1, this._pageSize = 10, this.consumeContext(j, (t) => {
+    }), this._loaded = !1, this._sortingDesc = !1, this._orderDirection = g.DESCENDING, this._orderBy = "RequestDate", this._pageNumber = 1, this._pageSize = 10, this.consumeContext(j, (t) => {
       var e;
-      K(this, h, t), this.observe((e = y(this, h)) == null ? void 0 : e.overviewData, (i) => {
+      M(this, d, t), this.observe((e = y(this, d)) == null ? void 0 : e.overviewData, (i) => {
         i && (this._loaded = !0, this._data = i);
-      }), d(this, r, g).call(this);
+      }), h(this, o, p).call(this);
     });
   }
   _sortingHandler(t) {
-    this._sortingDesc = this._orderBy === t ? !this._sortingDesc : !1, this._orderBy = t, this._pageNumber = 1, d(this, r, g).call(this);
+    this._sortingDesc = this._orderBy === t ? !this._sortingDesc : !1, this._orderBy = t, this._pageNumber = 1, h(this, o, p).call(this);
   }
   render() {
     var t;
@@ -99,7 +95,7 @@ let a = class extends q {
       (t = this._data) == null ? void 0 : t.items,
       (e) => e,
       (e) => {
-        var i, u, l, c, b, v, f, $, S, k, N, C, E, w, R, x, O, B, G, I;
+        var i, u, l, c, b, z, f, $, S, k, N, C, E, w, R, x, O, B, G, I;
         return _`
                     <uui-table-row>
                       <uui-table-cell>
@@ -121,7 +117,7 @@ let a = class extends q {
                       </uui-table-cell>
 
                       <uui-table-cell>
-                        ${($ = (f = (v = (b = e.pageDataObject) == null ? void 0 : b.resourceGroups) == null ? void 0 : v.find((s) => s.name === "Scripts")) == null ? void 0 : f.resources) == null ? void 0 : $.length}
+                        ${($ = (f = (z = (b = e.pageDataObject) == null ? void 0 : b.resourceGroups) == null ? void 0 : z.find((s) => s.name === "Scripts")) == null ? void 0 : f.resources) == null ? void 0 : $.length}
                       </uui-table-cell>
 
                       <uui-table-cell>
@@ -149,7 +145,7 @@ let a = class extends q {
     )}
               </uui-table>
 
-              ${d(this, r, W).call(this)}
+              ${h(this, o, W).call(this)}
             </uui-box>
           </div>
         </umb-body-layout>
@@ -159,15 +155,15 @@ let a = class extends q {
         </div>`;
   }
 };
-h = /* @__PURE__ */ new WeakMap();
+d = /* @__PURE__ */ new WeakMap();
 D = /* @__PURE__ */ new WeakMap();
-r = /* @__PURE__ */ new WeakSet();
-g = function() {
+o = /* @__PURE__ */ new WeakSet();
+p = function() {
   var t;
-  this._sortingDesc ? this._orderDirection = m.ASCENDING : this._orderDirection = m.DESCENDING, (t = y(this, h)) == null || t.getOverviewData(this._orderDirection, this._orderBy, this._pageNumber, this._pageSize);
+  this._sortingDesc ? this._orderDirection = g.ASCENDING : this._orderDirection = g.DESCENDING, (t = y(this, d)) == null || t.getOverviewData(this._orderDirection, this._orderBy, this._pageNumber, this._pageSize);
 };
 T = function(t) {
-  this._pageNumber = t.target.current, d(this, r, g).call(this);
+  this._pageNumber = t.target.current, h(this, o, p).call(this);
 };
 W = function() {
   var t, e;
@@ -176,7 +172,7 @@ W = function() {
       <uui-pagination
         .total=${(e = this._data) == null ? void 0 : e.total}
         .current=${this._pageNumber}
-        @change=${d(this, r, T)}>
+        @change=${h(this, o, T)}>
       </uui-pagination>
     `;
 };
@@ -203,28 +199,28 @@ a.styles = [
       }
     `
 ];
-o([
+r([
   n()
 ], a.prototype, "_data", 2);
-o([
+r([
   n()
 ], a.prototype, "_loaded", 2);
-o([
+r([
   n()
 ], a.prototype, "_sortingDesc", 2);
-o([
+r([
   n()
 ], a.prototype, "_orderDirection", 2);
-o([
+r([
   n()
 ], a.prototype, "_orderBy", 2);
-o([
+r([
   n()
 ], a.prototype, "_pageNumber", 2);
-o([
+r([
   n()
 ], a.prototype, "_pageSize", 2);
-a = o([
+a = r([
   L(U)
 ], a);
 const J = a;
@@ -232,4 +228,4 @@ export {
   a as StatsRootWorkspaceElement,
   J as default
 };
-//# sourceMappingURL=stats-workspace.element-DjkKik5D.js.map
+//# sourceMappingURL=stats-workspace.element-D0MC2RuT.js.map

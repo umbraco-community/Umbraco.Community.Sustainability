@@ -2,26 +2,28 @@ import { defineConfig } from '@hey-api/openapi-ts';
 
 export default defineConfig({
   debug: true,
-  input: 'http://localhost:50172/umbraco/swagger/sustainability/swagger.json',
+  input: 'http://localhost:50172/umbraco/openapi/sustainability.json',
   output: {
     path: 'src/api',
   },
   plugins: [
     {
       name: "@hey-api/client-fetch",
-      bundle: false,
       exportFromIndex: true,
       throwOnError: true,
     },
     {
       name: "@hey-api/typescript",
-      enums: true,
+      enums: "typescript",
     },
     {
       name: "@hey-api/sdk",
-      asClass: true,
-      classNameBuilder: (name) => `${name}Service`,
       responseStyle: "fields",
+      operations: {
+        strategy: "byTags",
+        container: "class",
+        containerName: { name: "{{name}}Service" },
+      },
     },
   ],
 });

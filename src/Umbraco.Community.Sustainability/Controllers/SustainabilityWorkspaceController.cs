@@ -34,7 +34,7 @@ namespace Umbraco.Community.Sustainability.Controllers
             _webRoutingSettings = webRoutingSettings.Value;
         }
 
-        [HttpGet("getOverviewData")]
+        [HttpGet("getOverviewData", Name = "GetOverviewData")]
         [ProducesResponseType(typeof(PagedViewModel<PageMetric>), 200)]
         public async Task<IActionResult> GetOverviewData(int pageNumber = 1, int pageSize = 10, string orderBy = nameof(PageMetric.CarbonRating), Direction direction = Direction.Ascending)
         {
@@ -77,7 +77,7 @@ namespace Umbraco.Community.Sustainability.Controllers
             return Ok(pagedMetrics);
         }
 
-        [HttpGet("getAverageData")]
+        [HttpGet("getAverageData", Name = "GetAverageData")]
         [ProducesResponseType(typeof(AveragePageMetrics), 200)]
         public async Task<IActionResult> GetAverageData()
         {
@@ -86,7 +86,7 @@ namespace Umbraco.Community.Sustainability.Controllers
             return Ok(averageMetrics);
         }
 
-        [HttpGet("getPageData")]
+        [HttpGet("getPageData", Name = "GetPageData")]
         [ProducesResponseType(typeof(SustainabilityResponse), 200)]
         public async Task<IActionResult> GetPageData([FromQuery] Guid pageGuid)
         {
@@ -107,7 +107,7 @@ namespace Umbraco.Community.Sustainability.Controllers
             return Ok(sustainabilityData);
         }
 
-        [HttpGet("checkPage")]
+        [HttpGet("checkPage", Name = "CheckPage")]
         [ProducesResponseType(typeof(SustainabilityResponse), 200)]
         public async Task<IActionResult> CheckPage([FromQuery] Guid pageGuid)
         {
@@ -127,7 +127,7 @@ namespace Umbraco.Community.Sustainability.Controllers
             return Ok(sustainabilityData);
         }
 
-        [HttpPost("savePageData")]
+        [HttpPost("savePageData", Name = "SavePageData")]
         [ProducesResponseType(typeof(bool), 200)]
         public async Task<IActionResult> SavePageData([FromQuery] string pageGuid, [FromBody] SustainabilityResponse data)
         {

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Umbraco.Cms.Api.Common.OpenApi;
+using Umbraco.Cms.Api.Management.OpenApi;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Core.Notifications;
@@ -45,7 +47,12 @@ namespace Umbraco.Community.Sustainability
             builder.Services.AddScoped<IPageMetricService, PageMetricService>();
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
 
-            builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
+            builder.AddBackOfficeOpenApiDocument(
+                Constants.Alias,
+                document => document
+                    .WithTitle("Sustainability API")
+                    .WithBackOfficeAuthentication()
+                    .WithJsonOptions(Cms.Core.Constants.JsonOptionsNames.BackOffice));
 
             builder.Services.Configure<UmbracoPipelineOptions>(options =>
             {

@@ -54,7 +54,7 @@ namespace Umbraco.Community.Sustainability.Notifications
             // Go and upgrade our site (Will check if it needs to do the work or not)
             // Based on the current/latest step
             var upgrader = new Upgrader(migrationPlan);
-            upgrader.Execute(
+            await upgrader.ExecuteAsync(
                 _migrationPlanExecutor,
                 _coreScopeProvider,
                 _keyValueService);
