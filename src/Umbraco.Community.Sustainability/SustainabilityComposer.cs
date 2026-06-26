@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.Composing;
@@ -40,10 +41,23 @@ namespace Umbraco.Community.Sustainability
                 throw new Exception($"Playwright exited with code {exitCode}");
             }
 
-            builder.AddNotificationHandler<UmbracoApplicationStartingNotification, PageMetricsNotificationHandler>();
+            builder.AddNotificationAsyncHandler<UmbracoApplicationStartingNotification, PageMetricsNotificationHandler>();
 
             builder.Services.AddScoped<IPageMetricService, PageMetricService>();
             builder.Services.AddSingleton<ISustainabilityService, SustainabilityService>();
+
+            // Health check configuration
+            builder.Services.Configure<Models.SustainabilityHealthCheckSettings>(
+                builder.Config.GetSection("Sustainability:HealthChecks"));
+
+            // Named HTTP client for Green Web Foundation API
+            var assemblyVersion = typeof(SustainabilityComposer).Assembly
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+                .InformationalVersion ?? "unknown";
+            var userAgent = $"Umbraco.Community.Sustainability/{assemblyVersion}";
+
+            builder.Services.AddHttpClient("GreenWebFoundation", c =>
+                c.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent));
 
             builder.Services.ConfigureOptions<ConfigureSwaggerGenOptions>();
 

@@ -7,14 +7,21 @@ namespace Umbraco.Community.Sustainability.Services
 {
     public interface IPageMetricService
     {
-        Task<IEnumerable<PageMetric>> GetOverviewMetrics();
-        Task<AveragePageMetrics> GetAverageMetrics();
-        Task<IEnumerable<PageMetric>> GetPageMetrics(Guid pageKey);
-        Task AddPageMetric(PageMetric pageMetric);
+        public Task<IEnumerable<PageMetric>> GetOverviewMetrics();
+        public Task<AveragePageMetrics> GetAverageMetrics();
+        public Task<IEnumerable<PageMetric>> GetPageMetrics(Guid pageKey);
+        public Task AddPageMetric(PageMetric pageMetric);
+        public Task<PageCoverageData> GetPageCoverageData(int staleDays);
     }
 
     public class PageMetricService : IPageMetricService
     {
+        private sealed class LatestMetricByNode
+        {
+            public Guid NodeKey { get; set; }
+            public DateTime LatestRequestDate { get; set; }
+        }
+
         private readonly IScopeProvider _scopeProvider;
         private readonly IPublishedContentQuery _contentQuery;
 
@@ -36,8 +43,11 @@ namespace Umbraco.Community.Sustainability.Services
 
             foreach (var result in queryResults)
             {
-                var node = _contentQuery.Content(result.NodeKey);
-                result.NodeName = node?.Name;
+                if (result.NodeKey != null)
+                {
+                    var node = _contentQuery.Content(result.NodeKey);
+                    result.NodeName = node?.Name;
+                }
             }
 
             scope.Complete();
@@ -75,6 +85,40 @@ namespace Umbraco.Community.Sustainability.Services
             using var scope = _scopeProvider.CreateScope();
             await scope.Database.InsertAsync(pageMetric);
             scope.Complete();
+        }
+
+        public async Task<PageCoverageData> GetPageCoverageData(int staleDays)
+        {
+            using var scope = _scopeProvider.CreateScope();
+            var staleDate = DateTime.UtcNow.AddDays(-staleDays);
+
+            var latestMetricsSql = scope.SqlContext.Sql()
+                .Select("NodeKey, MAX(RequestDate) AS LatestRequestDate")
+                .From(PageMetric.TableName)
+                .Where("NodeKey IS NOT NULL")
+                .GroupBy("NodeKey");
+
+            var latestMetricsByNode = await scope.Database.FetchAsync<LatestMetricByNode>(latestMetricsSql);
+
+            var publishedMetrics = latestMetricsByNode
+                .Where(x => _contentQuery.Content(x.NodeKey) != null)
+                .ToList();
+
+            var testedCount = publishedMetrics.Count;
+            var staleCount = publishedMetrics.Count(x => x.LatestRequestDate < staleDate);
+
+            if (staleCount > testedCount)
+            {
+                staleCount = testedCount;
+            }
+
+            scope.Complete();
+
+            return new PageCoverageData
+            {
+                TestedPageCount = testedCount,
+                StalePageCount = staleCount
+            };
         }
     }
 }

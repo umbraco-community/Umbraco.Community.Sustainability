@@ -11,7 +11,7 @@ using Umbraco.Community.Sustainability.Schemas;
 
 namespace Umbraco.Community.Sustainability.Notifications
 {
-    public class PageMetricsNotificationHandler : INotificationHandler<UmbracoApplicationStartingNotification>
+    public class PageMetricsNotificationHandler : INotificationAsyncHandler<UmbracoApplicationStartingNotification>
     {
         private readonly IMigrationPlanExecutor _migrationPlanExecutor;
         private readonly ICoreScopeProvider _coreScopeProvider;
@@ -33,7 +33,7 @@ namespace Umbraco.Community.Sustainability.Notifications
             _userGroupService = userGroupService;
         }
 
-        public async void Handle(UmbracoApplicationStartingNotification notification)
+        public async Task HandleAsync(UmbracoApplicationStartingNotification notification, CancellationToken cancellationToken)
         {
             if (_runtimeState.Level < RuntimeLevel.Run)
             {
@@ -49,12 +49,13 @@ namespace Umbraco.Community.Sustainability.Notifications
             migrationPlan.From(string.Empty)
                 .To<AddPageMetricsTable>("pagemetrics-init")
                 .To<AddCarbonRating>("pagemetrics-carbonrating")
-                .To<ChangeNodeIdToNodeKey>("pagemetrics-nodeidtonodekey");
+                .To<ChangeNodeIdToNodeKey>("pagemetrics-nodeidtonodekey")
+                .To<ChangePageDataToNVarcharMax>("pagemetrics-pagedatatonvarcharmax");
 
             // Go and upgrade our site (Will check if it needs to do the work or not)
             // Based on the current/latest step
             var upgrader = new Upgrader(migrationPlan);
-            upgrader.Execute(
+            await upgrader.ExecuteAsync(
                 _migrationPlanExecutor,
                 _coreScopeProvider,
                 _keyValueService);
