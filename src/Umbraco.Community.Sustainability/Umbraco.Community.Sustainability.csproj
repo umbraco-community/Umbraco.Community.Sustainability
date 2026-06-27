@@ -40,7 +40,7 @@
     <!-- Referenced directly so this project's Microsoft.AspNetCore.OpenApi version is pinned to the
          host's, avoiding Microsoft.OpenApi runtime conflicts that can stop the custom document
          from appearing. -->
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
   </ItemGroup>
 
   <ItemGroup>
