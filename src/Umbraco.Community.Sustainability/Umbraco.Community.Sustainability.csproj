@@ -32,15 +32,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Playwright" Version="1.56.0" />
     <PackageReference Include="Umbraco.Cms.Web.Website" Version="[18.0.0, 19.0.0)" />
-    <PackageReference Include="Umbraco.Cms.Api.Common" Version="[18.0.0, 19.0.0)" />
+    <PackageReference Include="Umbraco.Cms.Api.Common" Version="[18.1.1, 19.0.0)" />
     <!-- Umbraco 18 generates OpenAPI documents with Microsoft.AspNetCore.OpenApi instead of
          Swashbuckle. Api.Management provides AddBackOfficeOpenApiDocument/.WithBackOfficeAuthentication
          for registering the custom "sustainability" document. -->
-    <PackageReference Include="Umbraco.Cms.Api.Management" Version="[18.0.0, 19.0.0)" />
+    <PackageReference Include="Umbraco.Cms.Api.Management" Version="[18.1.1, 19.0.0)" />
     <!-- Referenced directly so this project's Microsoft.AspNetCore.OpenApi version is pinned to the
          host's, avoiding Microsoft.OpenApi runtime conflicts that can stop the custom document
          from appearing. -->
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.10" />
   </ItemGroup>
 
   <ItemGroup>
